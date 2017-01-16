@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dsChecklist" targetNamespace="http://tempuri.org/dsChecklist.xsd" xmlns:mstns="http://tempuri.org/dsChecklist.xsd" xmlns="http://tempuri.org/dsChecklist.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dsChecklist" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="dsChecklist" msprop:Generator_UserDSName="dsChecklist">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="dtChecklist" msprop:Generator_TableClassName="dtChecklistDataTable" msprop:Generator_TableVarName="tabledtChecklist" msprop:Generator_TablePropName="dtChecklist" msprop:Generator_RowDeletingName="dtChecklistRowDeleting" msprop:Generator_UserTableName="dtChecklist" msprop:Generator_RowChangingName="dtChecklistRowChanging" msprop:Generator_RowEvHandlerName="dtChecklistRowChangeEventHandler" msprop:Generator_RowDeletedName="dtChecklistRowDeleted" msprop:Generator_RowEvArgName="dtChecklistRowChangeEvent" msprop:Generator_RowChangedName="dtChecklistRowChanged" msprop:Generator_RowClassName="dtChecklistRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ChecklistKey" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnChecklistKey" msprop:Generator_ColumnPropNameInRow="ChecklistKey" msprop:Generator_ColumnPropNameInTable="ChecklistKeyColumn" msprop:Generator_UserColumnName="ChecklistKey" type="xs:int" />
+              <xs:element name="ScriptName" msprop:Generator_ColumnVarNameInTable="columnScriptName" msprop:Generator_ColumnPropNameInRow="ScriptName" msprop:Generator_ColumnPropNameInTable="ScriptNameColumn" msprop:Generator_UserColumnName="ScriptName">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="31" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CheckDesc" msdata:Caption="Description" msprop:Generator_ColumnVarNameInTable="columnCheckDesc" msprop:Generator_ColumnPropNameInRow="CheckDesc" msprop:Generator_ColumnPropNameInTable="CheckDescColumn" msprop:Generator_UserColumnName="CheckDesc" type="xs:string" minOccurs="0" />
+              <xs:element name="LowValue" msprop:Generator_ColumnVarNameInTable="columnLowValue" msprop:Generator_ColumnPropNameInRow="LowValue" msprop:Generator_ColumnPropNameInTable="LowValueColumn" msprop:Generator_UserColumnName="LowValue" type="xs:decimal" minOccurs="0" />
+              <xs:element name="YourValue" msprop:Generator_ColumnVarNameInTable="columnYourValue" msprop:Generator_ColumnPropNameInRow="YourValue" msprop:Generator_ColumnPropNameInTable="YourValueColumn" msprop:Generator_UserColumnName="YourValue" type="xs:decimal" minOccurs="0" />
+              <xs:element name="HighValue" msprop:Generator_ColumnVarNameInTable="columnHighValue" msprop:Generator_ColumnPropNameInRow="HighValue" msprop:Generator_ColumnPropNameInTable="HighValueColumn" msprop:Generator_UserColumnName="HighValue" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Detail" msprop:Generator_ColumnVarNameInTable="columnDetail" msprop:Generator_ColumnPropNameInRow="Detail" msprop:Generator_ColumnPropNameInTable="DetailColumn" msprop:Generator_UserColumnName="Detail" type="xs:string" minOccurs="0" />
+              <xs:element name="IsWithinRange" msprop:Generator_ColumnVarNameInTable="columnIsWithinRange" msprop:Generator_ColumnPropNameInRow="IsWithinRange" msprop:Generator_ColumnPropNameInTable="IsWithinRangeColumn" msprop:Generator_UserColumnName="IsWithinRange" type="xs:boolean" minOccurs="0" />
+              <xs:element name="IsWithinRangeGood" msprop:Generator_ColumnVarNameInTable="columnIsWithinRangeGood" msprop:Generator_ColumnPropNameInRow="IsWithinRangeGood" msprop:Generator_ColumnPropNameInTable="IsWithinRangeGoodColumn" msprop:Generator_UserColumnName="IsWithinRangeGood" type="xs:boolean" minOccurs="0" />
+              <xs:element name="ChecklistCrossRefID" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msdata:Caption="Cross Reference Check ID" msprop:Generator_ColumnVarNameInTable="columnChecklistCrossRefID" msprop:Generator_ColumnPropNameInRow="ChecklistCrossRefID" msprop:Generator_ColumnPropNameInTable="ChecklistCrossRefIDColumn" msprop:Generator_UserColumnName="ChecklistCrossRefID" type="xs:int" />
+              <xs:element name="Category" msprop:Generator_ColumnVarNameInTable="columnCategory" msprop:Generator_ColumnPropNameInRow="Category" msprop:Generator_ColumnPropNameInTable="CategoryColumn" msprop:Generator_UserColumnName="Category" type="xs:string" />
+              <xs:element name="AdditionalDocumentation" msprop:Generator_ColumnVarNameInTable="columnAdditionalDocumentation" msprop:Generator_ColumnPropNameInRow="AdditionalDocumentation" msprop:Generator_ColumnPropNameInTable="AdditionalDocumentationColumn" msprop:Generator_UserColumnName="AdditionalDocumentation" type="xs:string" minOccurs="0" />
+              <xs:element name="Weight" msprop:Generator_ColumnVarNameInTable="columnWeight" msprop:Generator_ColumnPropNameInRow="Weight" msprop:Generator_ColumnPropNameInTable="WeightColumn" msprop:Generator_UserColumnName="Weight" type="xs:double" />
+              <xs:element name="CodeToRun" msprop:Generator_ColumnVarNameInTable="columnCodeToRun" msprop:Generator_ColumnPropNameInRow="CodeToRun" msprop:Generator_ColumnPropNameInTable="CodeToRunColumn" msprop:Generator_UserColumnName="CodeToRun" type="xs:string" />
+              <xs:element name="CodeType" msprop:Generator_ColumnVarNameInTable="columnCodeType" msprop:Generator_ColumnPropNameInRow="CodeType" msprop:Generator_ColumnPropNameInTable="CodeTypeColumn" msprop:Generator_UserColumnName="CodeType" type="xs:string" />
+              <xs:element name="IsExecute" msprop:Generator_ColumnVarNameInTable="columnIsExecute" msprop:Generator_ColumnPropNameInRow="IsExecute" msprop:Generator_ColumnPropNameInTable="IsExecuteColumn" msprop:Generator_UserColumnName="IsExecute" type="xs:boolean" minOccurs="0" />
+              <xs:element name="IsForOutput" msprop:Generator_ColumnVarNameInTable="columnIsForOutput" msprop:Generator_ColumnPropNameInRow="IsForOutput" msprop:Generator_ColumnPropNameInTable="IsForOutputColumn" msprop:Generator_UserColumnName="IsForOutput" type="xs:boolean" />
+              <xs:element name="IsForDataSet" msprop:Generator_ColumnVarNameInTable="columnIsForDataSet" msprop:Generator_ColumnPropNameInRow="IsForDataSet" msprop:Generator_ColumnPropNameInTable="IsForDataSetColumn" msprop:Generator_UserColumnName="IsForDataSet" type="xs:boolean" />
+              <xs:element name="MinTsqlCompatibilityVersion" msprop:Generator_ColumnVarNameInTable="columnMinTsqlCompatibilityVersion" msprop:Generator_ColumnPropNameInRow="MinTsqlCompatibilityVersion" msprop:Generator_ColumnPropNameInTable="MinTsqlCompatibilityVersionColumn" msprop:Generator_UserColumnName="MinTsqlCompatibilityVersion" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="dtRunLog" msprop:Generator_TableClassName="dtRunLogDataTable" msprop:Generator_TableVarName="tabledtRunLog" msprop:Generator_TablePropName="dtRunLog" msprop:Generator_RowDeletingName="dtRunLogRowDeleting" msprop:Generator_UserTableName="dtRunLog" msprop:Generator_RowChangingName="dtRunLogRowChanging" msprop:Generator_RowEvHandlerName="dtRunLogRowChangeEventHandler" msprop:Generator_RowDeletedName="dtRunLogRowDeleted" msprop:Generator_RowEvArgName="dtRunLogRowChangeEvent" msprop:Generator_RowChangedName="dtRunLogRowChanged" msprop:Generator_RowClassName="dtRunLogRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="RunID" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="1" msprop:Generator_ColumnVarNameInTable="columnRunID" msprop:Generator_ColumnPropNameInRow="RunID" msprop:Generator_ColumnPropNameInTable="RunIDColumn" msprop:Generator_UserColumnName="RunID" type="xs:int" />
+              <xs:element name="ScriptName" msprop:Generator_ColumnVarNameInTable="columnScriptName" msprop:Generator_ColumnPropNameInRow="ScriptName" msprop:Generator_ColumnPropNameInTable="ScriptNameColumn" msprop:Generator_UserColumnName="ScriptName" type="xs:string" minOccurs="0" />
+              <xs:element name="LoginName" msprop:Generator_ColumnVarNameInTable="columnLoginName" msprop:Generator_ColumnPropNameInRow="LoginName" msprop:Generator_ColumnPropNameInTable="LoginNameColumn" msprop:Generator_UserColumnName="LoginName" type="xs:string" />
+              <xs:element name="ExecutionStart" msprop:Generator_ColumnVarNameInTable="columnExecutionStart" msprop:Generator_ColumnPropNameInRow="ExecutionStart" msprop:Generator_ColumnPropNameInTable="ExecutionStartColumn" msprop:Generator_UserColumnName="ExecutionStart" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ErrorValue" msprop:Generator_ColumnVarNameInTable="columnErrorValue" msprop:Generator_ColumnPropNameInRow="ErrorValue" msprop:Generator_ColumnPropNameInTable="ErrorValueColumn" msprop:Generator_UserColumnName="ErrorValue" type="xs:int" minOccurs="0" />
+              <xs:element name="ErrorDesc" msprop:Generator_ColumnVarNameInTable="columnErrorDesc" msprop:Generator_ColumnPropNameInRow="ErrorDesc" msprop:Generator_ColumnPropNameInTable="ErrorDescColumn" msprop:Generator_UserColumnName="ErrorDesc" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="dtEventLog" msprop:Generator_TableClassName="dtEventLogDataTable" msprop:Generator_TableVarName="tabledtEventLog" msprop:Generator_TablePropName="dtEventLog" msprop:Generator_RowDeletingName="dtEventLogRowDeleting" msprop:Generator_UserTableName="dtEventLog" msprop:Generator_RowChangingName="dtEventLogRowChanging" msprop:Generator_RowEvHandlerName="dtEventLogRowChangeEventHandler" msprop:Generator_RowDeletedName="dtEventLogRowDeleted" msprop:Generator_RowEvArgName="dtEventLogRowChangeEvent" msprop:Generator_RowChangedName="dtEventLogRowChanged" msprop:Generator_RowClassName="dtEventLogRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="1" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:int" />
+              <xs:element name="LogType" msprop:Generator_ColumnVarNameInTable="columnLogType" msprop:Generator_ColumnPropNameInRow="LogType" msprop:Generator_ColumnPropNameInTable="LogTypeColumn" msprop:Generator_UserColumnName="LogType" type="xs:string" />
+              <xs:element name="EventLogCheckDesc" msprop:Generator_ColumnVarNameInTable="columnEventLogCheckDesc" msprop:Generator_ColumnPropNameInRow="EventLogCheckDesc" msprop:Generator_ColumnPropNameInTable="EventLogCheckDescColumn" msprop:Generator_UserColumnName="EventLogCheckDesc" type="xs:string" minOccurs="0" />
+              <xs:element name="RecordID" msdata:Caption="Record ID" msprop:Generator_ColumnVarNameInTable="columnRecordID" msprop:Generator_ColumnPropNameInRow="RecordID" msprop:Generator_ColumnPropNameInTable="RecordIDColumn" msprop:Generator_UserColumnName="RecordID" type="xs:int" default="0" minOccurs="0" />
+              <xs:element name="ProviderName" msdata:Caption="Provider Name" msprop:Generator_ColumnVarNameInTable="columnProviderName" msprop:Generator_ColumnPropNameInRow="ProviderName" msprop:Generator_ColumnPropNameInTable="ProviderNameColumn" msprop:Generator_UserColumnName="ProviderName" type="xs:string" minOccurs="0" />
+              <xs:element name="MachineName" msdata:Caption="Machine Name" msprop:Generator_ColumnVarNameInTable="columnMachineName" msprop:Generator_ColumnPropNameInRow="MachineName" msprop:Generator_ColumnPropNameInTable="MachineNameColumn" msprop:Generator_UserColumnName="MachineName" type="xs:string" minOccurs="0" />
+              <xs:element name="UserID" msdata:Caption="User ID" msprop:Generator_ColumnVarNameInTable="columnUserID" msprop:Generator_ColumnPropNameInRow="UserID" msprop:Generator_ColumnPropNameInTable="UserIDColumn" msprop:Generator_UserColumnName="UserID" type="xs:string" minOccurs="0" />
+              <xs:element name="TimeCreated" msdata:Caption="Time Created" msprop:Generator_ColumnVarNameInTable="columnTimeCreated" msprop:Generator_ColumnPropNameInRow="TimeCreated" msprop:Generator_ColumnPropNameInTable="TimeCreatedColumn" msprop:Generator_UserColumnName="TimeCreated" type="xs:dateTime" default="1753-01-01T01:00:00-08:00" minOccurs="0" />
+              <xs:element name="LevelDisplayName" msdata:Caption="Level Display Name" msprop:Generator_ColumnVarNameInTable="columnLevelDisplayName" msprop:Generator_ColumnPropNameInRow="LevelDisplayName" msprop:Generator_ColumnPropNameInTable="LevelDisplayNameColumn" msprop:Generator_UserColumnName="LevelDisplayName" type="xs:string" minOccurs="0" />
+              <xs:element name="InstanceID" msdata:Caption="Instance ID" msprop:Generator_ColumnVarNameInTable="columnInstanceID" msprop:Generator_ColumnPropNameInRow="InstanceID" msprop:Generator_ColumnPropNameInTable="InstanceIDColumn" msprop:Generator_UserColumnName="InstanceID" type="xs:int" default="0" minOccurs="0" />
+              <xs:element name="Description" msprop:Generator_ColumnVarNameInTable="columnDescription" msprop:Generator_ColumnPropNameInRow="Description" msprop:Generator_ColumnPropNameInTable="DescriptionColumn" msprop:Generator_UserColumnName="Description" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="dtEventLogItemsToCheck" msprop:Generator_TableClassName="dtEventLogItemsToCheckDataTable" msprop:Generator_TableVarName="tabledtEventLogItemsToCheck" msprop:Generator_TablePropName="dtEventLogItemsToCheck" msprop:Generator_RowDeletingName="dtEventLogItemsToCheckRowDeleting" msprop:Generator_UserTableName="dtEventLogItemsToCheck" msprop:Generator_RowChangingName="dtEventLogItemsToCheckRowChanging" msprop:Generator_RowEvHandlerName="dtEventLogItemsToCheckRowChangeEventHandler" msprop:Generator_RowDeletedName="dtEventLogItemsToCheckRowDeleted" msprop:Generator_RowEvArgName="dtEventLogItemsToCheckRowChangeEvent" msprop:Generator_RowChangedName="dtEventLogItemsToCheckRowChanged" msprop:Generator_RowClassName="dtEventLogItemsToCheckRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="1" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:int" />
+              <xs:element name="LogType" msprop:Generator_ColumnVarNameInTable="columnLogType" msprop:Generator_ColumnPropNameInRow="LogType" msprop:Generator_ColumnPropNameInTable="LogTypeColumn" msprop:Generator_UserColumnName="LogType" type="xs:string" minOccurs="0" />
+              <xs:element name="InstanceID" msprop:Generator_ColumnVarNameInTable="columnInstanceID" msprop:Generator_ColumnPropNameInRow="InstanceID" msprop:Generator_ColumnPropNameInTable="InstanceIDColumn" msprop:Generator_UserColumnName="InstanceID" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:dtChecklist" />
+      <xs:field xpath="mstns:ChecklistKey" />
+    </xs:unique>
+    <xs:unique name="Constraint2">
+      <xs:selector xpath=".//mstns:dtChecklist" />
+      <xs:field xpath="mstns:ScriptName" />
+    </xs:unique>
+    <xs:unique name="dtRunLog_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:dtRunLog" />
+      <xs:field xpath="mstns:RunID" />
+    </xs:unique>
+    <xs:unique name="dtEventLog_Constraint2" msdata:ConstraintName="Constraint2">
+      <xs:selector xpath=".//mstns:dtEventLog" />
+      <xs:field xpath="mstns:ID" />
+    </xs:unique>
+    <xs:unique name="dtEventLogItemsToCheck_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:dtEventLogItemsToCheck" />
+      <xs:field xpath="mstns:ID" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

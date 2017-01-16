@@ -1,0 +1,181 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<dsChecklist xmlns="http://tempuri.org/dsChecklist.xsd">
+
+	<!-- This xml file will load the following checks
+	1. System Log | Event 823: The operating system returned error 38(Reached the end of the file.)
+	2. System Log | Event 824: SQL Server detected a logical consistency-based I/O error: incorrect pageid (expected 1:43686; actual 0:0). It occurred during a read of page (1:43686) in database ID 23 at offset 0x0000001554c000 in file 'H:\MSSQL.SQL2008\MSSQL\DATA\my_db.mdf'
+	3. System Log | Event 825: A read of the file 'C:\Program Files\Microsoft SQL Server\MSSQL10.SQL2008\MSSQL\DATA\mydb.mdf' at offset 0x00000000132000 succeeded after failing 2 time(s) with error: incorrect checksum (expected: 0xffd99027; actual: 0x331d106f).
+	4. 12
+	5. 25
+	6. System Log | Event 9: The device, <device name>, did not respond within the timeout period
+	7. System Log | Event 11: The driver detected a controller error on <device>
+	8. System Log | Event 15: The device, <device>, is not ready for access yet
+	9. System Log | Event 50: {Delayed Write Failed} Windows was unable to save all the data for the file. The data has been lost. This error may be caused by a failure of your computer hardware or network connection. Please try to save this file elsewhere
+	10. System Log | Event 51: An error was detected on device <device path> during a paging operation
+	11. System Log | Event 54: An Io Request to the device <device> did not complete or canceled within the specific timeout. This can occur if the device driver does not set a cancel routine for a given IO request packet.
+	12. System Log | Event 55: The file system structure on the disk is corrupt and unusable. Please run the chkdsk utility on the volume <drive letter>
+	13. System Log | Event 57: The system failed to flush data to the transaction log. Corruption may occur
+	14. System Log | Event 129: Reset to device, <device name>, was issued.
+	15. System Log | Event 1066: Cluster disk resource Disk <x> : is corrupt. Running ChkDsk /F to repair problems.
+	16. System Log | Event 6008: The previous system shutdown at <time> on <date> was unexpected.
+	-->
+	
+	<!--http://support.microsoft.com/kb/2015757 | I/O requests are successful when retried-->
+	<dtEventLogItemsToCheck>
+		<ID>1</ID>
+		<LogType>System</LogType>
+		<InstanceID>823</InstanceID>
+	</dtEventLogItemsToCheck>
+
+	<!--http://support.microsoft.com/kb/2015757 | I/O requests are successful when retried-->
+	<dtEventLogItemsToCheck>
+		<ID>2</ID>
+		<LogType>System</LogType>
+		<InstanceID>824</InstanceID>
+	</dtEventLogItemsToCheck>
+
+	<!--http://support.microsoft.com/kb/2015757 | I/O requests are successful when retried-->
+	<dtEventLogItemsToCheck>
+		<ID>3</ID>
+		<LogType>System</LogType>
+		<InstanceID>825</InstanceID>
+	</dtEventLogItemsToCheck>
+	
+	<!--http://support.microsoft.com/kb/2028443 
+        The platform firmware has corrupted memory across 
+        the previous system power transition.  
+        Please check for updated firmware for your system-->
+	<dtEventLogItemsToCheck>
+		<ID>4</ID>
+		<LogType>Application</LogType>
+		<InstanceID>12</InstanceID>
+	</dtEventLogItemsToCheck>
+	
+	<dtEventLogItemsToCheck>
+		<ID>5</ID>
+		<LogType>Application</LogType>
+		<InstanceID>25</InstanceID>
+	</dtEventLogItemsToCheck>
+
+	<!--http://support.microsoft.com/kb/2091098
+	Windows System Event Log Errors that indicate 
+	possible I/O problems can be associated with 
+	database inconsistency or performance problems for SQL-->
+	<dtEventLogItemsToCheck>
+		<ID>6</ID>
+		<LogType>System</LogType>
+		<InstanceID>9</InstanceID>
+	</dtEventLogItemsToCheck>
+
+	<!--http://support.microsoft.com/kb/2091098
+	Windows System Event Log Errors that indicate 
+	possible I/O problems can be associated with 
+	database inconsistency or performance problems for SQL-->
+	<dtEventLogItemsToCheck>
+		<ID>7</ID>
+		<LogType>System</LogType>
+		<InstanceID>11</InstanceID>
+	</dtEventLogItemsToCheck>
+
+	<!--http://support.microsoft.com/kb/2091098
+	Windows System Event Log Errors that indicate 
+	possible I/O problems can be associated with 
+	database inconsistency or performance problems for SQL-->
+	<dtEventLogItemsToCheck>
+		<ID>8</ID>
+		<LogType>System</LogType>
+		<InstanceID>15</InstanceID>
+	</dtEventLogItemsToCheck>
+
+	<!--http://support.microsoft.com/kb/2091098
+	Windows System Event Log Errors that indicate 
+	possible I/O problems can be associated with 
+	database inconsistency or performance problems for SQL-->
+	<dtEventLogItemsToCheck>
+		<ID>9</ID>
+		<LogType>System</LogType>
+		<InstanceID>50</InstanceID>
+	</dtEventLogItemsToCheck>
+
+	<!--http://support.microsoft.com/kb/2091098
+	Windows System Event Log Errors that indicate 
+	possible I/O problems can be associated with 
+	database inconsistency or performance problems for SQL-->
+	<dtEventLogItemsToCheck>
+		<ID>10</ID>
+		<LogType>System</LogType>
+		<InstanceID>51</InstanceID>
+	</dtEventLogItemsToCheck>
+
+	<!--http://support.microsoft.com/kb/2091098
+	Windows System Event Log Errors that indicate 
+	possible I/O problems can be associated with 
+	database inconsistency or performance problems for SQL-->
+	<dtEventLogItemsToCheck>
+		<ID>11</ID>
+		<LogType>System</LogType>
+		<InstanceID>54</InstanceID>
+	</dtEventLogItemsToCheck>
+
+	<!--http://support.microsoft.com/kb/2091098
+	Windows System Event Log Errors that indicate 
+	possible I/O problems can be associated with 
+	database inconsistency or performance problems for SQL-->
+	<dtEventLogItemsToCheck>
+		<ID>12</ID>
+		<LogType>System</LogType>
+		<InstanceID>55</InstanceID>
+	</dtEventLogItemsToCheck>
+
+	<!--http://support.microsoft.com/kb/2091098
+	Windows System Event Log Errors that indicate 
+	possible I/O problems can be associated with 
+	database inconsistency or performance problems for SQL-->
+	<dtEventLogItemsToCheck>
+		<ID>13</ID>
+		<LogType>System</LogType>
+		<InstanceID>57</InstanceID>
+	</dtEventLogItemsToCheck>
+
+	<!--http://support.microsoft.com/kb/2091098
+	Windows System Event Log Errors that indicate 
+	possible I/O problems can be associated with 
+	database inconsistency or performance problems for SQL-->
+	<dtEventLogItemsToCheck>
+		<ID>14</ID>
+		<LogType>System</LogType>
+		<InstanceID>129</InstanceID>
+	</dtEventLogItemsToCheck>
+
+	<!--http://support.microsoft.com/kb/2091098
+	Windows System Event Log Errors that indicate 
+	possible I/O problems can be associated with 
+	database inconsistency or performance problems for SQL-->
+	<dtEventLogItemsToCheck>
+		<ID>15</ID>
+		<LogType>System</LogType>
+		<InstanceID>1066</InstanceID>
+	</dtEventLogItemsToCheck>
+
+	<!--http://support.microsoft.com/kb/2091098
+	Windows System Event Log Errors that indicate 
+	possible I/O problems can be associated with 
+	database inconsistency or performance problems for SQL-->
+	<dtEventLogItemsToCheck>
+		<ID>16</ID>
+		<LogType>System</LogType>
+		<InstanceID>6008</InstanceID>
+	</dtEventLogItemsToCheck>
+
+  <!--A significant part of sql server process memory has been paged out. 
+  This may result in a performance degradation. 
+  Duration: 14458 seconds. Working set (KB): 22092, 
+  committed (KB): 54608, memory utilization: 40%%.-->
+  <dtEventLogItemsToCheck>
+    <ID>17</ID>
+    <LogType>Application</LogType>
+    <InstanceID>17890</InstanceID>
+  </dtEventLogItemsToCheck>
+
+
+</dsChecklist>

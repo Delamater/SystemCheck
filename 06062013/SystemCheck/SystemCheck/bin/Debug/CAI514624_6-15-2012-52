@@ -1,0 +1,3554 @@
+<?xml version="1.0" standalone="yes"?>
+<dsChecklist xmlns="http://tempuri.org/dsChecklist.xsd">
+  <xs:schema id="dsChecklist" targetNamespace="http://tempuri.org/dsChecklist.xsd" xmlns:mstns="http://tempuri.org/dsChecklist.xsd" xmlns="http://tempuri.org/dsChecklist.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+    <xs:element name="dsChecklist" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="dtChecklist">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="ChecklistKey" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" type="xs:int" />
+                <xs:element name="ScriptName">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="31" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="CheckDesc" msdata:Caption="Description" type="xs:string" minOccurs="0" />
+                <xs:element name="LowValue" type="xs:decimal" minOccurs="0" />
+                <xs:element name="YourValue" type="xs:decimal" minOccurs="0" />
+                <xs:element name="HighValue" type="xs:decimal" minOccurs="0" />
+                <xs:element name="Detail" type="xs:string" minOccurs="0" />
+                <xs:element name="IsWithinRange" type="xs:boolean" minOccurs="0" />
+                <xs:element name="IsWithinRangeGood" type="xs:boolean" minOccurs="0" />
+                <xs:element name="ChecklistCrossRefID" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msdata:Caption="Cross Reference Check ID" type="xs:int" />
+                <xs:element name="Category" type="xs:string" />
+                <xs:element name="AdditionalDocumentation" type="xs:string" minOccurs="0" />
+                <xs:element name="Weight" type="xs:double" />
+                <xs:element name="CodeToRun" type="xs:string" />
+                <xs:element name="CodeType" type="xs:string" />
+                <xs:element name="IsExecute" type="xs:boolean" minOccurs="0" />
+                <xs:element name="IsForOutput" type="xs:boolean" />
+                <xs:element name="IsForDataSet" type="xs:boolean" />
+                <xs:element name="MinTsqlCompatibilityVersion" type="xs:decimal" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="dtRunLog">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="RunID" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="1" type="xs:int" />
+                <xs:element name="ScriptName" type="xs:string" minOccurs="0" />
+                <xs:element name="LoginName" type="xs:string" />
+                <xs:element name="ExecutionStart" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="ErrorValue" type="xs:int" minOccurs="0" />
+                <xs:element name="ErrorDesc" type="xs:string" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="dtEventLog">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="ID" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="1" type="xs:int" />
+                <xs:element name="LogType" type="xs:string" />
+                <xs:element name="EventLogCheckDesc" type="xs:string" minOccurs="0" />
+                <xs:element name="RecordID" msdata:Caption="Record ID" type="xs:int" default="0" minOccurs="0" />
+                <xs:element name="ProviderName" msdata:Caption="Provider Name" type="xs:string" minOccurs="0" />
+                <xs:element name="MachineName" msdata:Caption="Machine Name" type="xs:string" minOccurs="0" />
+                <xs:element name="UserID" msdata:Caption="User ID" type="xs:string" minOccurs="0" />
+                <xs:element name="TimeCreated" msdata:Caption="Time Created" type="xs:dateTime" default="1753-01-01T01:00:00-08:00" minOccurs="0" />
+                <xs:element name="LevelDisplayName" msdata:Caption="Level Display Name" type="xs:string" minOccurs="0" />
+                <xs:element name="InstanceID" msdata:Caption="Instance ID" type="xs:int" default="0" minOccurs="0" />
+                <xs:element name="Description" type="xs:string" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="dtEventLogItemsToCheck">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="ID" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="1" type="xs:int" />
+                <xs:element name="LogType" type="xs:string" minOccurs="0" />
+                <xs:element name="InstanceID" type="xs:int" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Identify_x0020_Fragmented_x0020_Indexes">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Database_ID" type="xs:short" minOccurs="0" />
+                <xs:element name="DB_x0020_Name" type="xs:string" minOccurs="0" />
+                <xs:element name="Schema_x0020_Name" type="xs:string" minOccurs="0" />
+                <xs:element name="Object_ID" type="xs:int" minOccurs="0" />
+                <xs:element name="OBJECT_x0020_NAME" type="xs:string" minOccurs="0" />
+                <xs:element name="Partition_x0020_Number" type="xs:int" minOccurs="0" />
+                <xs:element name="Index_x0020_ID" type="xs:int" minOccurs="0" />
+                <xs:element name="Index_x0020_Type_x0020_Desc" type="xs:string" minOccurs="0" />
+                <xs:element name="Alloc_x0020_Unit_x0020_Type_x0020_Desc" type="xs:string" minOccurs="0" />
+                <xs:element name="Index_Depth" type="xs:unsignedByte" minOccurs="0" />
+                <xs:element name="Index_x0020_Depth_x0020_Level" type="xs:unsignedByte" minOccurs="0" />
+                <xs:element name="Avg_x0020_Frag_x0020_Percent" type="xs:double" minOccurs="0" />
+                <xs:element name="Frag_x0020_Count" type="xs:long" minOccurs="0" />
+                <xs:element name="Avg_x0020_Frag_x0020_Size_x0020_In_x0020_Pages" type="xs:double" minOccurs="0" />
+                <xs:element name="Page_x0020_Count" type="xs:long" minOccurs="0" />
+                <xs:element name="Avg_x0020_Page_x0020_Space_x0020_Used_x0020_In_x0020_Percent" type="xs:double" minOccurs="0" />
+                <xs:element name="Record_x0020_Count" type="xs:long" minOccurs="0" />
+                <xs:element name="Ghost_x0020_Record_x0020_Count" type="xs:long" minOccurs="0" />
+                <xs:element name="Version_x0020_Ghost_x0020_Record_x0020_Count" type="xs:long" minOccurs="0" />
+                <xs:element name="Min_x0020_Record_x0020_Size_x0020_In_x0020_Bytes" type="xs:int" minOccurs="0" />
+                <xs:element name="Max_x0020_Record_x0020_Size_x0020_In_x0020_Bytes" type="xs:int" minOccurs="0" />
+                <xs:element name="Avg_x0020_Record_x0020_Size_x0020_In_x0020_Bytes" type="xs:double" minOccurs="0" />
+                <xs:element name="Forwarded_x0020_Record_x0020_Count" type="xs:long" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Cache_x0020_Plan_x0020_Profile">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Cache_x0020_Type" type="xs:string" minOccurs="0" />
+                <xs:element name="Total_x0020_Plans" type="xs:long" minOccurs="0" />
+                <xs:element name="Total_x0020_MBs" type="xs:decimal" minOccurs="0" />
+                <xs:element name="Avg_x0020_Use_x0020_Count" type="xs:int" minOccurs="0" />
+                <xs:element name="Total_x0020_MBs_x0020_-_x0020_USE_x0020_Count_x0020_1" type="xs:decimal" minOccurs="0" />
+                <xs:element name="Total_x0020_Plans_x0020_-_x0020_USE_x0020_Count_x0020_1" type="xs:int" minOccurs="0" />
+                <xs:element name="TotalMemoryMb" type="xs:long" minOccurs="0" />
+                <xs:element name="TotalUsagePercent" type="xs:decimal" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Missing_x0020_Indexes">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Database_x0020_ID" type="xs:short" minOccurs="0" />
+                <xs:element name="Avg_x0020_Estimated_x0020_Impact" type="xs:double" minOccurs="0" />
+                <xs:element name="Last_x0020_User_x0020_Seek" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="Table_x0020_Name" type="xs:string" minOccurs="0" />
+                <xs:element name="Create_Statement" type="xs:string" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Top_x0020_20_x0020_Longest_x0020_Running_x0020_Queries">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Query_x0020_Name" type="xs:string" minOccurs="0" />
+                <xs:element name="Execution_x0020_Count" type="xs:long" minOccurs="0" />
+                <xs:element name="Max_x0020_Elapsed_x0020_Time" type="xs:long" minOccurs="0" />
+                <xs:element name="Avg_x0020_Elapsed_x0020_Time" type="xs:long" minOccurs="0" />
+                <xs:element name="Log_x0020_Created_x0020_On" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="Frequency_x0020_Per_x0020_Sec" type="xs:long" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="High_x0020_Wait_x0020_Times">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="wait_type" type="xs:string" minOccurs="0" />
+                <xs:element name="waiting_tasks_count" type="xs:long" minOccurs="0" />
+                <xs:element name="wait_time_ms" type="xs:long" minOccurs="0" />
+                <xs:element name="max_wait_time_ms" type="xs:long" minOccurs="0" />
+                <xs:element name="signal_wait_time_ms" type="xs:long" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Operating_x0020_System_x0020_Info">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="CPU_x0020_Ticks" type="xs:long" minOccurs="0" />
+                <xs:element name="MS_x0020_Ticks" type="xs:long" minOccurs="0" />
+                <xs:element name="CPU_x0020_Count" type="xs:int" minOccurs="0" />
+                <xs:element name="Hyperthread_x0020_Ratio" type="xs:int" minOccurs="0" />
+                <xs:element name="Physical_x0020_Memory_x0020_Bytes" type="xs:long" minOccurs="0" />
+                <xs:element name="Virtual_x0020_Memory_x0020_Bytes" type="xs:long" minOccurs="0" />
+                <xs:element name="OS_x0020_Quantum" type="xs:long" minOccurs="0" />
+                <xs:element name="OS_x0020_Error_x0020_Mode" type="xs:int" minOccurs="0" />
+                <xs:element name="OS_x0020_Priority_x0020_Class" type="xs:int" minOccurs="0" />
+                <xs:element name="Max_x0020_Workers_x0020_Count" type="xs:int" minOccurs="0" />
+                <xs:element name="SQL_x0020_Server_x0020_Start_x0020_Time" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="Affinity_x0020_Type_x0020_Desc" type="xs:string" minOccurs="0" />
+                <xs:element name="Time_x0020_Source_x0020_Desc" type="xs:string" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="System_x0020_Memory">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Total_x0020_Physical_x0020_Memory_x0020_KB" type="xs:long" minOccurs="0" />
+                <xs:element name="Available_x0020_Physical_x0020_Memory_x0020_KB" type="xs:long" minOccurs="0" />
+                <xs:element name="Total_x0020_Page_x0020_File_x0020_KB" type="xs:long" minOccurs="0" />
+                <xs:element name="System_x0020_High_x0020_Memory_x0020_Signal_x0020_State" type="xs:boolean" minOccurs="0" />
+                <xs:element name="System_x0020_Low_x0020_Memory_x0020_Signal_x0020_State" type="xs:boolean" minOccurs="0" />
+                <xs:element name="System_x0020_Memory_x0020_State_x0020_Desc" type="xs:string" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Backup_x0020_History">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Server" type="xs:string" minOccurs="0" />
+                <xs:element name="DB_x0020_Name" type="xs:string" minOccurs="0" />
+                <xs:element name="Backup_x0020_Start_x0020_Date" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="Backup_x0020_Finish_x0020_Date" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="Expiration_x0020_Date" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="Backup_x0020_Type" type="xs:string" minOccurs="0" />
+                <xs:element name="Backup_x0020_Size" type="xs:decimal" minOccurs="0" />
+                <xs:element name="Logical_x0020_Device_x0020_Name" type="xs:string" minOccurs="0" />
+                <xs:element name="Physical_x0020_Device_x0020_Name" type="xs:string" minOccurs="0" />
+                <xs:element name="Backupset_x0020_Name" type="xs:string" minOccurs="0" />
+                <xs:element name="Descriptoin" type="xs:string" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Row_x0020_Counts">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Schema_x0020_ID" type="xs:string" minOccurs="0" />
+                <xs:element name="Table_x0020_Name" type="xs:string" minOccurs="0" />
+                <xs:element name="Row_x0020_Count" type="xs:long" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Log_x0020_file_x0020_is_x0020_out_x0020_of_x0020_space">
+            <xs:complexType>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="SQL_x0020_Process_x0020_memory_x0020_paging">
+            <xs:complexType>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Check_x0020_For_x0020_Memory_x0020_Pressure">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Rm_x0020_Notification" type="xs:string" minOccurs="0" />
+                <xs:element name="Indicators_x0020_Process" type="xs:unsignedByte" minOccurs="0" />
+                <xs:element name="Indicators_x0020_System" type="xs:unsignedByte" minOccurs="0" />
+                <xs:element name="Rm_x0020_Date_x0020_Time" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="Target_x0020_Memory" type="xs:long" minOccurs="0" />
+                <xs:element name="Reserve_x0020_Memory" type="xs:long" minOccurs="0" />
+                <xs:element name="Commited_x0020_Memory" type="xs:long" minOccurs="0" />
+                <xs:element name="Shared_x0020_Memory" type="xs:long" minOccurs="0" />
+                <xs:element name="Pages_x0020_Memory" type="xs:long" minOccurs="0" />
+                <xs:element name="Memory_x0020_Utilization" type="xs:long" minOccurs="0" />
+                <xs:element name="Total_x0020_Physical_x0020_Memory" type="xs:long" minOccurs="0" />
+                <xs:element name="Available_x0020_Physical_x0020_Memory" type="xs:long" minOccurs="0" />
+                <xs:element name="Total_x0020_Page_x0020_File" type="xs:long" minOccurs="0" />
+                <xs:element name="Available_x0020_Page_x0020_File" type="xs:long" minOccurs="0" />
+                <xs:element name="Total_x0020_Virtual_x0020_Address_x0020_Space" type="xs:long" minOccurs="0" />
+                <xs:element name="Available_x0020_Virtual_x0020_Address_x0020_Space" type="xs:long" minOccurs="0" />
+                <xs:element name="Available_x0020_Extended_x0020_Virtual_x0020_Address_x0020_Space" type="xs:long" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Connectivity_x0020_Errors">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="RunTime" type="xs:string" minOccurs="0" />
+                <xs:element name="Time_Stamp" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="Action" type="xs:string" minOccurs="0" />
+                <xs:element name="Source" type="xs:string" minOccurs="0" />
+                <xs:element name="SniConnectionId" type="xs:string" minOccurs="0" />
+                <xs:element name="SniConsumerError" type="xs:string" minOccurs="0" />
+                <xs:element name="SniProvider" type="xs:string" minOccurs="0" />
+                <xs:element name="SPID" type="xs:int" minOccurs="0" />
+                <xs:element name="RemoteHost" type="xs:string" minOccurs="0" />
+                <xs:element name="RemotePort" type="xs:string" minOccurs="0" />
+                <xs:element name="LocalPort" type="xs:string" minOccurs="0" />
+                <xs:element name="TdsInputBufferError" type="xs:string" minOccurs="0" />
+                <xs:element name="TdsOutputBufferError" type="xs:string" minOccurs="0" />
+                <xs:element name="TdsInputBufferBytes" type="xs:string" minOccurs="0" />
+                <xs:element name="isPhysConnKilled" type="xs:int" minOccurs="0" />
+                <xs:element name="DisconnectDueToReadError" type="xs:int" minOccurs="0" />
+                <xs:element name="NetworkErrorFound" type="xs:int" minOccurs="0" />
+                <xs:element name="ErrorBeforeLogin" type="xs:int" minOccurs="0" />
+                <xs:element name="isSessionKilled" type="xs:int" minOccurs="0" />
+                <xs:element name="NormalDisconnect" type="xs:int" minOccurs="0" />
+                <xs:element name="NormalLogout" type="xs:int" minOccurs="0" />
+                <xs:element name="NormalLogout1" type="xs:int" minOccurs="0" />
+                <xs:element name="LoginTaskEnqueuedInMilliseconds" type="xs:int" minOccurs="0" />
+                <xs:element name="NetworkWritesInMilliseconds" type="xs:int" minOccurs="0" />
+                <xs:element name="NetworkReadsInMilliseconds" type="xs:int" minOccurs="0" />
+                <xs:element name="SslProcessingInMilliseconds" type="xs:int" minOccurs="0" />
+                <xs:element name="SspiProcessingInMilliseconds" type="xs:int" minOccurs="0" />
+                <xs:element name="LoginTriggerAndResourceGovernorProcessingInMilliseconds" type="xs:int" minOccurs="0" />
+                <xs:element name="Record_x0020_Id" type="xs:long" minOccurs="0" />
+                <xs:element name="Type" type="xs:string" minOccurs="0" />
+                <xs:element name="Record_x0020_Time" type="xs:long" minOccurs="0" />
+                <xs:element name="Current_x0020_Time" type="xs:long" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Failsafe_x0020_Operator_x0020_Information">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Name" type="xs:string" minOccurs="0" />
+                <xs:element name="FailSafe_x0020_Operator" type="xs:string" minOccurs="0" />
+                <xs:element name="Notification_x0020_Method" type="xs:int" minOccurs="0" />
+                <xs:element name="Forwarding_x0020_Server" type="xs:string" minOccurs="0" />
+                <xs:element name="Forwarding_x0020_Severity" type="xs:int" minOccurs="0" />
+                <xs:element name="Is_x0020_Forwarded_x0020_Always" type="xs:boolean" minOccurs="0" />
+                <xs:element name="Pager_x0020_To_x0020_Template" type="xs:string" minOccurs="0" />
+                <xs:element name="Pager_x0020_CC_x0020_Template" type="xs:string" minOccurs="0" />
+                <xs:element name="Pager_x0020_Subject_x0020_Template" type="xs:string" minOccurs="0" />
+                <xs:element name="Pager_x0020_Send_x0020_Subject_x0020_Only" type="xs:boolean" minOccurs="0" />
+                <xs:element name="Fail_x0020_Safe_x0020_Email_x0020_Address" type="xs:string" minOccurs="0" />
+                <xs:element name="Fail_x0020_Safe_x0020_Pager_x0020_Address" type="xs:string" minOccurs="0" />
+                <xs:element name="Fail_x0020_Safe_x0020_Net_x0020_Send_x0020_Address" type="xs:string" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Event_x0020_Log_x0020_Checks">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="ID" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="1" type="xs:int" />
+                <xs:element name="LogType" type="xs:string" />
+                <xs:element name="EventLogCheckDesc" type="xs:string" minOccurs="0" />
+                <xs:element name="RecordID" msdata:Caption="Record ID" type="xs:int" default="0" minOccurs="0" />
+                <xs:element name="ProviderName" msdata:Caption="Provider Name" type="xs:string" minOccurs="0" />
+                <xs:element name="MachineName" msdata:Caption="Machine Name" type="xs:string" minOccurs="0" />
+                <xs:element name="UserID" msdata:Caption="User ID" type="xs:string" minOccurs="0" />
+                <xs:element name="TimeCreated" msdata:Caption="Time Created" type="xs:dateTime" default="1753-01-01T01:00:00-08:00" minOccurs="0" />
+                <xs:element name="LevelDisplayName" msdata:Caption="Level Display Name" type="xs:string" minOccurs="0" />
+                <xs:element name="InstanceID" msdata:Caption="Instance ID" type="xs:int" default="0" minOccurs="0" />
+                <xs:element name="Description" type="xs:string" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+      <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//mstns:dtChecklist" />
+        <xs:field xpath="mstns:ChecklistKey" />
+      </xs:unique>
+      <xs:unique name="Constraint2">
+        <xs:selector xpath=".//mstns:dtChecklist" />
+        <xs:field xpath="mstns:ScriptName" />
+      </xs:unique>
+      <xs:unique name="dtRunLog_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//mstns:dtRunLog" />
+        <xs:field xpath="mstns:RunID" />
+      </xs:unique>
+      <xs:unique name="dtEventLog_Constraint2" msdata:ConstraintName="Constraint2">
+        <xs:selector xpath=".//mstns:dtEventLog" />
+        <xs:field xpath="mstns:ID" />
+      </xs:unique>
+      <xs:unique name="dtEventLogItemsToCheck_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//mstns:dtEventLogItemsToCheck" />
+        <xs:field xpath="mstns:ID" />
+      </xs:unique>
+      <xs:unique name="Event_x0020_Log_x0020_Checks_Constraint2" msdata:ConstraintName="Constraint2">
+        <xs:selector xpath=".//mstns:Event_x0020_Log_x0020_Checks" />
+        <xs:field xpath="mstns:ID" />
+      </xs:unique>
+    </xs:element>
+  </xs:schema>
+  <dtChecklist>
+    <ChecklistKey>1</ChecklistKey>
+    <ScriptName>Am I SQL Admin</ScriptName>
+    <CheckDesc>Check to see if the connection is SQL Server Administrator (sa or equivalent). If it is not, this checklist will end early.</CheckDesc>
+    <LowValue>1</LowValue>
+    <HighValue>10</HighValue>
+    <IsWithinRangeGood>true</IsWithinRangeGood>
+    <ChecklistCrossRefID>15</ChecklistCrossRefID>
+    <Category>Configuration</Category>
+    <AdditionalDocumentation />
+    <Weight>1</Weight>
+    <CodeToRun>SELECT 
+	                        @@SPID, 
+	                        SYSTEM_USER, 
+	                        USER, 
+	                        NULL,		-- LogStart
+	                        GETDATE(),	--LogEnd
+	                        IS_SRVROLEMEMBER('sysadmin')
+                        </CodeToRun>
+    <CodeType>SQL</CodeType>
+    <IsExecute>false</IsExecute>
+    <IsForOutput>false</IsForOutput>
+    <IsForDataSet>false</IsForDataSet>
+    <MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+  </dtChecklist>
+  <dtChecklist>
+    <ChecklistKey>2</ChecklistKey>
+    <ScriptName>Am I X3 database?</ScriptName>
+    <CheckDesc>Check to see if the connection is SQL Server Administrator (sa or equivalent). If it is not, this checklist will end early.</CheckDesc>
+    <LowValue>1</LowValue>
+    <HighValue>10</HighValue>
+    <IsWithinRangeGood>true</IsWithinRangeGood>
+    <ChecklistCrossRefID>15</ChecklistCrossRefID>
+    <Category>Configuration</Category>
+    <AdditionalDocumentation />
+    <Weight>1</Weight>
+    <CodeToRun>
+			SELECT COALESCE(0,OBJECT_ID('X3.ADOVAL')), 'If an object id exists, then we are witin an X3 database'
+		</CodeToRun>
+    <CodeType>SQL</CodeType>
+    <IsExecute>false</IsExecute>
+    <IsForOutput>true</IsForOutput>
+    <IsForDataSet>false</IsForDataSet>
+    <MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+  </dtChecklist>
+  <dtChecklist>
+    <ChecklistKey>5</ChecklistKey>
+    <ScriptName>Data and Log on same volume</ScriptName>
+    <CheckDesc>Are the data file and the log file on the same volume?</CheckDesc>
+    <LowValue>0</LowValue>
+    <YourValue>1</YourValue>
+    <HighValue>0</HighValue>
+    <Detail>Data Volume: C:\
+Log Volume: C:\</Detail>
+    <IsWithinRange>false</IsWithinRange>
+    <IsWithinRangeGood>true</IsWithinRangeGood>
+    <ChecklistCrossRefID>6</ChecklistCrossRefID>
+    <Category>Configuration</Category>
+    <AdditionalDocumentation>http://technet.microsoft.com/en-us/library/cc966534.aspx</AdditionalDocumentation>
+    <Weight>1</Weight>
+    <CodeToRun>
+			DECLARE @DataType INT, @LogType INT, @FilestreamType INT, @FullTextType INT
+			DECLARE @LogFileVolume NVARCHAR(6), @DataFileVolume NVARCHAR(6)
+			SELECT @DataType = 0, @LogType = 1, @FilestreamType = 2, @FullTextType = 4
+
+			SET @LogFileVolume =
+			(
+				SELECT TOP 1 SUBSTRING(physical_name,1,3)
+				FROM sys.database_files
+				WHERE type = @DataType
+				ORDER BY file_id ASC
+			)
+
+			SET @DataFileVolume =
+			(
+				SELECT TOP 1 SUBSTRING(physical_name,1,3)
+				FROM sys.database_files
+				WHERE type = @DataType
+				ORDER BY file_id ASC
+			)
+
+			IF @LogFileVolume = @DataFileVolume
+				BEGIN
+					SELECT
+					1 IsWithinRange,
+					'Data Volume: ' + @DataFileVolume +
+					CHAR(10) + CHAR(13)
+					+ 'Log Volume: ' + @LogFileVolume AdditionalDetail
+				END
+			ELSE
+				BEGIN
+					SELECT
+					0 IsWithinRange,
+					'Data Volume: ' + @DataFileVolume +
+					CHAR(10) + CHAR(13)
+					+ 'Log Volume: ' + @LogFileVolume	AdditionalDetail
+				END
+		</CodeToRun>
+    <CodeType>SQL</CodeType>
+    <IsExecute>true</IsExecute>
+    <IsForOutput>true</IsForOutput>
+    <IsForDataSet>false</IsForDataSet>
+    <MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+  </dtChecklist>
+  <dtChecklist>
+    <ChecklistKey>6</ChecklistKey>
+    <ScriptName>High Number of VLF Present</ScriptName>
+    <CheckDesc>High number of VLFs present indicates slow performance for all CRUD operations</CheckDesc>
+    <LowValue>0</LowValue>
+    <YourValue>12</YourValue>
+    <HighValue>10000</HighValue>
+    <Detail>---</Detail>
+    <IsWithinRange>true</IsWithinRange>
+    <IsWithinRangeGood>true</IsWithinRangeGood>
+    <ChecklistCrossRefID>7</ChecklistCrossRefID>
+    <Category>Configuration</Category>
+    <AdditionalDocumentation>http://sqlblog.com/blogs/linchi_shea/archive/2009/02/09/performance-impact-a-large-number-of-virtual-log-files-part-i.aspx</AdditionalDocumentation>
+    <Weight>1</Weight>
+    <CodeToRun>
+			-- Category:				Performance
+			-- ChecklistCrossRefID:		7
+			-- DESC:					Databases with high number of VLF present
+			CREATE TABLE #LOGINFO
+			(FileId tinyint,
+			FileSize bigint,
+			StartOffset bigint,
+			FSeqNo int,
+			Status tinyint,
+			Parity tinyint,
+			CreateLSN numeric(25,0) )
+
+			INSERT INTO #LOGINFO
+			EXEC ('DBCC LOGINFO');
+
+			SELECT COUNT(*), '---'
+			FROM #LOGINFO
+
+			DROP TABLE #LOGINFO
+		</CodeToRun>
+    <CodeType>SQL</CodeType>
+    <IsExecute>true</IsExecute>
+    <IsForOutput>true</IsForOutput>
+    <IsForDataSet>false</IsForDataSet>
+    <MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+  </dtChecklist>
+  <dtChecklist>
+    <ChecklistKey>7</ChecklistKey>
+    <ScriptName>Linked Servers Present</ScriptName>
+    <CheckDesc>Linked servers cause additional drain on SQL, especially on a 32 bit system. </CheckDesc>
+    <LowValue>0</LowValue>
+    <YourValue>0</YourValue>
+    <HighValue>0</HighValue>
+    <Detail>This server is a 64 bit machine. This check is not important on 64 bit systems</Detail>
+    <IsWithinRange>true</IsWithinRange>
+    <IsWithinRangeGood>true</IsWithinRangeGood>
+    <ChecklistCrossRefID>11</ChecklistCrossRefID>
+    <Category>Operation</Category>
+    <AdditionalDocumentation>http://blogs.msdn.com/b/psssql/archive/2009/08/26/come-on-64bit-so-we-can-leave-the-mem.aspx</AdditionalDocumentation>
+    <Weight>1</Weight>
+    <CodeToRun>
+
+			IF PATINDEX('%64-bit%',CONVERT(VARCHAR(100),SERVERPROPERTY('Edition'))) = 0
+			BEGIN
+			SELECT COUNT(*) NumOfLinkedServers , SERVERPROPERTY('Edition') Detail
+			FROM sys.servers
+			WHERE is_linked = 1
+			END
+			ELSE
+			BEGIN
+
+			SELECT 0 NumOfLinkedServers , 'This server is a 64 bit machine. This check is not important on 64 bit systems' Detail
+
+			END
+		</CodeToRun>
+    <CodeType>SQL</CodeType>
+    <IsExecute>true</IsExecute>
+    <IsForOutput>true</IsForOutput>
+    <IsForDataSet>false</IsForDataSet>
+    <MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+  </dtChecklist>
+  <dtChecklist>
+    <ChecklistKey>8</ChecklistKey>
+    <ScriptName>Auto shrink option enabled</ScriptName>
+    <CheckDesc>Database has auto shrink option enabled</CheckDesc>
+    <LowValue>0</LowValue>
+    <YourValue>1</YourValue>
+    <HighValue>0</HighValue>
+    <Detail>---</Detail>
+    <IsWithinRange>false</IsWithinRange>
+    <IsWithinRangeGood>true</IsWithinRangeGood>
+    <ChecklistCrossRefID>39</ChecklistCrossRefID>
+    <Category>Operation</Category>
+    <AdditionalDocumentation>http://support.microsoft.com/kb/2160663</AdditionalDocumentation>
+    <Weight>1</Weight>
+    <CodeToRun>
+			SELECT COUNT(*), '---'
+			FROM sys.databases
+			WHERE is_auto_shrink_on &gt; 0
+		</CodeToRun>
+    <CodeType>SQL</CodeType>
+    <IsExecute>true</IsExecute>
+    <IsForOutput>true</IsForOutput>
+    <IsForDataSet>false</IsForDataSet>
+    <MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+  </dtChecklist>
+  <dtChecklist>
+    <ChecklistKey>9</ChecklistKey>
+    <ScriptName>Auto close option enabled</ScriptName>
+    <CheckDesc>Database has auto close option enabled</CheckDesc>
+    <LowValue>0</LowValue>
+    <YourValue>0</YourValue>
+    <HighValue>0</HighValue>
+    <Detail>---</Detail>
+    <IsWithinRange>true</IsWithinRange>
+    <IsWithinRangeGood>true</IsWithinRangeGood>
+    <ChecklistCrossRefID>88</ChecklistCrossRefID>
+    <Category>Operation</Category>
+    <AdditionalDocumentation>http://support.microsoft.com/kb/2160663</AdditionalDocumentation>
+    <Weight>1</Weight>
+    <CodeToRun>
+			SELECT COUNT(*), '---'
+			FROM sys.databases
+			WHERE is_auto_close_on &gt; 0
+		</CodeToRun>
+    <CodeType>SQL</CodeType>
+    <IsExecute>true</IsExecute>
+    <IsForOutput>true</IsForOutput>
+    <IsForDataSet>false</IsForDataSet>
+    <MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+  </dtChecklist>
+  <dtChecklist>
+    <ChecklistKey>10</ChecklistKey>
+    <ScriptName>Page Life Expectancy</ScriptName>
+    <CheckDesc>Page life expectancy should be greater than 300. This is the number of seconds that a page will last in memory on SQL Server</CheckDesc>
+    <LowValue>300</LowValue>
+    <YourValue>949593</YourValue>
+    <HighValue>99999999</HighValue>
+    <Detail>SQLServer:Buffer Manager | Page life expectancy | </Detail>
+    <IsWithinRange>true</IsWithinRange>
+    <IsWithinRangeGood>true</IsWithinRangeGood>
+    <ChecklistCrossRefID>88</ChecklistCrossRefID>
+    <Category>Operation</Category>
+    <AdditionalDocumentation>http://technet.microsoft.com/en-us/library/cc966401.aspx</AdditionalDocumentation>
+    <Weight>1</Weight>
+    <CodeToRun>
+			SELECT cntr_value, LTRIM(RTRIM(object_name))
+			+ ' | ' +  LTRIM(RTRIM(counter_name)) + ' | ' + LTRIM(RTRIM(instance_name))
+			FROM sys.dm_os_performance_counters
+			WHERE
+			LOWER(object_name) LIKE '%buffer manager%'
+			AND LOWER(counter_name) LIKE '%life%'
+		</CodeToRun>
+    <CodeType>SQL</CodeType>
+    <IsExecute>true</IsExecute>
+    <IsForOutput>true</IsForOutput>
+    <IsForDataSet>false</IsForDataSet>
+    <MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+  </dtChecklist>
+  <dtChecklist>
+    <ChecklistKey>11</ChecklistKey>
+    <ScriptName>Plan Re-use</ScriptName>
+    <CheckDesc>Plan Re-use should be greater than 90%. Plan use is desirable for OKTP workloads because re-creating the same plan (for similar or identical transactions) is a waste of CPU resources and suggests a CPU bottleneck. </CheckDesc>
+    <LowValue>0.90</LowValue>
+    <YourValue>0.673</YourValue>
+    <HighValue>1</HighValue>
+    <Detail>Batch Requests = 5236.000
+SQL Compilations: 1714.000</Detail>
+    <IsWithinRange>false</IsWithinRange>
+    <IsWithinRangeGood>true</IsWithinRangeGood>
+    <ChecklistCrossRefID>89</ChecklistCrossRefID>
+    <Category>Performance</Category>
+    <AdditionalDocumentation>http://technet.microsoft.com/en-us/library/cc966401.aspx</AdditionalDocumentation>
+    <Weight>1</Weight>
+    <CodeToRun>
+			-- Plan reuse = (Batch requests - SQL compilations) / Batch requests
+			DECLARE @BatchRequests DECIMAL(18,3), @SqlCompilations DECIMAL(18,3)
+			SET @BatchRequests =
+			(
+			SELECT cntr_value
+			FROM sys.dm_os_performance_counters
+			WHERE counter_name = 'Batch Requests/sec'
+			)
+			SET @SqlCompilations =
+			(
+			SELECT cntr_value
+			FROM sys.dm_os_performance_counters
+			WHERE counter_name = 'SQL Compilations/sec'
+			)
+
+			SELECT
+			CONVERT(DECIMAL(18,3),(@BatchRequests - @SqlCompilations) / @BatchRequests),
+			'Batch Requests = ' + CONVERT(VARCHAR(25),@BatchRequests)
+			+ CHAR(10) + CHAR(13) +
+			'SQL Compilations: ' + CONVERT(VARCHAR(25), @SqlCompilations)
+		</CodeToRun>
+    <CodeType>SQL</CodeType>
+    <IsExecute>true</IsExecute>
+    <IsForOutput>true</IsForOutput>
+    <IsForDataSet>false</IsForDataSet>
+    <MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+  </dtChecklist>
+  <dtChecklist>
+    <ChecklistKey>12</ChecklistKey>
+    <ScriptName>Parallel wait type cxpacket use</ScriptName>
+    <CheckDesc>Parallel wait types are measured by cxpackets. If the total wait time for this counter is greater than 10% of total waits then you have CPU pressure as a result of the parallelization. This is not good for OLTP systems</CheckDesc>
+    <LowValue>0</LowValue>
+    <YourValue>0.000</YourValue>
+    <HighValue>0.1</HighValue>
+    <Detail>Total Wait Time ms: 6655469423
+CXPACKET wait time ms: 1192</Detail>
+    <IsWithinRange>true</IsWithinRange>
+    <IsWithinRangeGood>true</IsWithinRangeGood>
+    <ChecklistCrossRefID>89</ChecklistCrossRefID>
+    <Category>Performance</Category>
+    <AdditionalDocumentation>http://technet.microsoft.com/en-us/library/cc966401.aspx</AdditionalDocumentation>
+    <Weight>1</Weight>
+    <CodeToRun>
+			DECLARE @TotalWaitTime DECIMAL(18,3), @wait_time_ctr DECIMAL(18,3)
+			SET @TotalWaitTime =
+			(
+			SELECT SUM(wait_time_ms)
+			FROM sys.dm_os_wait_stats
+			)
+
+			SET @wait_time_ctr =
+			(
+			SELECT CONVERT(DECIMAL(18,5),wait_time_ms)
+			FROM sys.dm_os_wait_stats
+			WHERE wait_type = 'CXPACKET'
+			)
+
+			SELECT CONVERT(DECIMAL(18,3),@wait_time_ctr / @TotalWaitTime) ,
+			'Total Wait Time ms: ' + CONVERT(VARCHAR(25), CONVERT(BIGINT,@TotalWaitTime))
+			+ CHAR(10) + CHAR(13) +
+			'CXPACKET wait time ms: ' +  CONVERT(VARCHAR(25), CONVERT(BIGINT,@wait_time_ctr))
+
+		</CodeToRun>
+    <CodeType>SQL</CodeType>
+    <IsExecute>true</IsExecute>
+    <IsForOutput>true</IsForOutput>
+    <IsForDataSet>false</IsForDataSet>
+    <MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+  </dtChecklist>
+  <dtChecklist>
+    <ChecklistKey>13</ChecklistKey>
+    <ScriptName>Identify Fragmented Indexes</ScriptName>
+    <CheckDesc>Identification of fragmented indexes. These indexes are likely to effect performance and need to be rebuilt during your maintenance window</CheckDesc>
+    <LowValue>0</LowValue>
+    <HighValue>10</HighValue>
+    <IsWithinRangeGood>true</IsWithinRangeGood>
+    <ChecklistCrossRefID>90</ChecklistCrossRefID>
+    <Category>Performance</Category>
+    <AdditionalDocumentation />
+    <Weight>1</Weight>
+    <CodeToRun>
+			SELECT
+				Database_ID,
+				CONVERT(VARCHAR(35),DB_NAME(idx.database_id)) AS [DB Name],
+				sch.name [Schema Name],
+				idx.[Object_ID],CONVERT(VARCHAR(35),OBJECT_NAME(idx.[OBJECT_ID])) AS 'OBJECT NAME',
+				idx.Partition_Number [Partition Number],
+				idx.Index_ID [Index ID],
+				idx.Index_Type_Desc [Index Type Desc],
+				idx.Alloc_Unit_Type_Desc [Alloc Unit Type Desc],
+				idx.Index_Depth,Index_Level [Index Depth Level],
+				idx.Avg_Fragmentation_In_Percent [Avg Frag Percent],
+				idx.Fragment_Count [Frag Count],
+				Avg_Fragment_Size_In_Pages [Avg Frag Size In Pages],
+				idx.Page_Count [Page Count],
+				idx.Avg_Page_Space_Used_In_Percent [Avg Page Space Used In Percent],
+				idx.Record_Count [Record Count],
+				Ghost_Record_Count [Ghost Record Count],
+				idx.Version_Ghost_Record_Count [Version Ghost Record Count],
+				idx.Min_Record_Size_In_Bytes [Min Record Size In Bytes],
+				idx.Max_Record_Size_In_Bytes [Max Record Size In Bytes],
+				idx.Avg_Record_Size_In_Bytes [Avg Record Size In Bytes],
+				Forwarded_Record_Count [Forwarded Record Count]
+			FROM sys.dm_db_index_physical_stats(DB_ID(), NULL, NULL, NULL, 'DETAILED') idx
+				INNER JOIN sys.tables t
+				ON idx.object_id = t.object_id
+				INNER JOIN sys.schemas sch
+				ON sch.schema_id = t.schema_id
+			WHERE idx.page_count &gt; 100
+				AND idx.avg_fragmentation_in_percent &gt; 15
+				AND idx.Index_ID &gt; 0
+			ORDER BY idx.avg_fragmentation_in_percent desc
+		</CodeToRun>
+    <CodeType>SQL</CodeType>
+    <IsExecute>true</IsExecute>
+    <IsForOutput>true</IsForOutput>
+    <IsForDataSet>true</IsForDataSet>
+    <MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+  </dtChecklist>
+  <dtChecklist>
+    <ChecklistKey>14</ChecklistKey>
+    <ScriptName>Is Optimized For Ad Hoc</ScriptName>
+    <CheckDesc>Check to see if the server is optimized for Ad-Hoc queries</CheckDesc>
+    <LowValue>1</LowValue>
+    <YourValue>0</YourValue>
+    <HighValue>1</HighValue>
+    <Detail>---</Detail>
+    <IsWithinRange>false</IsWithinRange>
+    <IsWithinRangeGood>true</IsWithinRangeGood>
+    <ChecklistCrossRefID>92</ChecklistCrossRefID>
+    <Category>Operation</Category>
+    <AdditionalDocumentation>http://sqlserverpedia.com/blog/sql-server-bloggers/optimizing-for-ad-hoc-workloads/</AdditionalDocumentation>
+    <Weight>1</Weight>
+    <CodeToRun>
+			IF SUBSTRING(CONVERT(VARCHAR(25),SERVERPROPERTY('ProductVersion')),0,3) = '10'
+				BEGIN
+					SELECT value, '---' Detail
+					FROM sys.configurations
+				WHERE name LIKE 'optimize for ad hoc workloads'
+				END
+			ELSE
+				BEGIN
+				-- This is not SQL 2008, there is no sys.configurations
+				SELECT 1, 'Ad-hoc configurations was not introduced until late in the game in SQL 2005. This check has been avoided'
+			END
+		</CodeToRun>
+    <CodeType>SQL</CodeType>
+    <IsExecute>true</IsExecute>
+    <IsForOutput>true</IsForOutput>
+    <IsForDataSet>false</IsForDataSet>
+    <MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+  </dtChecklist>
+  <dtChecklist>
+    <ChecklistKey>15</ChecklistKey>
+    <ScriptName>Cache Plan Profile</ScriptName>
+    <CheckDesc>Cached plans with single executions are interesting to know. </CheckDesc>
+    <LowValue>1</LowValue>
+    <HighValue>1</HighValue>
+    <IsWithinRangeGood>true</IsWithinRangeGood>
+    <ChecklistCrossRefID>91</ChecklistCrossRefID>
+    <Category>Configuration</Category>
+    <AdditionalDocumentation>http://www.sqlskills.com/blogs/kimberly/post/procedure-cache-and-optimizing-for-adhoc-workloads.aspx</AdditionalDocumentation>
+    <Weight>1</Weight>
+    <CodeToRun>
+			SELECT objtype AS [Cache Type]
+			, count_big(*) AS [Total Plans]
+			, sum(cast(size_in_bytes as decimal(18,2)))/1024/1024 AS [Total MBs]
+			, avg(usecounts) AS [Avg Use Count]
+			, sum(cast((CASE WHEN usecounts = 1 THEN size_in_bytes ELSE 0 END) as decimal(18,2)))/1024/1024 AS [Total MBs - USE Count 1]
+			, sum(CASE WHEN usecounts = 1 THEN 1 ELSE 0 END) AS [Total Plans - USE Count 1]
+			, (select ( total_physical_memory_kb / 1024) from sys.dm_os_sys_memory) TotalMemoryMb
+			,  (sum(cast(size_in_bytes as decimal(18,2)))/1024/1024 ) / (select ( total_physical_memory_kb / 1024) from sys.dm_os_sys_memory) TotalUsagePercent
+			FROM sys.dm_exec_cached_plans
+			GROUP BY objtype
+			ORDER BY [Total MBs - USE Count 1] DESC
+		</CodeToRun>
+    <CodeType>SQL</CodeType>
+    <IsExecute>true</IsExecute>
+    <IsForOutput>true</IsForOutput>
+    <IsForDataSet>true</IsForDataSet>
+    <MinTsqlCompatibilityVersion>10.0</MinTsqlCompatibilityVersion>
+  </dtChecklist>
+  <dtChecklist>
+    <ChecklistKey>16</ChecklistKey>
+    <ScriptName>Missing Indexes</ScriptName>
+    <CheckDesc>Find missing indexes for the database connection</CheckDesc>
+    <LowValue>1</LowValue>
+    <HighValue>1</HighValue>
+    <IsWithinRangeGood>true</IsWithinRangeGood>
+    <ChecklistCrossRefID>92</ChecklistCrossRefID>
+    <Category>Operations</Category>
+    <AdditionalDocumentation>http://www.sqlskills.com/blogs/kimberly/post/procedure-cache-and-optimizing-for-adhoc-workloads.aspx</AdditionalDocumentation>
+    <Weight>1</Weight>
+    <CodeToRun>
+			SELECT TOP 25
+			dm_mid.database_id AS [Database ID],
+			dm_migs.avg_user_impact*(dm_migs.user_seeks+dm_migs.user_scans) [Avg Estimated Impact],
+			dm_migs.last_user_seek AS [Last User Seek],
+			object_name(dm_mid.object_id,dm_mid.database_id) AS [Table Name],
+			'CREATE INDEX [IX_' + object_name(dm_mid.object_id,dm_mid.database_id) + '_'
+			+ REPLACE(REPLACE(REPLACE(ISNULL(dm_mid.equality_columns,''),', ','_'),'[',''),']','') +
+			CASE
+			WHEN dm_mid.equality_columns IS NOT NULL AND dm_mid.inequality_columns IS NOT NULL THEN '_'
+			ELSE ''
+			END
+			+ REPLACE(REPLACE(REPLACE(ISNULL(dm_mid.inequality_columns,''),', ','_'),'[',''),']','')
+			+ ']'
+			+ ' ON ' + dm_mid.statement
+			+ ' (' + ISNULL (dm_mid.equality_columns,'')
+			+ CASE WHEN dm_mid.equality_columns IS NOT NULL AND dm_mid.inequality_columns IS NOT NULL THEN ',' ELSE
+			'' END
+			+ ISNULL (dm_mid.inequality_columns, '')
+			+ ')'
+			+ ISNULL (' INCLUDE (' + dm_mid.included_columns + ')', '') AS Create_Statement
+			FROM sys.dm_db_missing_index_groups dm_mig
+			INNER JOIN sys.dm_db_missing_index_group_stats dm_migs
+			ON dm_migs.group_handle = dm_mig.index_group_handle
+			INNER JOIN sys.dm_db_missing_index_details dm_mid
+			ON dm_mig.index_handle = dm_mid.index_handle
+			WHERE dm_mid.database_ID = DB_ID()
+			ORDER BY [Avg Estimated Impact] DESC
+		</CodeToRun>
+    <CodeType>SQL</CodeType>
+    <IsExecute>true</IsExecute>
+    <IsForOutput>true</IsForOutput>
+    <IsForDataSet>true</IsForDataSet>
+    <MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+  </dtChecklist>
+  <dtChecklist>
+    <ChecklistKey>17</ChecklistKey>
+    <ScriptName>Top 20 Longest Running Queries</ScriptName>
+    <CheckDesc>Find the top 20 longest running queries on SQL</CheckDesc>
+    <LowValue>1</LowValue>
+    <HighValue>1</HighValue>
+    <IsWithinRangeGood>true</IsWithinRangeGood>
+    <ChecklistCrossRefID>93</ChecklistCrossRefID>
+    <Category>Operations</Category>
+    <AdditionalDocumentation>http://www.sqlskills.com/blogs/kimberly/post/procedure-cache-and-optimizing-for-adhoc-workloads.aspx</AdditionalDocumentation>
+    <Weight>1</Weight>
+    <CodeToRun>
+			SELECT DISTINCT TOP 20
+			t.TEXT [Query Name],
+			s.execution_count AS [Execution Count],
+			s.max_elapsed_time AS [Max Elapsed Time],
+			ISNULL(s.total_elapsed_time / 1000 / NULLIF(s.execution_count, 0), 0) AS [Avg Elapsed Time],
+			s.creation_time AS [Log Created On],
+			ISNULL(s.execution_count / 1000 / NULLIF(DATEDIFF(s, s.creation_time, GETDATE()), 0), 0) AS [Frequency Per Sec]
+			FROM sys.dm_exec_query_stats s
+			CROSS APPLY sys.dm_exec_sql_text( s.sql_handle ) t
+			ORDER BY s.max_elapsed_time DESC, [Execution Count] DESC
+		</CodeToRun>
+    <CodeType>SQL</CodeType>
+    <IsExecute>true</IsExecute>
+    <IsForOutput>true</IsForOutput>
+    <IsForDataSet>true</IsForDataSet>
+    <MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+  </dtChecklist>
+  <dtChecklist>
+    <ChecklistKey>18</ChecklistKey>
+    <ScriptName>High Wait Times</ScriptName>
+    <CheckDesc>Find high wait times in SQL Server</CheckDesc>
+    <LowValue>1</LowValue>
+    <HighValue>1</HighValue>
+    <IsWithinRangeGood>true</IsWithinRangeGood>
+    <ChecklistCrossRefID>94</ChecklistCrossRefID>
+    <Category>Operations</Category>
+    <AdditionalDocumentation>http://www.sqlskills.com/blogs/kimberly/post/procedure-cache-and-optimizing-for-adhoc-workloads.aspx</AdditionalDocumentation>
+    <Weight>1</Weight>
+    <CodeToRun>
+			--If you have PAGEIOLATCH_*, ASYNC_IO_COMPLETION, IO_COMPLETION, or WRITELOG
+			--in your top waits, your system is consistently waiting on your disks and
+			--you need to troubleshoot that.  Start by going through this document
+			--and its troubleshooting procedures:
+
+			--http://download.microsoft.com/download/6/e/5/6e52bf39-0519-42b7-b806-c32905f4a066/TechNote28-CommonQAfordeployingSQLServerinaSANenvironment.pdf
+			SELECT TOP 10 *
+			FROM sys.dm_os_wait_stats
+			WHERE wait_type NOT IN --remove common waits to identify worst bottlenecks
+				(
+				'KSOURCE_WAKEUP', 'SLEEP_BPOOL_FLUSH', 'BROKER_TASK_STOP',
+				'XE_TIMER_EVENT', 'XE_DISPATCHER_WAIT', 'FT_IFTS_SCHEDULER_IDLE_WAIT',
+				'SQLTRACE_BUFFER_FLUSH', 'CLR_AUTO_EVENT', 'BROKER_EVENTHANDLER',
+				'LAZYWRITER_SLEEP', 'BAD_PAGE_PROCESS', 'BROKER_TRANSMITTER',
+				'CHECKPOINT_QUEUE', 'DBMIRROR_EVENTS_QUEUE', 'LAZYWRITER_SLEEP',
+				'ONDEMAND_TASK_QUEUE', 'REQUEST_FOR_DEADLOCK_SEARCH', 'LOGMGR_QUEUE',
+				'SLEEP_TASK', 'SQLTRACE_BUFFER_FLUSH', 'CLR_MANUAL_EVENT',
+				'BROKER_RECEIVE_WAITFOR', 'PREEMPTIVE_OS_GETPROCADDRESS',
+				'PREEMPTIVE_OS_AUTHENTICATIONOPS', 'BROKER_TO_FLUSH'
+				)
+			ORDER BY wait_time_ms DESC
+		</CodeToRun>
+    <CodeType>SQL</CodeType>
+    <IsExecute>true</IsExecute>
+    <IsForOutput>true</IsForOutput>
+    <IsForDataSet>true</IsForDataSet>
+    <MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+  </dtChecklist>
+  <dtChecklist>
+    <ChecklistKey>21</ChecklistKey>
+    <ScriptName>Number of databases on system</ScriptName>
+    <CheckDesc>How many databases exist on this system?</CheckDesc>
+    <LowValue>1</LowValue>
+    <YourValue>8</YourValue>
+    <HighValue>3</HighValue>
+    <Detail>Number of databases on system</Detail>
+    <IsWithinRange>false</IsWithinRange>
+    <IsWithinRangeGood>true</IsWithinRangeGood>
+    <ChecklistCrossRefID>68</ChecklistCrossRefID>
+    <Category>Operation</Category>
+    <AdditionalDocumentation />
+    <Weight>1</Weight>
+    <CodeToRun>
+			SELECT COUNT(*), 'Number of databases on system'
+			FROM sys.databases
+			WHERE database_id &gt; 4
+		</CodeToRun>
+    <CodeType>SQL</CodeType>
+    <IsExecute>true</IsExecute>
+    <IsForOutput>true</IsForOutput>
+    <IsForDataSet>false</IsForDataSet>
+    <MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+  </dtChecklist>
+  <dtChecklist>
+    <ChecklistKey>22</ChecklistKey>
+    <ScriptName>MAXDOP</ScriptName>
+    <CheckDesc>Is MAXDOP set to 1 for this OLTP database?</CheckDesc>
+    <LowValue>1</LowValue>
+    <YourValue>0</YourValue>
+    <HighValue>1</HighValue>
+    <Detail>maximum degree of parallelism</Detail>
+    <IsWithinRange>false</IsWithinRange>
+    <IsWithinRangeGood>true</IsWithinRangeGood>
+    <ChecklistCrossRefID>93</ChecklistCrossRefID>
+    <Category>Configuration</Category>
+    <AdditionalDocumentation>http://blogs.technet.com/b/mat_stephen/archive/2005/02/08/369120.aspx</AdditionalDocumentation>
+    <Weight>1</Weight>
+    <CodeToRun>
+			SELECT value_in_use, [description]
+			FROM sys.configurations
+			WHERE name = 'max degree of parallelism'
+		</CodeToRun>
+    <CodeType>SQL</CodeType>
+    <IsExecute>true</IsExecute>
+    <IsForOutput>true</IsForOutput>
+    <IsForDataSet>false</IsForDataSet>
+    <MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+  </dtChecklist>
+  <dtChecklist>
+    <ChecklistKey>23</ChecklistKey>
+    <ScriptName>Operating System Info</ScriptName>
+    <CheckDesc>Generic Operating System Info</CheckDesc>
+    <LowValue>1</LowValue>
+    <HighValue>1</HighValue>
+    <IsWithinRangeGood>true</IsWithinRangeGood>
+    <ChecklistCrossRefID>94</ChecklistCrossRefID>
+    <Category>Configuration</Category>
+    <AdditionalDocumentation />
+    <Weight>1</Weight>
+    <CodeToRun>
+			SELECT
+				cpu_ticks [CPU Ticks],
+				ms_ticks [MS Ticks],
+				cpu_count [CPU Count],
+				hyperthread_ratio [Hyperthread Ratio],
+				physical_memory_in_bytes [Physical Memory Bytes],
+				virtual_memory_in_bytes [Virtual Memory Bytes],
+				os_quantum [OS Quantum],
+				os_error_mode [OS Error Mode],
+				os_priority_class [OS Priority Class],
+				max_workers_count [Max Workers Count],
+				sqlserver_start_time [SQL Server Start Time],
+				affinity_type_desc [Affinity Type Desc],
+				time_source_desc [Time Source Desc]
+			FROM sys.dm_os_sys_info
+		</CodeToRun>
+    <CodeType>SQL</CodeType>
+    <IsExecute>true</IsExecute>
+    <IsForOutput>true</IsForOutput>
+    <IsForDataSet>true</IsForDataSet>
+    <MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+  </dtChecklist>
+  <dtChecklist>
+    <ChecklistKey>24</ChecklistKey>
+    <ScriptName>System Memory</ScriptName>
+    <CheckDesc>Operating System Memory Info</CheckDesc>
+    <LowValue>1</LowValue>
+    <HighValue>1</HighValue>
+    <IsWithinRangeGood>true</IsWithinRangeGood>
+    <ChecklistCrossRefID>94</ChecklistCrossRefID>
+    <Category>Operations</Category>
+    <AdditionalDocumentation />
+    <Weight>1</Weight>
+    <CodeToRun>
+			SELECT
+				total_physical_memory_kb [Total Physical Memory KB],
+				available_physical_memory_kb [Available Physical Memory KB],
+				total_page_file_kb [Total Page File KB],
+				system_high_memory_signal_state [System High Memory Signal State],
+				system_low_memory_signal_state [System Low Memory Signal State],
+				system_memory_state_desc [System Memory State Desc]
+			FROM sys.dm_os_sys_memory
+		</CodeToRun>
+    <CodeType>SQL</CodeType>
+    <IsExecute>true</IsExecute>
+    <IsForOutput>true</IsForOutput>
+    <IsForDataSet>true</IsForDataSet>
+    <MinTsqlCompatibilityVersion>10.0</MinTsqlCompatibilityVersion>
+  </dtChecklist>
+  <dtChecklist>
+    <ChecklistKey>25</ChecklistKey>
+    <ScriptName>Backup History</ScriptName>
+    <CheckDesc>All databases backup history</CheckDesc>
+    <LowValue>1</LowValue>
+    <HighValue>1</HighValue>
+    <IsWithinRangeGood>true</IsWithinRangeGood>
+    <ChecklistCrossRefID>95</ChecklistCrossRefID>
+    <Category>Operations</Category>
+    <AdditionalDocumentation />
+    <Weight>1</Weight>
+    <CodeToRun>
+			SELECT
+			CONVERT(CHAR(100), SERVERPROPERTY('Servername')) AS Server,
+			msdb.dbo.backupset.database_name [DB Name],
+			msdb.dbo.backupset.backup_start_date [Backup Start Date],
+			msdb.dbo.backupset.backup_finish_date [Backup Finish Date],
+			msdb.dbo.backupset.expiration_date [Expiration Date],
+			CASE msdb..backupset.type
+			WHEN 'D' THEN 'Database'
+			WHEN 'L' THEN 'Log'
+			END AS [Backup Type],
+			msdb.dbo.backupset.backup_size [Backup Size],
+			msdb.dbo.backupmediafamily.logical_device_name [Logical Device Name],
+			msdb.dbo.backupmediafamily.physical_device_name [Physical Device Name],
+			msdb.dbo.backupset.name AS [Backupset Name],
+			msdb.dbo.backupset.description [Descriptoin]
+			FROM   msdb.dbo.backupmediafamily
+			INNER JOIN msdb.dbo.backupset ON msdb.dbo.backupmediafamily.media_set_id = msdb.dbo.backupset.media_set_id
+			ORDER BY backupset.database_name, backupset.backup_start_date DESC
+		</CodeToRun>
+    <CodeType>SQL</CodeType>
+    <IsExecute>true</IsExecute>
+    <IsForOutput>true</IsForOutput>
+    <IsForDataSet>true</IsForDataSet>
+    <MinTsqlCompatibilityVersion>9</MinTsqlCompatibilityVersion>
+  </dtChecklist>
+  <dtChecklist>
+    <ChecklistKey>26</ChecklistKey>
+    <ScriptName>Row Counts</ScriptName>
+    <CheckDesc>Retrieves row counts</CheckDesc>
+    <LowValue>1</LowValue>
+    <HighValue>1</HighValue>
+    <IsWithinRangeGood>true</IsWithinRangeGood>
+    <ChecklistCrossRefID>95</ChecklistCrossRefID>
+    <Category>Operations</Category>
+    <AdditionalDocumentation />
+    <Weight>1</Weight>
+    <CodeToRun>
+			WITH cte_tblCnt(SchemaID, TableName, row_count) AS
+			(
+			SELECT SCHEMA_NAME(SCHEMA_ID), so.name as TableName, ps.row_count as [RowCount]
+			FROM sys.objects so
+			JOIN sys.indexes si
+			ON si.OBJECT_ID = so.OBJECT_ID
+			JOIN sys.dm_db_partition_stats AS ps
+			ON si.OBJECT_ID = ps.OBJECT_ID
+			AND si.index_id = ps.index_id
+			WHERE
+			si.index_id &lt; 2 
+			   AND so.is_ms_shipped = 0
+			)
+			SELECT 
+				SchemaID [Schema ID], TableName [Table Name], row_count [Row Count]
+			FROM cte_tblCnt
+			ORDER BY SchemaID ASC, row_count DESC
+		</CodeToRun>
+    <CodeType>SQL</CodeType>
+    <IsExecute>true</IsExecute>
+    <IsForOutput>true</IsForOutput>
+    <IsForDataSet>true</IsForDataSet>
+    <MinTsqlCompatibilityVersion>9</MinTsqlCompatibilityVersion>
+  </dtChecklist>
+  <dtChecklist>
+    <ChecklistKey>27</ChecklistKey>
+    <ScriptName>Log file is out of space</ScriptName>
+    <CheckDesc>Searches the current error logs in SQL Server to determine if the log file is out of space</CheckDesc>
+    <LowValue>1</LowValue>
+    <HighValue>1</HighValue>
+    <IsWithinRangeGood>true</IsWithinRangeGood>
+    <ChecklistCrossRefID>96</ChecklistCrossRefID>
+    <Category>Operations</Category>
+    <AdditionalDocumentation />
+    <Weight>1</Weight>
+    <CodeToRun>
+			exec sp_readerrorlog 1, 1, '9002'
+		</CodeToRun>
+    <CodeType>SQL</CodeType>
+    <IsExecute>true</IsExecute>
+    <IsForOutput>true</IsForOutput>
+    <IsForDataSet>true</IsForDataSet>
+    <MinTsqlCompatibilityVersion>9</MinTsqlCompatibilityVersion>
+  </dtChecklist>
+  <dtChecklist>
+    <ChecklistKey>28</ChecklistKey>
+    <ScriptName>SQL Process memory paging</ScriptName>
+    <CheckDesc>Searches the current SQL Server error logs for the message 'A significant part of sql server process memory has been paged out. This may result in a performance degradation'</CheckDesc>
+    <LowValue>1</LowValue>
+    <HighValue>1</HighValue>
+    <IsWithinRangeGood>true</IsWithinRangeGood>
+    <ChecklistCrossRefID>96</ChecklistCrossRefID>
+    <Category>Operations</Category>
+    <AdditionalDocumentation />
+    <Weight>1</Weight>
+    <CodeToRun>
+			exec sp_readerrorlog 1, 1, 'A significant part of sql server process memory has been paged out. This may result in a performance degradation'
+		</CodeToRun>
+    <CodeType>SQL</CodeType>
+    <IsExecute>true</IsExecute>
+    <IsForOutput>true</IsForOutput>
+    <IsForDataSet>true</IsForDataSet>
+    <MinTsqlCompatibilityVersion>9</MinTsqlCompatibilityVersion>
+  </dtChecklist>
+  <dtChecklist>
+    <ChecklistKey>29</ChecklistKey>
+    <ScriptName>Check For Memory Pressure</ScriptName>
+    <CheckDesc>Query the ring buffer to determine what state of the memory was at for any given period of time</CheckDesc>
+    <LowValue>1</LowValue>
+    <HighValue>1</HighValue>
+    <IsWithinRangeGood>true</IsWithinRangeGood>
+    <ChecklistCrossRefID>96</ChecklistCrossRefID>
+    <Category>Operations</Category>
+    <AdditionalDocumentation>http://blogs.msdn.com/b/mvpawardprogram/archive/2012/06/04/using-sys-dm-os-ring-buffers-to-diagnose-memory-issues-in-sql-server.aspx</AdditionalDocumentation>
+    <Weight>1</Weight>
+    <CodeToRun>
+			WITH RingBuffer AS
+			(
+			SELECT CAST(dorb.record AS XML) AS xRecord, dorb.timestamp
+			FROM sys.dm_os_ring_buffers AS dorb
+			WHERE dorb.ring_buffer_type = 'RING_BUFFER_RESOURCE_MONITOR'
+			)
+
+			SELECT
+			xr.value('(ResourceMonitor/Notification)[1]', 'varchar(75)') AS [Rm Notification],
+			xr.value('(ResourceMonitor/IndicatorsProcess)[1]','tinyint') AS [Indicators Process],
+			xr.value('(ResourceMonitor/IndicatorsSystem)[1]','tinyint') AS [Indicators System],
+			DATEADD(ms, -1 * (dosi.ms_ticks/1000) - rb.timestamp, GETDATE()) AS [Rm Date Time],
+			xr.value('(MemoryNode/TargetMemory)[1]','bigint') AS [Target Memory],
+			xr.value('(MemoryNode/ReserveMemory)[1]','bigint') AS [Reserve Memory],
+			xr.value('(MemoryNode/CommittedMemory)[1]','bigint') AS [Commited Memory],
+			xr.value('(MemoryNode/SharedMemory)[1]','bigint') AS [Shared Memory],
+			xr.value('(MemoryNode/PagesMemory)[1]','bigint') AS [Pages Memory],
+			xr.value('(MemoryRecord/MemoryUtilization)[1]','bigint') AS [Memory Utilization],
+			xr.value('(MemoryRecord/TotalPhysicalMemory)[1]','bigint') AS [Total Physical Memory],
+			xr.value('(MemoryRecord/AvailablePhysicalMemory)[1]','bigint') AS [Available Physical Memory],
+			xr.value('(MemoryRecord/TotalPageFile)[1]','bigint') AS [Total Page File],
+			xr.value('(MemoryRecord/AvailablePageFile)[1]','bigint') AS [Available Page File],
+			xr.value('(MemoryRecord/TotalVirtualAddressSpace)[1]','bigint') AS [Total Virtual Address Space],
+			xr.value('(MemoryRecord/AvailableVirtualAddressSpace)[1]','bigint') AS [Available Virtual Address Space],
+			xr.value('(MemoryRecord/AvailableExtendedVirtualAddressSpace)[1]','bigint') AS [Available Extended Virtual Address Space]
+			FROM RingBuffer AS rb
+			CROSS APPLY rb.xRecord.nodes('Record') record (xr)
+			CROSS JOIN sys.dm_os_sys_info AS dosi
+			ORDER BY [Rm Date Time]DESC;
+		</CodeToRun>
+    <CodeType>SQL</CodeType>
+    <IsExecute>true</IsExecute>
+    <IsForOutput>true</IsForOutput>
+    <IsForDataSet>true</IsForDataSet>
+    <MinTsqlCompatibilityVersion>10</MinTsqlCompatibilityVersion>
+  </dtChecklist>
+  <dtChecklist>
+    <ChecklistKey>30</ChecklistKey>
+    <ScriptName>Connectivity Errors</ScriptName>
+    <CheckDesc>Query the ring buffer for connectivity errors</CheckDesc>
+    <LowValue>1</LowValue>
+    <HighValue>1</HighValue>
+    <IsWithinRangeGood>true</IsWithinRangeGood>
+    <ChecklistCrossRefID>96</ChecklistCrossRefID>
+    <Category>Operations</Category>
+    <AdditionalDocumentation>http://blogs.msdn.com/b/sql_protocols/archive/2008/05/20/connectivity-troubleshooting-in-sql-server-2008-with-the-connectivity-ring-buffer.aspx</AdditionalDocumentation>
+    <Weight>1</Weight>
+    <CodeToRun>
+			SELECT
+			CONVERT (varchar(30), GETDATE(), 121) as [RunTime],
+			dateadd (ms, (rbf.[timestamp] - tme.ms_ticks), GETDATE()) as Time_Stamp,
+			cast(record as xml).value('(//Record/ConnectivityTraceRecord/RecordType)[1]', 'varchar(50)') AS [Action],
+			cast(record as xml).value('(//Record/ConnectivityTraceRecord/RecordSource)[1]', 'varchar(50)') AS [Source],
+			cast(record as xml).value('(//Record/ConnectivityTraceRecord/SniConnectionId)[1]', 'varchar(50)') AS SniConnectionId,
+			cast(record as xml).value('(//Record/ConnectivityTraceRecord/SniConsumerError)[1]', 'varchar(50)') AS SniConsumerError,
+			cast(record as xml).value('(//Record/ConnectivityTraceRecord/SniProvider)[1]', 'varchar(50)') AS SniProvider,
+			cast(record as xml).value('(//Record/ConnectivityTraceRecord/Spid)[1]', 'int') AS [SPID],
+			cast(record as xml).value('(//Record/ConnectivityTraceRecord/RemoteHost)[1]', 'varchar(100)') AS [RemoteHost],
+			cast(record as xml).value('(//Record/ConnectivityTraceRecord/RemotePort)[1]', 'varchar(25)') AS [RemotePort],
+			cast(record as xml).value('(//Record/ConnectivityTraceRecord/LocalPort)[1]', 'varchar(25)') AS [LocalPort],
+			cast(record as xml).value('(//Record/ConnectivityTraceRecord/TdsBuffersInformation/TdsInputBufferError)[1]', 'varchar(25)') AS [TdsInputBufferError],
+			cast(record as xml).value('(//Record/ConnectivityTraceRecord/TdsBuffersInformation/TdsOutputBufferError)[1]', 'varchar(25)') AS [TdsOutputBufferError],
+			cast(record as xml).value('(//Record/ConnectivityTraceRecord/TdsBuffersInformation/TdsInputBufferBytes)[1]', 'varchar(25)') AS [TdsInputBufferBytes],
+			cast(record as xml).value('(//Record/ConnectivityTraceRecord/TdsDisconnectFlags/PhysicalConnectionIsKilled)[1]', 'int') AS [isPhysConnKilled],
+			cast(record as xml).value('(//Record/ConnectivityTraceRecord/TdsDisconnectFlags/DisconnectDueToReadError)[1]', 'int') AS [DisconnectDueToReadError],
+			cast(record as xml).value('(//Record/ConnectivityTraceRecord/TdsDisconnectFlags/NetworkErrorFoundInInputStream)[1]', 'int') AS [NetworkErrorFound],
+			cast(record as xml).value('(//Record/ConnectivityTraceRecord/TdsDisconnectFlags/ErrorFoundBeforeLogin)[1]', 'int') AS [ErrorBeforeLogin],
+			cast(record as xml).value('(//Record/ConnectivityTraceRecord/TdsDisconnectFlags/SessionIsKilled)[1]', 'int') AS [isSessionKilled],
+			cast(record as xml).value('(//Record/ConnectivityTraceRecord/TdsDisconnectFlags/NormalDisconnect)[1]', 'int') AS [NormalDisconnect],
+			cast(record as xml).value('(//Record/ConnectivityTraceRecord/TdsDisconnectFlags/NormalLogout)[1]', 'int') AS [NormalLogout],
+			cast(record as xml).value('(//Record/ConnectivityTraceRecord/LoginTimers/TotalLoginTimeInMilliseconds)[1]', 'int') AS [NormalLogout],
+			cast(record as xml).value('(//Record/ConnectivityTraceRecord/LoginTimers/LoginTaskEnqueuedInMilliseconds)[1]', 'int') AS [LoginTaskEnqueuedInMilliseconds],
+			cast(record as xml).value('(//Record/ConnectivityTraceRecord/LoginTimers/NetworkWritesInMilliseconds)[1]', 'int') AS [NetworkWritesInMilliseconds],
+			cast(record as xml).value('(//Record/ConnectivityTraceRecord/LoginTimers/NetworkReadsInMilliseconds)[1]', 'int') AS [NetworkReadsInMilliseconds],
+			cast(record as xml).value('(//Record/ConnectivityTraceRecord/LoginTimers/SslProcessingInMilliseconds)[1]', 'int') AS [SslProcessingInMilliseconds],
+			cast(record as xml).value('(//Record/ConnectivityTraceRecord/LoginTimers/SspiProcessingInMilliseconds)[1]', 'int') AS [SspiProcessingInMilliseconds],
+			cast(record as xml).value('(//Record/ConnectivityTraceRecord/LoginTimers/LoginTriggerAndResourceGovernorProcessingInMilliseconds)[1]', 'int') AS [LoginTriggerAndResourceGovernorProcessingInMilliseconds],
+			cast(record as xml).value('(//Record/@id)[1]', 'bigint') AS [Record Id],
+			cast(record as xml).value('(//Record/@type)[1]', 'varchar(30)') AS [Type],
+			cast(record as xml).value('(//Record/@time)[1]', 'bigint') AS [Record Time],
+			tme.ms_ticks as [Current Time]
+			FROM sys.dm_os_ring_buffers rbf
+			cross join sys.dm_os_sys_info tme
+			WHERE
+			rbf.ring_buffer_type = 'RING_BUFFER_CONNECTIVITY'
+			AND CAST(record as xml).value('(//Record/ConnectivityTraceRecord/Spid)[1]', 'int') &lt;&gt;0
+			ORDER BY rbf.timestamp ASC
+		</CodeToRun>
+    <CodeType>SQL</CodeType>
+    <IsExecute>true</IsExecute>
+    <IsForOutput>true</IsForOutput>
+    <IsForDataSet>true</IsForDataSet>
+    <MinTsqlCompatibilityVersion>10</MinTsqlCompatibilityVersion>
+  </dtChecklist>
+  <dtChecklist>
+    <ChecklistKey>31</ChecklistKey>
+    <ScriptName>Failsafe Operator Information</ScriptName>
+    <CheckDesc>Query the ring buffer for connectivity errors</CheckDesc>
+    <LowValue>1</LowValue>
+    <HighValue>1</HighValue>
+    <IsWithinRangeGood>true</IsWithinRangeGood>
+    <ChecklistCrossRefID>96</ChecklistCrossRefID>
+    <Category>Operations</Category>
+    <AdditionalDocumentation>http://blogs.msdn.com/b/sql_protocols/archive/2008/05/20/connectivity-troubleshooting-in-sql-server-2008-with-the-connectivity-ring-buffer.aspx</AdditionalDocumentation>
+    <Weight>1</Weight>
+    <CodeToRun>
+			DECLARE @FailSafeOperator NVARCHAR(255)
+			EXEC master.dbo.xp_instance_regread
+				N'HKEY_LOCAL_MACHINE', N'SOFTWARE\Microsoft\MSSQLServer\SQLServerAgent', N'AlertFailSafeOperator',
+				@param = @FailSafeOperator OUT, @no_output = N'no_output'
+
+			DECLARE @NotificationMethod int
+			EXEC master.dbo.xp_instance_regread
+				N'HKEY_LOCAL_MACHINE', N'SOFTWARE\Microsoft\MSSQLServer\SQLServerAgent', N'AlertNotificationMethod',
+				@param = @NotificationMethod OUT, @no_output = N'no_output'
+
+			DECLARE @ForwardingServer NVARCHAR(255)
+			EXEC master.dbo.xp_instance_regread
+				N'HKEY_LOCAL_MACHINE', N'SOFTWARE\Microsoft\MSSQLServer\SQLServerAgent', N'AlertForwardingServer',
+				@param = @ForwardingServer OUT, @no_output = N'no_output'
+
+			DECLARE @ForwardingSeverity int
+			EXEC master.dbo.xp_instance_regread
+				N'HKEY_LOCAL_MACHINE', N'SOFTWARE\Microsoft\MSSQLServer\SQLServerAgent', N'AlertForwardingSeverity',
+				@param = @ForwardingSeverity OUT, @no_output = N'no_output'
+
+			DECLARE @ForwardAlways int
+			EXEC master.dbo.xp_instance_regread
+				N'HKEY_LOCAL_MACHINE', N'SOFTWARE\Microsoft\MSSQLServer\SQLServerAgent', N'AlertForwardAlways',
+				@param = @ForwardAlways OUT, @no_output = N'no_output'
+
+			DECLARE @PagerToTemplate NVARCHAR(255)
+			EXEC master.dbo.xp_instance_regread
+				N'HKEY_LOCAL_MACHINE', N'SOFTWARE\Microsoft\MSSQLServer\SQLServerAgent', N'AlertPagerToTemplate',
+				@param = @PagerToTemplate OUT, @no_output = N'no_output'
+
+			DECLARE @PagerCCTemplate NVARCHAR(255)
+			EXEC master.dbo.xp_instance_regread
+				N'HKEY_LOCAL_MACHINE', N'SOFTWARE\Microsoft\MSSQLServer\SQLServerAgent', N'AlertPagerCCTemplate',
+				@param = @PagerCCTemplate OUT, @no_output = N'no_output'
+
+			DECLARE @PagerSubjectTemplate NVARCHAR(255)
+			EXEC master.dbo.xp_instance_regread
+				N'HKEY_LOCAL_MACHINE', N'SOFTWARE\Microsoft\MSSQLServer\SQLServerAgent', N'AlertPagerSubjectTemplate',
+				@param = @PagerSubjectTemplate OUT, @no_output = N'no_output'
+
+			DECLARE @PagerSendSubjectOnly int
+			EXEC master.dbo.xp_instance_regread
+				N'HKEY_LOCAL_MACHINE', N'SOFTWARE\Microsoft\MSSQLServer\SQLServerAgent', N'AlertPagerSendSubjectOnly',
+				@param = @PagerSendSubjectOnly OUT, @no_output = N'no_output'
+
+			DECLARE @FailSafeEmailAddress NVARCHAR(255)
+			EXEC master.dbo.xp_instance_regread
+				N'HKEY_LOCAL_MACHINE', N'SOFTWARE\Microsoft\MSSQLServer\SQLServerAgent', N'AlertFailSafeEmailAddress',
+				@param = @FailSafeEmailAddress OUT, @no_output = N'no_output'
+
+			DECLARE @FailSafePagerAddress NVARCHAR(255)
+			EXEC master.dbo.xp_instance_regread
+				N'HKEY_LOCAL_MACHINE', N'SOFTWARE\Microsoft\MSSQLServer\SQLServerAgent', N'AlertFailSafePagerAddress',
+				@param = @FailSafePagerAddress OUT, @no_output = N'no_output'
+
+			DECLARE @FailSafeNetSendAddress NVARCHAR(255)
+			EXEC master.dbo.xp_instance_regread
+				N'HKEY_LOCAL_MACHINE', N'SOFTWARE\Microsoft\MSSQLServer\SQLServerAgent', N'AlertFailSafeNetSendAddress',
+				@param = @FailSafeNetSendAddress OUT, @no_output = N'no_output'
+
+
+
+			SELECT
+			N'AlertSystem' AS [Name],
+			ISNULL(@FailSafeOperator,N'') AS [FailSafe Operator],
+			@NotificationMethod AS [Notification Method],
+			ISNULL(@ForwardingServer,N'') AS [Forwarding Server],
+			@ForwardingSeverity AS [Forwarding Severity],
+			CAST(ISNULL(@ForwardAlways, 0) AS bit) AS [Is Forwarded Always],
+			ISNULL(@PagerToTemplate,N'') AS [Pager To Template],
+			ISNULL(@PagerCCTemplate,N'') AS [Pager CC Template],
+			ISNULL(@PagerSubjectTemplate,N'') AS [Pager Subject Template],
+			CAST(@PagerSendSubjectOnly AS bit) AS [Pager Send Subject Only],
+			ISNULL(@FailSafeEmailAddress,N'') AS [Fail Safe Email Address],
+			ISNULL(@FailSafePagerAddress,N'') AS [Fail Safe Pager Address],
+			ISNULL(@FailSafeNetSendAddress,N'') AS [Fail Safe Net Send Address]
+		</CodeToRun>
+    <CodeType>SQL</CodeType>
+    <IsExecute>true</IsExecute>
+    <IsForOutput>true</IsForOutput>
+    <IsForDataSet>true</IsForDataSet>
+    <MinTsqlCompatibilityVersion>9</MinTsqlCompatibilityVersion>
+  </dtChecklist>
+  <dtChecklist>
+    <ChecklistKey>32</ChecklistKey>
+    <ScriptName>Is Failsafe Operator Set</ScriptName>
+    <CheckDesc>Checks to see if a failsafe operator has been set. It does not check that the operator has a notification method set. You must do this manually.</CheckDesc>
+    <LowValue>1</LowValue>
+    <YourValue>1</YourValue>
+    <HighValue>1</HighValue>
+    <Detail>There is a fail safe operater set</Detail>
+    <IsWithinRange>true</IsWithinRange>
+    <IsWithinRangeGood>true</IsWithinRangeGood>
+    <ChecklistCrossRefID>15</ChecklistCrossRefID>
+    <Category>Configuration</Category>
+    <AdditionalDocumentation />
+    <Weight>1</Weight>
+    <CodeToRun>
+			DECLARE @FailSafeOperator NVARCHAR(255)
+			EXEC master.dbo.xp_instance_regread
+				N'HKEY_LOCAL_MACHINE', N'SOFTWARE\Microsoft\MSSQLServer\SQLServerAgent', N'AlertFailSafeOperator',
+				@param = @FailSafeOperator OUT, @no_output = N'no_output'
+
+			IF (@FailSafeOperator IS NULL)
+			BEGIN
+				SELECT 0, 'No fail safe operator has been set'
+			END
+			ELSE
+			BEGIN
+			SELECT 1, 'There is a fail safe operater set'
+			END
+		</CodeToRun>
+    <CodeType>SQL</CodeType>
+    <IsExecute>true</IsExecute>
+    <IsForOutput>true</IsForOutput>
+    <IsForDataSet>false</IsForDataSet>
+    <MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+  </dtChecklist>
+  <dtRunLog>
+    <RunID>1</RunID>
+    <ScriptName>Data and Log on same volume</ScriptName>
+    <LoginName />
+    <ExecutionStart>2012-06-15T13:53:11.5670495-07:00</ExecutionStart>
+    <ErrorValue>0</ErrorValue>
+    <ErrorDesc>---</ErrorDesc>
+  </dtRunLog>
+  <dtRunLog>
+    <RunID>2</RunID>
+    <ScriptName>High Number of VLF Present</ScriptName>
+    <LoginName />
+    <ExecutionStart>2012-06-15T13:53:11.6230551-07:00</ExecutionStart>
+    <ErrorValue>0</ErrorValue>
+    <ErrorDesc>---</ErrorDesc>
+  </dtRunLog>
+  <dtRunLog>
+    <RunID>3</RunID>
+    <ScriptName>Linked Servers Present</ScriptName>
+    <LoginName />
+    <ExecutionStart>2012-06-15T13:53:11.632056-07:00</ExecutionStart>
+    <ErrorValue>0</ErrorValue>
+    <ErrorDesc>---</ErrorDesc>
+  </dtRunLog>
+  <dtRunLog>
+    <RunID>4</RunID>
+    <ScriptName>Auto shrink option enabled</ScriptName>
+    <LoginName />
+    <ExecutionStart>2012-06-15T13:53:11.642057-07:00</ExecutionStart>
+    <ErrorValue>0</ErrorValue>
+    <ErrorDesc>---</ErrorDesc>
+  </dtRunLog>
+  <dtRunLog>
+    <RunID>5</RunID>
+    <ScriptName>Auto close option enabled</ScriptName>
+    <LoginName />
+    <ExecutionStart>2012-06-15T13:53:11.6540582-07:00</ExecutionStart>
+    <ErrorValue>0</ErrorValue>
+    <ErrorDesc>---</ErrorDesc>
+  </dtRunLog>
+  <dtRunLog>
+    <RunID>6</RunID>
+    <ScriptName>Page Life Expectancy</ScriptName>
+    <LoginName />
+    <ExecutionStart>2012-06-15T13:53:11.6850613-07:00</ExecutionStart>
+    <ErrorValue>0</ErrorValue>
+    <ErrorDesc>---</ErrorDesc>
+  </dtRunLog>
+  <dtRunLog>
+    <RunID>7</RunID>
+    <ScriptName>Plan Re-use</ScriptName>
+    <LoginName />
+    <ExecutionStart>2012-06-15T13:53:11.7000628-07:00</ExecutionStart>
+    <ErrorValue>0</ErrorValue>
+    <ErrorDesc>---</ErrorDesc>
+  </dtRunLog>
+  <dtRunLog>
+    <RunID>8</RunID>
+    <ScriptName>Parallel wait type cxpacket use</ScriptName>
+    <LoginName />
+    <ExecutionStart>2012-06-15T13:53:11.712064-07:00</ExecutionStart>
+    <ErrorValue>0</ErrorValue>
+    <ErrorDesc>---</ErrorDesc>
+  </dtRunLog>
+  <dtRunLog>
+    <RunID>9</RunID>
+    <ScriptName>Is Optimized For Ad Hoc</ScriptName>
+    <LoginName />
+    <ExecutionStart>2012-06-15T13:53:11.7240652-07:00</ExecutionStart>
+    <ErrorValue>0</ErrorValue>
+    <ErrorDesc>---</ErrorDesc>
+  </dtRunLog>
+  <dtRunLog>
+    <RunID>10</RunID>
+    <ScriptName>Number of databases on system</ScriptName>
+    <LoginName />
+    <ExecutionStart>2012-06-15T13:53:11.7360664-07:00</ExecutionStart>
+    <ErrorValue>0</ErrorValue>
+    <ErrorDesc>---</ErrorDesc>
+  </dtRunLog>
+  <dtRunLog>
+    <RunID>11</RunID>
+    <ScriptName>MAXDOP</ScriptName>
+    <LoginName />
+    <ExecutionStart>2012-06-15T13:53:11.7500678-07:00</ExecutionStart>
+    <ErrorValue>0</ErrorValue>
+    <ErrorDesc>---</ErrorDesc>
+  </dtRunLog>
+  <dtRunLog>
+    <RunID>12</RunID>
+    <ScriptName>Is Failsafe Operator Set</ScriptName>
+    <LoginName />
+    <ExecutionStart>2012-06-15T13:53:11.7640692-07:00</ExecutionStart>
+    <ErrorValue>0</ErrorValue>
+    <ErrorDesc>---</ErrorDesc>
+  </dtRunLog>
+  <dtRunLog>
+    <RunID>13</RunID>
+    <ScriptName>Identify Fragmented Indexes</ScriptName>
+    <LoginName />
+    <ExecutionStart>2012-06-15T13:53:11.7670695-07:00</ExecutionStart>
+    <ErrorValue>0</ErrorValue>
+    <ErrorDesc>---</ErrorDesc>
+  </dtRunLog>
+  <dtRunLog>
+    <RunID>14</RunID>
+    <ScriptName>Cache Plan Profile</ScriptName>
+    <LoginName />
+    <ExecutionStart>2012-06-15T13:53:11.782071-07:00</ExecutionStart>
+    <ErrorValue>0</ErrorValue>
+    <ErrorDesc>---</ErrorDesc>
+  </dtRunLog>
+  <dtRunLog>
+    <RunID>15</RunID>
+    <ScriptName>Missing Indexes</ScriptName>
+    <LoginName />
+    <ExecutionStart>2012-06-15T13:53:11.8030731-07:00</ExecutionStart>
+    <ErrorValue>0</ErrorValue>
+    <ErrorDesc>---</ErrorDesc>
+  </dtRunLog>
+  <dtRunLog>
+    <RunID>16</RunID>
+    <ScriptName>Top 20 Longest Running Queries</ScriptName>
+    <LoginName />
+    <ExecutionStart>2012-06-15T13:53:11.8180746-07:00</ExecutionStart>
+    <ErrorValue>0</ErrorValue>
+    <ErrorDesc>---</ErrorDesc>
+  </dtRunLog>
+  <dtRunLog>
+    <RunID>17</RunID>
+    <ScriptName>High Wait Times</ScriptName>
+    <LoginName />
+    <ExecutionStart>2012-06-15T13:53:11.8660794-07:00</ExecutionStart>
+    <ErrorValue>0</ErrorValue>
+    <ErrorDesc>---</ErrorDesc>
+  </dtRunLog>
+  <dtRunLog>
+    <RunID>18</RunID>
+    <ScriptName>Operating System Info</ScriptName>
+    <LoginName />
+    <ExecutionStart>2012-06-15T13:53:11.8800808-07:00</ExecutionStart>
+    <ErrorValue>0</ErrorValue>
+    <ErrorDesc>---</ErrorDesc>
+  </dtRunLog>
+  <dtRunLog>
+    <RunID>19</RunID>
+    <ScriptName>System Memory</ScriptName>
+    <LoginName />
+    <ExecutionStart>2012-06-15T13:53:11.892082-07:00</ExecutionStart>
+    <ErrorValue>0</ErrorValue>
+    <ErrorDesc>---</ErrorDesc>
+  </dtRunLog>
+  <dtRunLog>
+    <RunID>20</RunID>
+    <ScriptName>Backup History</ScriptName>
+    <LoginName />
+    <ExecutionStart>2012-06-15T13:53:11.9070835-07:00</ExecutionStart>
+    <ErrorValue>0</ErrorValue>
+    <ErrorDesc>---</ErrorDesc>
+  </dtRunLog>
+  <dtRunLog>
+    <RunID>21</RunID>
+    <ScriptName>Row Counts</ScriptName>
+    <LoginName />
+    <ExecutionStart>2012-06-15T13:53:11.9200848-07:00</ExecutionStart>
+    <ErrorValue>0</ErrorValue>
+    <ErrorDesc>---</ErrorDesc>
+  </dtRunLog>
+  <dtRunLog>
+    <RunID>22</RunID>
+    <ScriptName>Log file is out of space</ScriptName>
+    <LoginName />
+    <ExecutionStart>2012-06-15T13:53:11.9340862-07:00</ExecutionStart>
+    <ErrorValue>0</ErrorValue>
+    <ErrorDesc>---</ErrorDesc>
+  </dtRunLog>
+  <dtRunLog>
+    <RunID>23</RunID>
+    <ScriptName>SQL Process memory paging</ScriptName>
+    <LoginName />
+    <ExecutionStart>2012-06-15T13:53:11.9780906-07:00</ExecutionStart>
+    <ErrorValue>0</ErrorValue>
+    <ErrorDesc>---</ErrorDesc>
+  </dtRunLog>
+  <dtRunLog>
+    <RunID>24</RunID>
+    <ScriptName>Check For Memory Pressure</ScriptName>
+    <LoginName />
+    <ExecutionStart>2012-06-15T13:53:12.0010929-07:00</ExecutionStart>
+    <ErrorValue>0</ErrorValue>
+    <ErrorDesc>---</ErrorDesc>
+  </dtRunLog>
+  <dtRunLog>
+    <RunID>25</RunID>
+    <ScriptName>Connectivity Errors</ScriptName>
+    <LoginName />
+    <ExecutionStart>2012-06-15T13:53:12.0240952-07:00</ExecutionStart>
+    <ErrorValue>0</ErrorValue>
+    <ErrorDesc>---</ErrorDesc>
+  </dtRunLog>
+  <dtRunLog>
+    <RunID>26</RunID>
+    <ScriptName>Failsafe Operator Information</ScriptName>
+    <LoginName />
+    <ExecutionStart>2012-06-15T13:53:12.0560984-07:00</ExecutionStart>
+    <ErrorValue>0</ErrorValue>
+    <ErrorDesc>---</ErrorDesc>
+  </dtRunLog>
+  <dtRunLog>
+    <RunID>27</RunID>
+    <ScriptName>Event Log Checks</ScriptName>
+    <LoginName>bdelamater</LoginName>
+    <ExecutionStart>2012-06-15T13:53:12.0791007-07:00</ExecutionStart>
+    <ErrorValue>0</ErrorValue>
+    <ErrorDesc>---</ErrorDesc>
+  </dtRunLog>
+  <dtEventLogItemsToCheck>
+    <ID>1</ID>
+    <LogType>System</LogType>
+    <InstanceID>823</InstanceID>
+  </dtEventLogItemsToCheck>
+  <dtEventLogItemsToCheck>
+    <ID>2</ID>
+    <LogType>System</LogType>
+    <InstanceID>824</InstanceID>
+  </dtEventLogItemsToCheck>
+  <dtEventLogItemsToCheck>
+    <ID>3</ID>
+    <LogType>System</LogType>
+    <InstanceID>825</InstanceID>
+  </dtEventLogItemsToCheck>
+  <dtEventLogItemsToCheck>
+    <ID>4</ID>
+    <LogType>Application</LogType>
+    <InstanceID>12</InstanceID>
+  </dtEventLogItemsToCheck>
+  <dtEventLogItemsToCheck>
+    <ID>5</ID>
+    <LogType>Application</LogType>
+    <InstanceID>25</InstanceID>
+  </dtEventLogItemsToCheck>
+  <dtEventLogItemsToCheck>
+    <ID>6</ID>
+    <LogType>System</LogType>
+    <InstanceID>9</InstanceID>
+  </dtEventLogItemsToCheck>
+  <dtEventLogItemsToCheck>
+    <ID>7</ID>
+    <LogType>System</LogType>
+    <InstanceID>11</InstanceID>
+  </dtEventLogItemsToCheck>
+  <dtEventLogItemsToCheck>
+    <ID>8</ID>
+    <LogType>System</LogType>
+    <InstanceID>15</InstanceID>
+  </dtEventLogItemsToCheck>
+  <dtEventLogItemsToCheck>
+    <ID>9</ID>
+    <LogType>System</LogType>
+    <InstanceID>50</InstanceID>
+  </dtEventLogItemsToCheck>
+  <dtEventLogItemsToCheck>
+    <ID>10</ID>
+    <LogType>System</LogType>
+    <InstanceID>51</InstanceID>
+  </dtEventLogItemsToCheck>
+  <dtEventLogItemsToCheck>
+    <ID>11</ID>
+    <LogType>System</LogType>
+    <InstanceID>54</InstanceID>
+  </dtEventLogItemsToCheck>
+  <dtEventLogItemsToCheck>
+    <ID>12</ID>
+    <LogType>System</LogType>
+    <InstanceID>55</InstanceID>
+  </dtEventLogItemsToCheck>
+  <dtEventLogItemsToCheck>
+    <ID>13</ID>
+    <LogType>System</LogType>
+    <InstanceID>57</InstanceID>
+  </dtEventLogItemsToCheck>
+  <dtEventLogItemsToCheck>
+    <ID>14</ID>
+    <LogType>System</LogType>
+    <InstanceID>129</InstanceID>
+  </dtEventLogItemsToCheck>
+  <dtEventLogItemsToCheck>
+    <ID>15</ID>
+    <LogType>System</LogType>
+    <InstanceID>1066</InstanceID>
+  </dtEventLogItemsToCheck>
+  <dtEventLogItemsToCheck>
+    <ID>16</ID>
+    <LogType>System</LogType>
+    <InstanceID>6008</InstanceID>
+  </dtEventLogItemsToCheck>
+  <dtEventLogItemsToCheck>
+    <ID>17</ID>
+    <LogType>Application</LogType>
+    <InstanceID>17890</InstanceID>
+  </dtEventLogItemsToCheck>
+  <Identify_x0020_Fragmented_x0020_Indexes>
+    <Database_ID>1</Database_ID>
+    <DB_x0020_Name>master</DB_x0020_Name>
+    <Schema_x0020_Name>dbo</Schema_x0020_Name>
+    <Object_ID>1467152272</Object_ID>
+    <OBJECT_x0020_NAME>ExpensiveQueryTest</OBJECT_x0020_NAME>
+    <Partition_x0020_Number>1</Partition_x0020_Number>
+    <Index_x0020_ID>1</Index_x0020_ID>
+    <Index_x0020_Type_x0020_Desc>CLUSTERED INDEX</Index_x0020_Type_x0020_Desc>
+    <Alloc_x0020_Unit_x0020_Type_x0020_Desc>IN_ROW_DATA</Alloc_x0020_Unit_x0020_Type_x0020_Desc>
+    <Index_Depth>3</Index_Depth>
+    <Index_x0020_Depth_x0020_Level>0</Index_x0020_Depth_x0020_Level>
+    <Avg_x0020_Frag_x0020_Percent>99.470899470899468</Avg_x0020_Frag_x0020_Percent>
+    <Frag_x0020_Count>189</Frag_x0020_Count>
+    <Avg_x0020_Frag_x0020_Size_x0020_In_x0020_Pages>1</Avg_x0020_Frag_x0020_Size_x0020_In_x0020_Pages>
+    <Page_x0020_Count>189</Page_x0020_Count>
+    <Avg_x0020_Page_x0020_Space_x0020_Used_x0020_In_x0020_Percent>98.567494440326172</Avg_x0020_Page_x0020_Space_x0020_Used_x0020_In_x0020_Percent>
+    <Record_x0020_Count>3209</Record_x0020_Count>
+    <Ghost_x0020_Record_x0020_Count>0</Ghost_x0020_Record_x0020_Count>
+    <Version_x0020_Ghost_x0020_Record_x0020_Count>0</Version_x0020_Ghost_x0020_Record_x0020_Count>
+    <Min_x0020_Record_x0020_Size_x0020_In_x0020_Bytes>468</Min_x0020_Record_x0020_Size_x0020_In_x0020_Bytes>
+    <Max_x0020_Record_x0020_Size_x0020_In_x0020_Bytes>468</Max_x0020_Record_x0020_Size_x0020_In_x0020_Bytes>
+    <Avg_x0020_Record_x0020_Size_x0020_In_x0020_Bytes>468</Avg_x0020_Record_x0020_Size_x0020_In_x0020_Bytes>
+  </Identify_x0020_Fragmented_x0020_Indexes>
+  <Cache_x0020_Plan_x0020_Profile>
+    <Cache_x0020_Type>Adhoc</Cache_x0020_Type>
+    <Total_x0020_Plans>183</Total_x0020_Plans>
+    <Total_x0020_MBs>21.351562</Total_x0020_MBs>
+    <Avg_x0020_Use_x0020_Count>17</Avg_x0020_Use_x0020_Count>
+    <Total_x0020_MBs_x0020_-_x0020_USE_x0020_Count_x0020_1>7.453125</Total_x0020_MBs_x0020_-_x0020_USE_x0020_Count_x0020_1>
+    <Total_x0020_Plans_x0020_-_x0020_USE_x0020_Count_x0020_1>81</Total_x0020_Plans_x0020_-_x0020_USE_x0020_Count_x0020_1>
+    <TotalMemoryMb>8061</TotalMemoryMb>
+    <TotalUsagePercent>0.002648</TotalUsagePercent>
+  </Cache_x0020_Plan_x0020_Profile>
+  <Cache_x0020_Plan_x0020_Profile>
+    <Cache_x0020_Type>Proc</Cache_x0020_Type>
+    <Total_x0020_Plans>63</Total_x0020_Plans>
+    <Total_x0020_MBs>11.320312</Total_x0020_MBs>
+    <Avg_x0020_Use_x0020_Count>43</Avg_x0020_Use_x0020_Count>
+    <Total_x0020_MBs_x0020_-_x0020_USE_x0020_Count_x0020_1>7.421875</Total_x0020_MBs_x0020_-_x0020_USE_x0020_Count_x0020_1>
+    <Total_x0020_Plans_x0020_-_x0020_USE_x0020_Count_x0020_1>25</Total_x0020_Plans_x0020_-_x0020_USE_x0020_Count_x0020_1>
+    <TotalMemoryMb>8061</TotalMemoryMb>
+    <TotalUsagePercent>0.001404</TotalUsagePercent>
+  </Cache_x0020_Plan_x0020_Profile>
+  <Cache_x0020_Plan_x0020_Profile>
+    <Cache_x0020_Type>Prepared</Cache_x0020_Type>
+    <Total_x0020_Plans>70</Total_x0020_Plans>
+    <Total_x0020_MBs>14.945312</Total_x0020_MBs>
+    <Avg_x0020_Use_x0020_Count>9</Avg_x0020_Use_x0020_Count>
+    <Total_x0020_MBs_x0020_-_x0020_USE_x0020_Count_x0020_1>3.492187</Total_x0020_MBs_x0020_-_x0020_USE_x0020_Count_x0020_1>
+    <Total_x0020_Plans_x0020_-_x0020_USE_x0020_Count_x0020_1>16</Total_x0020_Plans_x0020_-_x0020_USE_x0020_Count_x0020_1>
+    <TotalMemoryMb>8061</TotalMemoryMb>
+    <TotalUsagePercent>0.001854</TotalUsagePercent>
+  </Cache_x0020_Plan_x0020_Profile>
+  <Cache_x0020_Plan_x0020_Profile>
+    <Cache_x0020_Type>Check</Cache_x0020_Type>
+    <Total_x0020_Plans>22</Total_x0020_Plans>
+    <Total_x0020_MBs>0.648437</Total_x0020_MBs>
+    <Avg_x0020_Use_x0020_Count>1</Avg_x0020_Use_x0020_Count>
+    <Total_x0020_MBs_x0020_-_x0020_USE_x0020_Count_x0020_1>0.414062</Total_x0020_MBs_x0020_-_x0020_USE_x0020_Count_x0020_1>
+    <Total_x0020_Plans_x0020_-_x0020_USE_x0020_Count_x0020_1>15</Total_x0020_Plans_x0020_-_x0020_USE_x0020_Count_x0020_1>
+    <TotalMemoryMb>8061</TotalMemoryMb>
+    <TotalUsagePercent>0.000080</TotalUsagePercent>
+  </Cache_x0020_Plan_x0020_Profile>
+  <Cache_x0020_Plan_x0020_Profile>
+    <Cache_x0020_Type>Trigger</Cache_x0020_Type>
+    <Total_x0020_Plans>2</Total_x0020_Plans>
+    <Total_x0020_MBs>0.203125</Total_x0020_MBs>
+    <Avg_x0020_Use_x0020_Count>1</Avg_x0020_Use_x0020_Count>
+    <Total_x0020_MBs_x0020_-_x0020_USE_x0020_Count_x0020_1>0.203125</Total_x0020_MBs_x0020_-_x0020_USE_x0020_Count_x0020_1>
+    <Total_x0020_Plans_x0020_-_x0020_USE_x0020_Count_x0020_1>2</Total_x0020_Plans_x0020_-_x0020_USE_x0020_Count_x0020_1>
+    <TotalMemoryMb>8061</TotalMemoryMb>
+    <TotalUsagePercent>0.000025</TotalUsagePercent>
+  </Cache_x0020_Plan_x0020_Profile>
+  <Cache_x0020_Plan_x0020_Profile>
+    <Cache_x0020_Type>UsrTab</Cache_x0020_Type>
+    <Total_x0020_Plans>2</Total_x0020_Plans>
+    <Total_x0020_MBs>0.437500</Total_x0020_MBs>
+    <Avg_x0020_Use_x0020_Count>3</Avg_x0020_Use_x0020_Count>
+    <Total_x0020_MBs_x0020_-_x0020_USE_x0020_Count_x0020_1>0.000000</Total_x0020_MBs_x0020_-_x0020_USE_x0020_Count_x0020_1>
+    <Total_x0020_Plans_x0020_-_x0020_USE_x0020_Count_x0020_1>0</Total_x0020_Plans_x0020_-_x0020_USE_x0020_Count_x0020_1>
+    <TotalMemoryMb>8061</TotalMemoryMb>
+    <TotalUsagePercent>0.000054</TotalUsagePercent>
+  </Cache_x0020_Plan_x0020_Profile>
+  <Cache_x0020_Plan_x0020_Profile>
+    <Cache_x0020_Type>View</Cache_x0020_Type>
+    <Total_x0020_Plans>247</Total_x0020_Plans>
+    <Total_x0020_MBs>22.039062</Total_x0020_MBs>
+    <Avg_x0020_Use_x0020_Count>6</Avg_x0020_Use_x0020_Count>
+    <Total_x0020_MBs_x0020_-_x0020_USE_x0020_Count_x0020_1>0.000000</Total_x0020_MBs_x0020_-_x0020_USE_x0020_Count_x0020_1>
+    <Total_x0020_Plans_x0020_-_x0020_USE_x0020_Count_x0020_1>0</Total_x0020_Plans_x0020_-_x0020_USE_x0020_Count_x0020_1>
+    <TotalMemoryMb>8061</TotalMemoryMb>
+    <TotalUsagePercent>0.002734</TotalUsagePercent>
+  </Cache_x0020_Plan_x0020_Profile>
+  <Top_x0020_20_x0020_Longest_x0020_Running_x0020_Queries>
+    <Query_x0020_Name>create procedure sys.sp_trace_getdata
+	(@traceid int,
+	 @records int = 0
+	)
+as
+select * from OpenRowset(TrcData, @traceid, @records)
+</Query_x0020_Name>
+    <Execution_x0020_Count>5</Execution_x0020_Count>
+    <Max_x0020_Elapsed_x0020_Time>1607464158</Max_x0020_Elapsed_x0020_Time>
+    <Avg_x0020_Elapsed_x0020_Time>337977</Avg_x0020_Elapsed_x0020_Time>
+    <Log_x0020_Created_x0020_On>2012-06-08T12:46:00.317-07:00</Log_x0020_Created_x0020_On>
+    <Frequency_x0020_Per_x0020_Sec>0</Frequency_x0020_Per_x0020_Sec>
+  </Top_x0020_20_x0020_Longest_x0020_Running_x0020_Queries>
+  <Top_x0020_20_x0020_Longest_x0020_Running_x0020_Queries>
+    <Query_x0020_Name>-- sp_readrequest : Reads a request from the the queue and returns its
+--                  contents.
+CREATE PROCEDURE sp_readrequest
+    @receive_timeout    INT     -- the max time this read will wait for new message
+AS
+BEGIN
+    SET NOCOUNT ON
+
+    -- Table to store message information.
+    DECLARE @msgs TABLE
+    (
+       [conversation_handle] uniqueidentifier,
+       [service_contract_name] nvarchar(256),
+       [message_type_name] nvarchar(256),
+       [message_body] varbinary(max)
+    )
+
+    -- Declare variables to store row values fetched from the cursor
+    DECLARE 
+        @exit                   INT,
+        @idoc                   INT,
+        @mailitem_id            INT,
+        @profile_id             INT,
+        @conversation_handle    uniqueidentifier,
+        @service_contract_name  NVARCHAR(256),
+        @message_type_name      NVARCHAR(256),
+        @xml_message_body       VARCHAR(max),
+        @timediff               INT,
+        @rec_timeout            INT,
+        @start_time             DATETIME,
+        @localmessage           NVARCHAR(256),
+        @rc                     INT
+
+    --Init variables
+    SELECT @start_time = GETDATE(),
+           @timediff = 0,
+           @exit = 0,
+           @rc = 0
+
+    WHILE (@timediff &lt;= @receive_timeout)
+    BEGIN
+        -- Delete all messages from @msgs table
+        DELETE FROM @msgs
+
+        -- Pick all message from queue
+        SET @rec_timeout = @receive_timeout - @timediff
+        WAITFOR(RECEIVE conversation_handle, service_contract_name, message_type_name, message_body 
+                FROM ExternalMailQueue INTO @msgs), TIMEOUT @rec_timeout
+
+        -- Check if there was some error in reading from queue
+        SET @rc = @@ERROR
+        IF (@rc &lt;&gt; 0)
+        BEGIN
+           IF(@rc &lt; 4) -- make sure return code is not in reserved range (1-3)
+               SET @rc = 4
+
+           --Note: we will get error no. 9617 if the service queue 'ExternalMailQueue' is currently disabled.
+           BREAK
+        END
+
+       --If there is no message in the queue return 1 to indicate a timeout
+        IF NOT EXISTS(SELECT * FROM @msgs)
+        BEGIN
+          SET @rc = 1
+          BREAK
+        END
+
+        -- Create a cursor to iterate through the messages.
+        DECLARE msgs_cursor CURSOR FOR
+        SELECT conversation_handle, 
+            service_contract_name, 
+            message_type_name,
+            CONVERT(VARCHAR(MAX), message_body)
+        FROM @msgs;
+
+        -- Open the cursor
+        OPEN msgs_cursor;
+
+        -- Perform the first fetch and store the values in the variables.
+        FETCH NEXT FROM msgs_cursor
+        INTO 
+            @conversation_handle,
+            @service_contract_name,
+            @message_type_name,
+            @xml_message_body
+
+        -- Check @@FETCH_STATUS to see if there are any more rows to fetch.
+        WHILE (@@FETCH_STATUS = 0)
+        BEGIN
+            -- Check if the message is a send mail message
+            IF(@message_type_name = N'{//www.microsoft.com/databasemail/messages}SendMail')
+            BEGIN
+                -- Get the handle to the xml document
+                EXEC @rc = sp_xml_preparedocument 
+                                @idoc OUTPUT, 
+                                @xml_message_body, 
+                                N'&lt;ns xmlns:requests="http://schemas.microsoft.com/databasemail/requests" /&gt;'
+                IF(@rc &lt;&gt; 0)
+                BEGIN
+                   IF(@rc &lt; 4) -- make sure return code is not in reserved rang (1-3)
+                      SET @rc = 4
+                END
+                ELSE -- parse the document and process its contents
+                BEGIN
+                   -- Execute a SELECT statement that uses the OPENXML rowset provider to get the MailItemId.
+                   SELECT @mailitem_id = MailItemId
+                   FROM OPENXML (@idoc, '/requests:SendMail', 1)
+                        WITH (MailItemId INT './MailItemId')
+
+                   --Close the handle to the xml document
+                   EXEC sp_xml_removedocument @idoc
+
+                   -- get account information 
+                   SELECT @profile_id = profile_id
+                   FROM sysmail_mailitems 
+                   WHERE mailitem_id = @mailitem_id
+
+                   IF(@profile_id IS NULL) -- mail item has been deleted from the database
+                   BEGIN
+                      -- log warning
+                      SET @localmessage = FORMATMESSAGE(14667, convert(NVARCHAR(50), @mailitem_id))
+                      exec msdb.dbo.sysmail_logmailevent_sp @event_type=2, @description=@localmessage
+
+                      -- Resource clean-up
+                      IF(@conversation_handle IS NOT NULL)
+                         END CONVERSATION @conversation_handle;
+                   
+                      -- return code has special meaning and will be propagated to the calling process
+                      SET @rc = 2
+                   END
+                   ELSE
+                   BEGIN
+                      -- This returns the mail item to the client as multiple result sets
+                      EXEC sp_MailItemResultSets
+                           @mailitem_id            = @mailitem_id,
+                           @profile_id             = @profile_id,
+                           @conversation_handle    = @conversation_handle,
+                           @service_contract_name  = @service_contract_name,
+                           @message_type_name      = @message_type_name
+                
+                      SET @exit = 1 -- make sure we exit outer loop
+                   END
+                END
+
+                -- always break from the loop upon processing SendMail message
+                BREAK
+            END
+            -- Check if the message is a dialog timer. This is used for account retries
+            ELSE IF(@message_type_name = N'http://schemas.microsoft.com/SQL/ServiceBroker/DialogTimer')
+            BEGIN
+                -- Handle the retry case. - DialogTimer is used for send mail reties
+                EXEC @rc = sp_process_DialogTimer
+                            @conversation_handle    = @conversation_handle,
+                            @service_contract_name  = @service_contract_name,
+                            @message_type_name      = N'{//www.microsoft.com/databasemail/messages}SendMail'
+
+                -- Always break from the loop upon processing DialogTimer message
+                -- In case of failure return code from procedure call will simply be propagated to the calling process
+                SET @exit = 1 -- make sure we exit outer loop
+                BREAK
+            END
+            -- Error case
+            ELSE IF (@message_type_name = 'http://schemas.microsoft.com/SQL/ServiceBroker/Error')
+            -- Error in the conversation, hence ignore all the messages of this conversation.
+                BREAK
+
+            -- This is executed as long as fetch succeeds.
+            FETCH NEXT FROM msgs_cursor
+            INTO 
+                @conversation_handle,
+                @service_contract_name,
+                @message_type_name,
+                @xml_message_body
+        END
+
+        CLOSE msgs_cursor;
+        DEALLOCATE msgs_cursor;
+
+        -- Check if we read any request or only SSB generated messages
+        -- If a valid request is read with or without an error break out of loop
+        IF (@exit = 1 OR @rc &lt;&gt; 0)
+            BREAK
+
+       --Keep track of how long this sp has been running
+        select @timediff = DATEDIFF(ms, @start_time, getdate()) 
+    END
+
+    -- propagate return code to the calling process
+    RETURN @rc
+END
+</Query_x0020_Name>
+    <Execution_x0020_Count>2</Execution_x0020_Count>
+    <Max_x0020_Elapsed_x0020_Time>600000961</Max_x0020_Elapsed_x0020_Time>
+    <Avg_x0020_Elapsed_x0020_Time>300003</Avg_x0020_Elapsed_x0020_Time>
+    <Log_x0020_Created_x0020_On>2012-06-04T14:44:06.963-07:00</Log_x0020_Created_x0020_On>
+    <Frequency_x0020_Per_x0020_Sec>0</Frequency_x0020_Per_x0020_Sec>
+  </Top_x0020_20_x0020_Longest_x0020_Running_x0020_Queries>
+  <Top_x0020_20_x0020_Longest_x0020_Running_x0020_Queries>
+    <Query_x0020_Name>select * from sys.columns where name like '%operat%'</Query_x0020_Name>
+    <Execution_x0020_Count>1</Execution_x0020_Count>
+    <Max_x0020_Elapsed_x0020_Time>2764699</Max_x0020_Elapsed_x0020_Time>
+    <Avg_x0020_Elapsed_x0020_Time>2764</Avg_x0020_Elapsed_x0020_Time>
+    <Log_x0020_Created_x0020_On>2012-06-12T10:54:31.697-07:00</Log_x0020_Created_x0020_On>
+    <Frequency_x0020_Per_x0020_Sec>0</Frequency_x0020_Per_x0020_Sec>
+  </Top_x0020_20_x0020_Longest_x0020_Running_x0020_Queries>
+  <Top_x0020_20_x0020_Longest_x0020_Running_x0020_Queries>
+    <Query_x0020_Name>
+create procedure sys.sp_tables
+(
+    @table_name         nvarchar(384)   = null,
+    @table_owner        nvarchar(384)   = null,
+    @table_qualifier    sysname = null,
+    @table_type         varchar(100) = null,
+    @fUsePattern        bit = 1 -- To allow users to explicitly disable all pattern matching.
+)
+as
+    declare @type1      varchar(3)
+    declare @qual_name  nvarchar(517) -- [schema].[table]
+    declare @table_id   int
+
+    if @table_qualifier = '%' and @table_owner = '' and @table_name = ''
+    begin
+        -- Debug output, do not remove it.
+        -- print 'Special feature #1:  enumerate databases when owner and name are blank but qualifier is explicitly "%".'
+        select
+            TABLE_QUALIFIER = convert(sysname,d.name),
+            TABLE_OWNER     = convert(sysname,null),
+            TABLE_NAME      = convert(sysname,null),
+            TABLE_TYPE      = convert(varchar(32),null),
+            REMARKS         = convert(varchar(254),null)    -- Remarks are NULL.
+        from
+            sys.databases d
+        where
+            d.name &lt;&gt; 'model' -- eliminate MODEL database
+        order by 1
+        return
+    end
+
+    if @table_qualifier = '' and @table_owner = '%' and @table_name = ''
+    begin
+        -- Debug output, do not remove it.
+        -- print 'Special feature #2:  enumerate owners when qualifier and name are blank but owner is explicitly "%".
+        select distinct
+            TABLE_QUALIFIER = convert(sysname,null),
+            TABLE_OWNER     = convert(sysname,schema_name(o.schema_id)),
+            TABLE_NAME      = convert(sysname,null),
+            TABLE_TYPE      = convert(varchar(32),null),
+            REMARKS         = convert(varchar(254),null)    -- Remarks are NULL.
+        from
+            sys.all_objects o
+        where
+            o.type in ('S','U','V')  -- limit columns to tables and views only
+        order by 2
+        return
+    end
+
+    if @table_qualifier = '' and @table_owner = '' and @table_name = '' and @table_type = '%'
+    begin
+        -- Debug output, do not remove it.
+        -- print 'Special feature #3:  enumerate table types when qualifier, owner and name are blank but table type is explicitly "%".'
+        select
+            TABLE_QUALIFIER = convert(sysname,null),
+            TABLE_OWNER     = convert(sysname,null),
+            TABLE_NAME      = convert(sysname,null),
+            TABLE_TYPE      = convert(varchar(32),
+                                        rtrim(substring('SYSTEM TABLETABLE       VIEW',(c.column_id-1)*12+1,12))),
+            REMARKS         = convert(varchar(254),null)    -- Remarks are NULL.
+        from
+            sys.all_objects o,
+            sys.all_columns c
+        where
+            o.object_id = c.object_id and o.object_id = object_id('sysusers') and
+            c.column_id &lt;= 3 -- ISSUE - what is this for ???
+        return
+    end
+
+    --
+    -- End of special features - do normal processing.
+    --
+
+    if @table_qualifier is not null
+    begin
+        if db_name() &lt;&gt; @table_qualifier
+        begin
+            if @table_qualifier = ''
+            begin  -- If empty qualifier supplied, force an empty result set.
+                select @table_name = ''
+                select @table_owner = ''
+            end
+            else
+            begin   -- If qualifier doesn't match current database.
+                raiserror (15250, -1,-1)
+                return
+            end
+        end
+    end
+    select @table_qualifier = null -- it's not needed anymore
+
+    if @table_type is null
+    begin   -- Select all ODBC supported table types.
+        select @type1 = 'SUV'
+    end
+    else
+    begin
+        -- TableType is case sensitive if CS server.
+        if (charindex('''SYSTEM TABLE''',@table_type) &lt;&gt; 0)
+            select @type1 = 'S' -- Add System Tables.
+        else
+            select @type1 = ''
+        if (charindex('''TABLE''',@table_type) &lt;&gt; 0)
+            select @type1 = @type1 + 'U' -- Add User Tables.
+        if (charindex('''VIEW''',@table_type) &lt;&gt; 0)
+            select @type1 = @type1 + 'V' -- Add Views.
+    end
+
+    if @table_name is not null
+    begin
+        if (@table_owner is null) and (charindex('%', @table_name) = 0)
+        begin   -- If owner not specified and table contains wildchar.
+            if exists
+            (
+                select
+                        *
+                from
+                        sys.all_objects o
+                where
+                        o.schema_id = schema_id() and
+                        o.object_id = object_id(@table_name) and
+                        o.type in ('U','V','S')
+            )
+            begin   -- Override supplied owner w/owner of table.
+                select @table_owner = schema_name()
+            end
+        end
+    end
+
+    select @qual_name = isnull(quotename(@table_owner), '') + '.' + quotename(@table_name)
+    select @table_id = object_id(@qual_name)
+
+    if (@fUsePattern = 1) -- Does the user want it?
+    begin
+        if ((isnull(charindex('%', @table_name),0) = 0) and
+            (isnull(charindex('_', @table_name),0) = 0) and
+            (isnull(charindex('%', @table_owner),0) = 0) and
+            (isnull(charindex('_', @table_owner),0) = 0) and
+            (@table_id is not null))
+        begin
+            select @fUsePattern = 0 -- not a single wild char, so go the fast way.
+        end
+    end
+
+    if @fUsePattern = 0
+    begin
+        /* -- Debug output, do not remove it.
+        print '*************'
+        print 'There is NO pattern matching.'
+        print @fUsePattern
+        print isnull(@table_name, '@table_name = null')
+        print isnull(@table_owner, '@table_owner = null')
+        print isnull(@table_type, '@table_type = null')
+        print isnull(@type1, '@type1 = null')
+        print '*************'
+        */
+        select
+            TABLE_QUALIFIER = convert(sysname,db_name()),
+            TABLE_OWNER     = convert(sysname,schema_name(o.schema_id)),
+            TABLE_NAME      = convert(sysname,o.name),
+            TABLE_TYPE      = convert(varchar(32),
+                                        rtrim(substring('SYSTEM TABLE            TABLE       VIEW       ',
+                                        (ascii(o.type)-83)*12+1,12))  -- 'S'=0,'U'=2,'V'=3
+                                     ),
+            REMARKS = convert(varchar(254),null)    -- Remarks are NULL.
+
+        from
+            sys.all_objects o
+
+        where
+            o.object_id = @table_id and
+            o.type in ('S','U','V') and
+            has_perms_by_name(@qual_name, 'object', 'select') = 1 and
+            charindex(substring(o.type,1,1),@type1) &lt;&gt; 0 -- Only desired types.
+        order by 4, 1, 2, 3
+    end
+    else
+    begin
+        /* -- Debug output, do not remove it.
+        print '*************'
+        print 'THERE IS pattern matching!'
+        print @fUsePattern
+        print isnull(@table_name, '@table_name = null')
+        print isnull(@table_owner, '@table_owner = null')
+        print isnull(@table_type, '@table_type = null')
+        print isnull(@type1, '@type1 = null')
+        print '*************'
+        */
+        select
+            TABLE_QUALIFIER = convert(sysname,db_name()),
+            TABLE_OWNER     = convert(sysname,schema_name(o.schema_id)),
+            TABLE_NAME      = convert(sysname,o.name),
+            TABLE_TYPE      = convert(varchar(32),
+                                        rtrim(substring('SYSTEM TABLE            TABLE       VIEW       ',
+                                              (ascii(o.type)-83)*12+1,
+                                              12))  -- 'S'=0,'U'=2,'V'=3
+                                     ),
+            REMARKS = convert(varchar(254),null)    -- Remarks are NULL.
+
+        from
+            sys.all_objects o
+
+        where
+            o.type in ('S','U','V') and
+            has_perms_by_name(quotename(schema_name(o.schema_id)) + '.' + quotename(o.name),
+                              'object',
+                              'select') = 1 and
+            charindex(substring(o.type,1,1),@type1) &lt;&gt; 0 and -- Only desired types.
+            (@table_name  is NULL or o.name like @table_name) and
+            (@table_owner is NULL or schema_name(o.schema_id) like @table_owner)
+        order by 4, 1, 2, 3
+    end
+</Query_x0020_Name>
+    <Execution_x0020_Count>4</Execution_x0020_Count>
+    <Max_x0020_Elapsed_x0020_Time>899577</Max_x0020_Elapsed_x0020_Time>
+    <Avg_x0020_Elapsed_x0020_Time>233</Avg_x0020_Elapsed_x0020_Time>
+    <Log_x0020_Created_x0020_On>2012-06-08T12:38:50.473-07:00</Log_x0020_Created_x0020_On>
+    <Frequency_x0020_Per_x0020_Sec>0</Frequency_x0020_Per_x0020_Sec>
+  </Top_x0020_20_x0020_Longest_x0020_Running_x0020_Queries>
+  <Top_x0020_20_x0020_Longest_x0020_Running_x0020_Queries>
+    <Query_x0020_Name>(@_msparam_0 nvarchar(4000))SELECT
+SCHEMA_NAME(udf.schema_id) AS [Schema],
+udf.name AS [Name],
+udf.object_id AS [ID],
+(case when 'FN' = udf.type then 1 when 'FS' = udf.type then 1 when 'IF' = udf.type then 3 when 'TF' = udf.type then 2 when 'FT' = udf.type then 2 else 0 end) AS [FunctionType],
+CASE WHEN udf.type IN ('FN','IF','TF') THEN 1 WHEN udf.type IN ('FS','FT') THEN 2 ELSE 1 END AS [ImplementationType],
+CAST(
+ case 
+    when udf.is_ms_shipped = 1 then 1
+    when (
+        select 
+            major_id 
+        from 
+            sys.extended_properties 
+        where 
+            major_id = udf.object_id and 
+            minor_id = 0 and 
+            class = 1 and 
+            name = N'microsoft_database_tools_support') 
+        is not null then 1
+    else 0
+end          
+             AS bit) AS [IsSystemObject],
+CAST(CASE WHEN ISNULL(smudf.definition, ssmudf.definition) IS NULL THEN 1 ELSE 0 END AS bit) AS [IsEncrypted],
+CAST(OBJECTPROPERTYEX(udf.object_id, N'IsSchemaBound') AS bit) AS [IsSchemaBound],
+usrt.name AS [DataType],
+ISNULL(baset.name, N'') AS [SystemType],
+CAST(CASE WHEN baset.name IN (N'nchar', N'nvarchar') AND ret_param.max_length &lt;&gt; -1 THEN ret_param.max_length/2 ELSE ret_param.max_length END AS int) AS [Length],
+CAST(ret_param.precision AS int) AS [NumericPrecision],
+CAST(ret_param.scale AS int) AS [NumericScale],
+ISNULL(xscret_param.name, N'') AS [XmlSchemaNamespace],
+ISNULL(s2ret_param.name, N'') AS [XmlSchemaNamespaceSchema],
+ISNULL( (case ret_param.is_xml_document when 1 then 2 else 1 end), 0) AS [XmlDocumentConstraint],
+sret_param.name AS [DataTypeSchema]
+FROM
+sys.all_objects AS udf
+LEFT OUTER JOIN sys.sql_modules AS smudf ON smudf.object_id = udf.object_id
+LEFT OUTER JOIN sys.system_sql_modules AS ssmudf ON ssmudf.object_id = udf.object_id
+LEFT OUTER JOIN sys.all_parameters AS ret_param ON ret_param.object_id = udf.object_id and ret_param.is_output = @_msparam_0
+LEFT OUTER JOIN sys.types AS usrt ON usrt.user_type_id = ret_param.user_type_id
+LEFT OUTER JOIN sys.types AS baset ON (baset.user_type_id = ret_param.system_type_id and baset.user_type_id = baset.system_type_id) or ((baset.system_type_id = ret_param.system_type_id) and (baset.user_type_id = ret_param.user_type_id) and (baset.is_user_defined = 0) and (baset.is_assembly_type = 1)) 
+LEFT OUTER JOIN sys.xml_schema_collections AS xscret_param ON xscret_param.xml_collection_id = ret_param.xml_collection_id
+LEFT OUTER JOIN sys.schemas AS s2ret_param ON s2ret_param.schema_id = xscret_param.schema_id
+LEFT OUTER JOIN sys.schemas AS sret_param ON sret_param.schema_id = usrt.schema_id
+WHERE
+(udf.type in ('TF', 'FN', 'IF', 'FS', 'FT'))
+ORDER BY
+[Schema] ASC,[Name] ASC</Query_x0020_Name>
+    <Execution_x0020_Count>2</Execution_x0020_Count>
+    <Max_x0020_Elapsed_x0020_Time>474699</Max_x0020_Elapsed_x0020_Time>
+    <Avg_x0020_Elapsed_x0020_Time>336</Avg_x0020_Elapsed_x0020_Time>
+    <Log_x0020_Created_x0020_On>2012-06-04T14:28:32.55-07:00</Log_x0020_Created_x0020_On>
+    <Frequency_x0020_Per_x0020_Sec>0</Frequency_x0020_Per_x0020_Sec>
+  </Top_x0020_20_x0020_Longest_x0020_Running_x0020_Queries>
+  <Top_x0020_20_x0020_Longest_x0020_Running_x0020_Queries>
+    <Query_x0020_Name>
+			SELECT DISTINCT TOP 20
+			t.TEXT [Query Name],
+			s.execution_count AS [Execution Count],
+			s.max_elapsed_time AS [Max Elapsed Time],
+			ISNULL(s.total_elapsed_time / 1000 / NULLIF(s.execution_count, 0), 0) AS [Avg Elapsed Time],
+			s.creation_time AS [Log Created On],
+			ISNULL(s.execution_count / 1000 / NULLIF(DATEDIFF(s, s.creation_time, GETDATE()), 0), 0) AS [Frequency Per Sec]
+			FROM sys.dm_exec_query_stats s
+			CROSS APPLY sys.dm_exec_sql_text( s.sql_handle ) t
+			ORDER BY s.max_elapsed_time DESC, [Execution Count] DESC
+		</Query_x0020_Name>
+    <Execution_x0020_Count>2</Execution_x0020_Count>
+    <Max_x0020_Elapsed_x0020_Time>350643</Max_x0020_Elapsed_x0020_Time>
+    <Avg_x0020_Elapsed_x0020_Time>187</Avg_x0020_Elapsed_x0020_Time>
+    <Log_x0020_Created_x0020_On>2012-06-15T13:40:27.08-07:00</Log_x0020_Created_x0020_On>
+    <Frequency_x0020_Per_x0020_Sec>0</Frequency_x0020_Per_x0020_Sec>
+  </Top_x0020_20_x0020_Longest_x0020_Running_x0020_Queries>
+  <Top_x0020_20_x0020_Longest_x0020_Running_x0020_Queries>
+    <Query_x0020_Name>SELECT
+log.name AS [Name],
+log.principal_id AS [ID],
+ISNULL(ak.name,N'') AS [AsymmetricKey],
+ISNULL(cert.name,N'') AS [Certificate],
+ISNULL(c.name,N'') AS [Credential],
+CASE WHEN N'U' = log.type THEN 0 WHEN N'G' = log.type THEN 1 WHEN N'S' = log.type THEN 2 WHEN N'C' = log.type THEN 3 WHEN N'K' = log.type THEN 4 END AS [LoginType]
+FROM
+sys.server_principals AS log
+LEFT OUTER JOIN master.sys.asymmetric_keys AS ak ON ak.sid = log.sid
+LEFT OUTER JOIN master.sys.certificates AS cert ON cert.sid = log.sid
+LEFT OUTER JOIN sys.credentials AS c ON c.credential_id = log.credential_id
+WHERE
+(log.type in ('U', 'G', 'S', 'C', 'K') AND log.principal_id not between 101 and 255 AND log.name &lt;&gt; N'##MS_AgentSigningCertificate##')
+ORDER BY
+[Name] ASC</Query_x0020_Name>
+    <Execution_x0020_Count>2</Execution_x0020_Count>
+    <Max_x0020_Elapsed_x0020_Time>342018</Max_x0020_Elapsed_x0020_Time>
+    <Avg_x0020_Elapsed_x0020_Time>173</Avg_x0020_Elapsed_x0020_Time>
+    <Log_x0020_Created_x0020_On>2012-06-04T14:28:31.773-07:00</Log_x0020_Created_x0020_On>
+    <Frequency_x0020_Per_x0020_Sec>0</Frequency_x0020_Per_x0020_Sec>
+  </Top_x0020_20_x0020_Longest_x0020_Running_x0020_Queries>
+  <Top_x0020_20_x0020_Longest_x0020_Running_x0020_Queries>
+    <Query_x0020_Name>
+			SELECT DISTINCT TOP 20
+				t.TEXT QueryName,
+				s.execution_count AS ExecutionCount,
+				s.max_elapsed_time AS MaxElapsedTime,
+				ISNULL(s.total_elapsed_time / 1000 / NULLIF(s.execution_count, 0), 0) AS AvgElapsedTime,
+				s.creation_time AS LogCreatedOn,
+				ISNULL(s.execution_count / 1000 / NULLIF(DATEDIFF(s, s.creation_time, GETDATE()), 0), 0) AS FrequencyPerSec
+			FROM sys.dm_exec_query_stats s
+				CROSS APPLY sys.dm_exec_sql_text( s.sql_handle ) t
+			ORDER BY s.max_elapsed_time DESC, ExecutionCount DESC
+		</Query_x0020_Name>
+    <Execution_x0020_Count>46</Execution_x0020_Count>
+    <Max_x0020_Elapsed_x0020_Time>315163</Max_x0020_Elapsed_x0020_Time>
+    <Avg_x0020_Elapsed_x0020_Time>40</Avg_x0020_Elapsed_x0020_Time>
+    <Log_x0020_Created_x0020_On>2012-06-05T15:28:00.127-07:00</Log_x0020_Created_x0020_On>
+    <Frequency_x0020_Per_x0020_Sec>0</Frequency_x0020_Per_x0020_Sec>
+  </Top_x0020_20_x0020_Longest_x0020_Running_x0020_Queries>
+  <Top_x0020_20_x0020_Longest_x0020_Running_x0020_Queries>
+    <Query_x0020_Name>SELECT
+	Database_ID,
+	CONVERT(VARCHAR(35),DB_NAME(idx.database_id)) AS [DB Name],
+	sch.name [Schema Name],
+	idx.[Object_ID],CONVERT(VARCHAR(35),OBJECT_NAME(idx.[OBJECT_ID])) AS 'OBJECT NAME',
+	idx.Partition_Number [Partition Number],
+	idx.Index_ID [Index ID],
+	idx.Index_Type_Desc [Index Type Desc],
+	idx.Alloc_Unit_Type_Desc [Alloc Unit Type Desc],
+	idx.Index_Depth,Index_Level [Index Depth Level],
+	idx.Avg_Fragmentation_In_Percent [Avg Frag Percent],
+	idx.Fragment_Count [Frag Count],
+	Avg_Fragment_Size_In_Pages [Avg Frag Size In Pages],
+	idx.Page_Count [Page Count],
+	idx.Avg_Page_Space_Used_In_Percent [Avg Page Space Used In Percent],
+	idx.Record_Count [Record Count],
+	Ghost_Record_Count [Ghost Record Count],
+	idx.Version_Ghost_Record_Count [Version Ghost Record Count],
+	idx.Min_Record_Size_In_Bytes [Min Record Size In Bytes],
+	idx.Max_Record_Size_In_Bytes [Max Record Size In Bytes],
+	idx.Avg_Record_Size_In_Bytes [Avg Record Size In Bytes],
+	Forwarded_Record_Count [Forwarded Record Count]
+FROM sys.dm_db_index_physical_stats(DB_ID(), NULL, NULL, NULL, 'DETAILED') idx
+	INNER JOIN sys.tables t
+	ON idx.object_id = t.object_id
+	INNER JOIN sys.schemas sch
+	ON sch.schema_id = t.schema_id
+WHERE idx.page_count &gt; 100
+	AND idx.avg_fragmentation_in_percent &gt; 15
+	AND idx.Index_ID &gt; 0
+ORDER BY idx.avg_fragmentation_in_percent desc</Query_x0020_Name>
+    <Execution_x0020_Count>1</Execution_x0020_Count>
+    <Max_x0020_Elapsed_x0020_Time>262134</Max_x0020_Elapsed_x0020_Time>
+    <Avg_x0020_Elapsed_x0020_Time>262</Avg_x0020_Elapsed_x0020_Time>
+    <Log_x0020_Created_x0020_On>2012-06-15T07:04:22.56-07:00</Log_x0020_Created_x0020_On>
+    <Frequency_x0020_Per_x0020_Sec>0</Frequency_x0020_Per_x0020_Sec>
+  </Top_x0020_20_x0020_Longest_x0020_Running_x0020_Queries>
+  <Top_x0020_20_x0020_Longest_x0020_Running_x0020_Queries>
+    <Query_x0020_Name>SELECT
+	Database_ID,
+	CONVERT(VARCHAR(35),DB_NAME(idx.database_id)) AS DatabaseName,
+	sch.name [SchemaName],
+	idx.[Object_ID],CONVERT(VARCHAR(35),OBJECT_NAME(idx.[OBJECT_ID])) AS 'OBJECT NAME',
+	idx.Partition_Number,
+	idx.Index_ID,
+	idx.Index_Type_Desc,
+	idx.Alloc_Unit_Type_Desc,
+	idx.Index_Depth,Index_Level,
+	idx.Avg_Fragmentation_In_Percent,
+	idx.Fragment_Count,Avg_Fragment_Size_In_Pages,
+	idx.Page_Count,
+	idx.Avg_Page_Space_Used_In_Percent,
+	idx.Record_Count,Ghost_Record_Count,
+	idx.Version_Ghost_Record_Count,
+	idx.Min_Record_Size_In_Bytes,
+	idx.Max_Record_Size_In_Bytes,
+	idx.Avg_Record_Size_In_Bytes,Forwarded_Record_Count
+FROM sys.dm_db_index_physical_stats(DB_ID(), NULL, NULL, NULL, 'DETAILED') idx
+	INNER JOIN sys.tables t
+	ON idx.object_id = t.object_id
+	INNER JOIN sys.schemas sch
+	ON sch.schema_id = t.schema_id
+WHERE idx.page_count &gt; 100
+	AND idx.avg_fragmentation_in_percent &gt; 15
+	AND idx.Index_ID &gt; 0
+ORDER BY idx.avg_fragmentation_in_percent desc</Query_x0020_Name>
+    <Execution_x0020_Count>1</Execution_x0020_Count>
+    <Max_x0020_Elapsed_x0020_Time>240878</Max_x0020_Elapsed_x0020_Time>
+    <Avg_x0020_Elapsed_x0020_Time>240</Avg_x0020_Elapsed_x0020_Time>
+    <Log_x0020_Created_x0020_On>2012-06-04T14:28:33.647-07:00</Log_x0020_Created_x0020_On>
+    <Frequency_x0020_Per_x0020_Sec>0</Frequency_x0020_Per_x0020_Sec>
+  </Top_x0020_20_x0020_Longest_x0020_Running_x0020_Queries>
+  <Top_x0020_20_x0020_Longest_x0020_Running_x0020_Queries>
+    <Query_x0020_Name>create procedure sys.sp_who2  --- 1995/11/03 10:16
+    @loginame     sysname = NULL
+as
+
+set nocount on
+
+declare
+    @retcode         int
+
+declare
+    @sidlow         varbinary(85)
+   ,@sidhigh        varbinary(85)
+   ,@sid1           varbinary(85)
+   ,@spidlow         int
+   ,@spidhigh        int
+
+declare
+    @charMaxLenLoginName      varchar(6)
+   ,@charMaxLenDBName         varchar(6)
+   ,@charMaxLenCPUTime        varchar(10)
+   ,@charMaxLenDiskIO         varchar(10)
+   ,@charMaxLenHostName       varchar(10)
+   ,@charMaxLenProgramName    varchar(10)
+   ,@charMaxLenLastBatch      varchar(10)
+   ,@charMaxLenCommand        varchar(10)
+
+declare
+    @charsidlow              varchar(85)
+   ,@charsidhigh             varchar(85)
+   ,@charspidlow              varchar(11)
+   ,@charspidhigh             varchar(11)
+
+-- defaults
+
+select @retcode         = 0      -- 0=good ,1=bad.
+select @sidlow = convert(varbinary(85), (replicate(char(0), 85)))
+select @sidhigh = convert(varbinary(85), (replicate(char(1), 85)))
+
+select
+    @spidlow         = 0
+   ,@spidhigh        = 32767
+
+--------------------------------------------------------------
+IF (@loginame IS     NULL)  --Simple default to all LoginNames.
+      GOTO LABEL_17PARM1EDITED
+
+-- select @sid1 = suser_sid(@loginame)
+select @sid1 = null
+if exists(select * from sys.syslogins where loginname = @loginame)
+	select @sid1 = sid from sys.syslogins where loginname = @loginame
+
+IF (@sid1 IS NOT NULL)  --Parm is a recognized login name.
+   begin
+   select @sidlow  = suser_sid(@loginame)
+         ,@sidhigh = suser_sid(@loginame)
+   GOTO LABEL_17PARM1EDITED
+   end
+
+--------
+
+IF (lower(@loginame collate Latin1_General_CI_AS) IN ('active'))  --Special action, not sleeping.
+   begin
+   select @loginame = lower(@loginame collate Latin1_General_CI_AS)
+   GOTO LABEL_17PARM1EDITED
+   end
+
+--------
+
+IF (patindex ('%[^0-9]%' , isnull(@loginame,'z')) = 0)  --Is a number.
+   begin
+   select
+             @spidlow   = convert(int, @loginame)
+            ,@spidhigh  = convert(int, @loginame)
+   GOTO LABEL_17PARM1EDITED
+   end
+
+--------
+
+raiserror(15007,-1,-1,@loginame)
+select @retcode = 1
+GOTO LABEL_86RETURN
+
+
+LABEL_17PARM1EDITED:
+
+
+--------------------  Capture consistent sysprocesses.  -------------------
+
+select
+
+  spid
+ ,status
+ ,sid
+ ,hostname
+ ,program_name
+ ,cmd
+ ,cpu
+ ,physical_io
+ ,blocked
+ ,dbid
+ ,convert(sysname, rtrim(loginame))
+        as loginname
+ ,spid as 'spid_sort'
+
+ ,  substring( convert(varchar,last_batch,111) ,6  ,5 ) + ' '
+  + substring( convert(varchar,last_batch,113) ,13 ,8 )
+       as 'last_batch_char'
+ ,request_id
+
+      into    #tb1_sysprocesses
+      from sys.sysprocesses_ex with (nolock)
+
+if @@error &lt;&gt; 0
+	begin
+		select @retcode = @@error
+		GOTO LABEL_86RETURN
+	end
+
+--------Screen out any rows?
+
+if (@loginame in ('active'))
+   delete #tb1_sysprocesses
+         where   lower(status)  = 'sleeping'
+         and     upper(cmd)    in (
+                     'AWAITING COMMAND'
+                    ,'LAZY WRITER'
+                    ,'CHECKPOINT SLEEP'
+                                  )
+
+         and     blocked       = 0
+
+
+
+--------Prepare to dynamically optimize column widths.
+
+
+select
+    @charsidlow     = convert(varchar(85),@sidlow)
+   ,@charsidhigh    = convert(varchar(85),@sidhigh)
+   ,@charspidlow     = convert(varchar,@spidlow)
+   ,@charspidhigh    = convert(varchar,@spidhigh)
+
+
+
+select
+             @charMaxLenLoginName =
+                  convert( varchar
+                          ,isnull( max( datalength(loginname)) ,5)
+                         )
+
+            ,@charMaxLenDBName    =
+                  convert( varchar
+                          ,isnull( max( datalength( rtrim(convert(varchar(128),db_name(dbid))))) ,6)
+                         )
+
+            ,@charMaxLenCPUTime   =
+                  convert( varchar
+                          ,isnull( max( datalength( rtrim(convert(varchar(128),cpu)))) ,7)
+                         )
+
+            ,@charMaxLenDiskIO    =
+                  convert( varchar
+                          ,isnull( max( datalength( rtrim(convert(varchar(128),physical_io)))) ,6)
+                         )
+
+            ,@charMaxLenCommand  =
+                  convert( varchar
+                          ,isnull( max( datalength( rtrim(convert(varchar(128),cmd)))) ,7)
+                         )
+
+            ,@charMaxLenHostName  =
+                  convert( varchar
+                          ,isnull( max( datalength( rtrim(convert(varchar(128),hostname)))) ,8)
+                         )
+
+            ,@charMaxLenProgramName =
+                  convert( varchar
+                          ,isnull( max( datalength( rtrim(convert(varchar(128),program_name)))) ,11)
+                         )
+
+            ,@charMaxLenLastBatch =
+                  convert( varchar
+                          ,isnull( max( datalength( rtrim(convert(varchar(128),last_batch_char)))) ,9)
+                         )
+      from
+             #tb1_sysprocesses
+      where
+             spid &gt;= @spidlow
+      and    spid &lt;= @spidhigh
+
+
+
+--------Output the report.
+
+
+EXEC(
+'
+SET nocount off
+
+SELECT
+             SPID          = convert(char(5),spid)
+
+            ,Status        =
+                  CASE lower(status)
+                     When ''sleeping'' Then lower(status)
+                     Else                   upper(status)
+                  END
+
+            ,Login         = substring(loginname,1,' + @charMaxLenLoginName + ')
+
+            ,HostName      =
+                  CASE hostname
+                     When Null  Then ''  .''
+                     When '' '' Then ''  .''
+                     Else    substring(hostname,1,' + @charMaxLenHostName + ')
+                  END
+
+            ,BlkBy         =
+                  CASE               isnull(convert(char(5),blocked),''0'')
+                     When ''0'' Then ''  .''
+                     Else            isnull(convert(char(5),blocked),''0'')
+                  END
+
+            ,DBName        = substring(case when dbid = 0 then null when dbid &lt;&gt; 0 then db_name(dbid) end,1,' + @charMaxLenDBName + ')
+            ,Command       = substring(cmd,1,' + @charMaxLenCommand + ')
+
+            ,CPUTime       = substring(convert(varchar,cpu),1,' + @charMaxLenCPUTime + ')
+            ,DiskIO        = substring(convert(varchar,physical_io),1,' + @charMaxLenDiskIO + ')
+
+            ,LastBatch     = substring(last_batch_char,1,' + @charMaxLenLastBatch + ')
+
+            ,ProgramName   = substring(program_name,1,' + @charMaxLenProgramName + ')
+            ,SPID          = convert(char(5),spid)  --Handy extra for right-scrolling users.
+            ,REQUESTID       = convert(char(5),request_id)
+      from
+             #tb1_sysprocesses  --Usually DB qualification is needed in exec().
+      where
+             spid &gt;= ' + @charspidlow  + '
+      and    spid &lt;= ' + @charspidhigh + '
+
+      -- (Seems always auto sorted.)   order by spid_sort
+
+SET nocount on
+'
+)
+
+
+LABEL_86RETURN:
+
+
+if (object_id('tempdb..#tb1_sysprocesses') is not null)
+            drop table #tb1_sysprocesses
+
+return @retcode -- sp_who2
+</Query_x0020_Name>
+    <Execution_x0020_Count>1</Execution_x0020_Count>
+    <Max_x0020_Elapsed_x0020_Time>228251</Max_x0020_Elapsed_x0020_Time>
+    <Avg_x0020_Elapsed_x0020_Time>228</Avg_x0020_Elapsed_x0020_Time>
+    <Log_x0020_Created_x0020_On>2012-06-08T12:38:58.373-07:00</Log_x0020_Created_x0020_On>
+    <Frequency_x0020_Per_x0020_Sec>0</Frequency_x0020_Per_x0020_Sec>
+  </Top_x0020_20_x0020_Longest_x0020_Running_x0020_Queries>
+  <Top_x0020_20_x0020_Longest_x0020_Running_x0020_Queries>
+    <Query_x0020_Name>select * from sys.columns where name like '%fail%'</Query_x0020_Name>
+    <Execution_x0020_Count>1</Execution_x0020_Count>
+    <Max_x0020_Elapsed_x0020_Time>223106</Max_x0020_Elapsed_x0020_Time>
+    <Avg_x0020_Elapsed_x0020_Time>223</Avg_x0020_Elapsed_x0020_Time>
+    <Log_x0020_Created_x0020_On>2012-06-12T10:54:40.527-07:00</Log_x0020_Created_x0020_On>
+    <Frequency_x0020_Per_x0020_Sec>0</Frequency_x0020_Per_x0020_Sec>
+  </Top_x0020_20_x0020_Longest_x0020_Running_x0020_Queries>
+  <Top_x0020_20_x0020_Longest_x0020_Running_x0020_Queries>
+    <Query_x0020_Name>
+			WITH RingBuffer AS
+			(
+			SELECT CAST(dorb.record AS XML) AS xRecord, dorb.timestamp
+			FROM sys.dm_os_ring_buffers AS dorb
+			WHERE dorb.ring_buffer_type = 'RING_BUFFER_RESOURCE_MONITOR'
+			)
+
+			SELECT
+			xr.value('(ResourceMonitor/Notification)[1]', 'varchar(75)') AS RmNotification,
+			xr.value('(ResourceMonitor/IndicatorsProcess)[1]','tinyint') AS IndicatorsProcess,
+			xr.value('(ResourceMonitor/IndicatorsSystem)[1]','tinyint') AS IndicatorsSystem,
+			DATEADD(ms, -1 * (dosi.ms_ticks/1000) - rb.timestamp, GETDATE()) AS RmDateTime,
+			xr.value('(MemoryNode/TargetMemory)[1]','bigint') AS TargetMemory,
+			xr.value('(MemoryNode/ReserveMemory)[1]','bigint') AS ReserveMemory,
+			xr.value('(MemoryNode/CommittedMemory)[1]','bigint') AS CommitedMemory,
+			xr.value('(MemoryNode/SharedMemory)[1]','bigint') AS SharedMemory,
+			xr.value('(MemoryNode/PagesMemory)[1]','bigint') AS PagesMemory,
+			xr.value('(MemoryRecord/MemoryUtilization)[1]','bigint') AS MemoryUtilization,
+			xr.value('(MemoryRecord/TotalPhysicalMemory)[1]','bigint') AS TotalPhysicalMemory,
+			xr.value('(MemoryRecord/AvailablePhysicalMemory)[1]','bigint') AS AvailablePhysicalMemory,
+			xr.value('(MemoryRecord/TotalPageFile)[1]','bigint') AS TotalPageFile,
+			xr.value('(MemoryRecord/AvailablePageFile)[1]','bigint') AS AvailablePageFile,
+			xr.value('(MemoryRecord/TotalVirtualAddressSpace)[1]','bigint') AS TotalVirtualAddressSpace,
+			xr.value('(MemoryRecord/AvailableVirtualAddressSpace)[1]','bigint') AS AvailableVirtualAddressSpace,
+			xr.value('(MemoryRecord/AvailableExtendedVirtualAddressSpace)[1]','bigint') AS AvailableExtendedVirtualAddressSpace
+			FROM RingBuffer AS rb
+			CROSS APPLY rb.xRecord.nodes('Record') record (xr)
+			CROSS JOIN sys.dm_os_sys_info AS dosi
+			ORDER BY RmDateTime DESC;
+		</Query_x0020_Name>
+    <Execution_x0020_Count>28</Execution_x0020_Count>
+    <Max_x0020_Elapsed_x0020_Time>220326</Max_x0020_Elapsed_x0020_Time>
+    <Avg_x0020_Elapsed_x0020_Time>25</Avg_x0020_Elapsed_x0020_Time>
+    <Log_x0020_Created_x0020_On>2012-06-07T08:55:28.2-07:00</Log_x0020_Created_x0020_On>
+    <Frequency_x0020_Per_x0020_Sec>0</Frequency_x0020_Per_x0020_Sec>
+  </Top_x0020_20_x0020_Longest_x0020_Running_x0020_Queries>
+  <Top_x0020_20_x0020_Longest_x0020_Running_x0020_Queries>
+    <Query_x0020_Name>
+			SELECT
+				Database_ID,
+				CONVERT(VARCHAR(35),DB_NAME(idx.database_id)) AS DatabaseName,
+				sch.name [SchemaName],
+				idx.[Object_ID],CONVERT(VARCHAR(35),OBJECT_NAME(idx.[OBJECT_ID])) AS 'OBJECT NAME',
+				idx.Partition_Number,
+				idx.Index_ID,
+				idx.Index_Type_Desc,
+				idx.Alloc_Unit_Type_Desc,
+				idx.Index_Depth,Index_Level,
+				idx.Avg_Fragmentation_In_Percent,
+				idx.Fragment_Count,Avg_Fragment_Size_In_Pages,
+				idx.Page_Count,
+				idx.Avg_Page_Space_Used_In_Percent,
+				idx.Record_Count,Ghost_Record_Count,
+				idx.Version_Ghost_Record_Count,
+				idx.Min_Record_Size_In_Bytes,
+				idx.Max_Record_Size_In_Bytes,
+				idx.Avg_Record_Size_In_Bytes,Forwarded_Record_Count
+			FROM sys.dm_db_index_physical_stats(DB_ID(), NULL, NULL, NULL, 'DETAILED') idx
+				INNER JOIN sys.tables t
+				ON idx.object_id = t.object_id
+				INNER JOIN sys.schemas sch
+				ON sch.schema_id = t.schema_id
+			WHERE idx.page_count &gt; 100
+				AND idx.avg_fragmentation_in_percent &gt; 15
+				AND idx.Index_ID &gt; 0
+			ORDER BY idx.avg_fragmentation_in_percent desc
+		</Query_x0020_Name>
+    <Execution_x0020_Count>46</Execution_x0020_Count>
+    <Max_x0020_Elapsed_x0020_Time>208266</Max_x0020_Elapsed_x0020_Time>
+    <Avg_x0020_Elapsed_x0020_Time>11</Avg_x0020_Elapsed_x0020_Time>
+    <Log_x0020_Created_x0020_On>2012-06-05T15:27:59.537-07:00</Log_x0020_Created_x0020_On>
+    <Frequency_x0020_Per_x0020_Sec>0</Frequency_x0020_Per_x0020_Sec>
+  </Top_x0020_20_x0020_Longest_x0020_Running_x0020_Queries>
+  <Top_x0020_20_x0020_Longest_x0020_Running_x0020_Queries>
+    <Query_x0020_Name>(@_msparam_0 nvarchar(4000),@_msparam_1 nvarchar(4000),@_msparam_2 nvarchar(4000))SELECT
+SCHEMA_NAME(sp.schema_id) AS [Schema],
+sp.name AS [Name],
+sp.object_id AS [ID],
+CASE WHEN sp.type = N'P' THEN 1 WHEN sp.type = N'PC' THEN 2 ELSE 1 END AS [ImplementationType],
+CAST(
+ case 
+    when sp.is_ms_shipped = 1 then 1
+    when (
+        select 
+            major_id 
+        from 
+            sys.extended_properties 
+        where 
+            major_id = sp.object_id and 
+            minor_id = 0 and 
+            class = 1 and 
+            name = N'microsoft_database_tools_support') 
+        is not null then 1
+    else 0
+end          
+             AS bit) AS [IsSystemObject],
+CAST(CASE WHEN ISNULL(smsp.definition, ssmsp.definition) IS NULL THEN 1 ELSE 0 END AS bit) AS [IsEncrypted]
+FROM
+sys.all_objects AS sp
+LEFT OUTER JOIN sys.sql_modules AS smsp ON smsp.object_id = sp.object_id
+LEFT OUTER JOIN sys.system_sql_modules AS ssmsp ON ssmsp.object_id = sp.object_id
+WHERE
+(sp.type = @_msparam_0 OR sp.type = @_msparam_1 OR sp.type=@_msparam_2)
+ORDER BY
+[Schema] ASC,[Name] ASC</Query_x0020_Name>
+    <Execution_x0020_Count>1</Execution_x0020_Count>
+    <Max_x0020_Elapsed_x0020_Time>184668</Max_x0020_Elapsed_x0020_Time>
+    <Avg_x0020_Elapsed_x0020_Time>184</Avg_x0020_Elapsed_x0020_Time>
+    <Log_x0020_Created_x0020_On>2012-06-12T12:33:00.06-07:00</Log_x0020_Created_x0020_On>
+    <Frequency_x0020_Per_x0020_Sec>0</Frequency_x0020_Per_x0020_Sec>
+  </Top_x0020_20_x0020_Longest_x0020_Running_x0020_Queries>
+  <Top_x0020_20_x0020_Longest_x0020_Running_x0020_Queries>
+    <Query_x0020_Name>SELECT
+u.name AS [Name],
+u.principal_id AS [ID],
+ISNULL(ak.name,N'') AS [AsymmetricKey],
+ISNULL(cert.name,N'') AS [Certificate],
+ISNULL(suser_sname(u.sid),N'') AS [Login],
+CASE WHEN N'C' = u.type THEN 1 WHEN N'K' = u.type THEN 2 WHEN N'S' = u.type AND suser_sname(u.sid) IS NULL THEN 3 ELSE 0 END AS [UserType]
+FROM
+sys.database_principals AS u
+LEFT OUTER JOIN sys.asymmetric_keys AS ak ON ak.sid = u.sid
+LEFT OUTER JOIN sys.certificates AS cert ON cert.sid = u.sid
+WHERE
+(u.type in ('U', 'S', 'G', 'C', 'K'))
+ORDER BY
+[Name] ASC</Query_x0020_Name>
+    <Execution_x0020_Count>1</Execution_x0020_Count>
+    <Max_x0020_Elapsed_x0020_Time>168220</Max_x0020_Elapsed_x0020_Time>
+    <Avg_x0020_Elapsed_x0020_Time>168</Avg_x0020_Elapsed_x0020_Time>
+    <Log_x0020_Created_x0020_On>2012-06-12T12:32:59.39-07:00</Log_x0020_Created_x0020_On>
+    <Frequency_x0020_Per_x0020_Sec>0</Frequency_x0020_Per_x0020_Sec>
+  </Top_x0020_20_x0020_Longest_x0020_Running_x0020_Queries>
+  <Top_x0020_20_x0020_Longest_x0020_Running_x0020_Queries>
+    <Query_x0020_Name>(@_msparam_0 nvarchar(4000))
+create table #tmp_sp_help_operator
+(id int null, name nvarchar(128) null, enabled tinyint null, email_address nvarchar(100) null, last_email_date int null, last_email_time int null, pager_address nvarchar(100) null, last_pager_date int null, last_pager_time int null, weekday_pager_start_time int null, weekday_pager_end_time int null, saturday_pager_start_time int null, saturday_pager_end_time int null, sunday_pager_start_time int null, sunday_pager_end_time int null, pager_days tinyint null, netsend_address nvarchar(100) null, last_netsend_date int null, last_netsend_time int null, category_name nvarchar(128) null)
+insert into #tmp_sp_help_operator exec msdb.dbo.sp_help_operator
+		
+
+
+SELECT
+tsho.name AS [Name],
+'Server[@Name=' + quotename(CAST(
+        serverproperty(N'Servername')
+       AS sysname),'''') + ']' + '/JobServer' + '/Operator[@Name=' + quotename(tsho.name,'''') + ']' AS [Urn],
+CAST(tsho.enabled AS bit) AS [Enabled]
+FROM
+#tmp_sp_help_operator AS tsho
+WHERE
+(tsho.name=@_msparam_0)
+ORDER BY
+[Name] ASC
+
+drop table #tmp_sp_help_operator
+		
+</Query_x0020_Name>
+    <Execution_x0020_Count>1</Execution_x0020_Count>
+    <Max_x0020_Elapsed_x0020_Time>163914</Max_x0020_Elapsed_x0020_Time>
+    <Avg_x0020_Elapsed_x0020_Time>163</Avg_x0020_Elapsed_x0020_Time>
+    <Log_x0020_Created_x0020_On>2012-06-12T10:56:37.67-07:00</Log_x0020_Created_x0020_On>
+    <Frequency_x0020_Per_x0020_Sec>0</Frequency_x0020_Per_x0020_Sec>
+  </Top_x0020_20_x0020_Longest_x0020_Running_x0020_Queries>
+  <Top_x0020_20_x0020_Longest_x0020_Running_x0020_Queries>
+    <Query_x0020_Name>select * from test1</Query_x0020_Name>
+    <Execution_x0020_Count>1</Execution_x0020_Count>
+    <Max_x0020_Elapsed_x0020_Time>159809</Max_x0020_Elapsed_x0020_Time>
+    <Avg_x0020_Elapsed_x0020_Time>159</Avg_x0020_Elapsed_x0020_Time>
+    <Log_x0020_Created_x0020_On>2012-06-08T12:41:09.26-07:00</Log_x0020_Created_x0020_On>
+    <Frequency_x0020_Per_x0020_Sec>0</Frequency_x0020_Per_x0020_Sec>
+  </Top_x0020_20_x0020_Longest_x0020_Running_x0020_Queries>
+  <Top_x0020_20_x0020_Longest_x0020_Running_x0020_Queries>
+    <Query_x0020_Name>
+			WITH RingBuffer AS
+			(
+			SELECT CAST(dorb.record AS XML) AS xRecord, dorb.timestamp
+			FROM sys.dm_os_ring_buffers AS dorb
+			WHERE dorb.ring_buffer_type = 'RING_BUFFER_RESOURCE_MONITOR'
+			)
+
+			SELECT
+			xr.value('(ResourceMonitor/Notification)[1]', 'varchar(75)') AS [Rm Notification],
+			xr.value('(ResourceMonitor/IndicatorsProcess)[1]','tinyint') AS [Indicators Process],
+			xr.value('(ResourceMonitor/IndicatorsSystem)[1]','tinyint') AS [Indicators System],
+			DATEADD(ms, -1 * (dosi.ms_ticks/1000) - rb.timestamp, GETDATE()) AS [Rm Date Time],
+			xr.value('(MemoryNode/TargetMemory)[1]','bigint') AS [Target Memory],
+			xr.value('(MemoryNode/ReserveMemory)[1]','bigint') AS [Reserve Memory],
+			xr.value('(MemoryNode/CommittedMemory)[1]','bigint') AS [Commited Memory],
+			xr.value('(MemoryNode/SharedMemory)[1]','bigint') AS [Shared Memory],
+			xr.value('(MemoryNode/PagesMemory)[1]','bigint') AS [Pages Memory],
+			xr.value('(MemoryRecord/MemoryUtilization)[1]','bigint') AS [Memory Utilization],
+			xr.value('(MemoryRecord/TotalPhysicalMemory)[1]','bigint') AS [Total Physical Memory],
+			xr.value('(MemoryRecord/AvailablePhysicalMemory)[1]','bigint') AS [Available Physical Memory],
+			xr.value('(MemoryRecord/TotalPageFile)[1]','bigint') AS [Total Page File],
+			xr.value('(MemoryRecord/AvailablePageFile)[1]','bigint') AS [Available Page File],
+			xr.value('(MemoryRecord/TotalVirtualAddressSpace)[1]','bigint') AS [Total Virtual Address Space],
+			xr.value('(MemoryRecord/AvailableVirtualAddressSpace)[1]','bigint') AS [Available Virtual Address Space],
+			xr.value('(MemoryRecord/AvailableExtendedVirtualAddressSpace)[1]','bigint') AS [Available Extended Virtual Address Space]
+			FROM RingBuffer AS rb
+			CROSS APPLY rb.xRecord.nodes('Record') record (xr)
+			CROSS JOIN sys.dm_os_sys_info AS dosi
+			ORDER BY [Rm Date Time]DESC;
+		</Query_x0020_Name>
+    <Execution_x0020_Count>2</Execution_x0020_Count>
+    <Max_x0020_Elapsed_x0020_Time>142673</Max_x0020_Elapsed_x0020_Time>
+    <Avg_x0020_Elapsed_x0020_Time>74</Avg_x0020_Elapsed_x0020_Time>
+    <Log_x0020_Created_x0020_On>2012-06-15T13:40:28.6-07:00</Log_x0020_Created_x0020_On>
+    <Frequency_x0020_Per_x0020_Sec>0</Frequency_x0020_Per_x0020_Sec>
+  </Top_x0020_20_x0020_Longest_x0020_Running_x0020_Queries>
+  <Top_x0020_20_x0020_Longest_x0020_Running_x0020_Queries>
+    <Query_x0020_Name>SELECT
+tr.name AS [Name],
+tr.object_id AS [ID],
+CASE WHEN tr.type = N'TR' THEN 1 WHEN tr.type = N'TA' THEN 2 ELSE 1 END AS [ImplementationType],
+CAST(
+                tr.is_ms_shipped
+            AS bit) AS [IsSystemObject],
+CAST(CASE WHEN ssmod.definition IS NULL THEN 1 ELSE 0 END AS bit) AS [IsEncrypted]
+FROM
+master.sys.server_triggers AS tr
+LEFT OUTER JOIN master.sys.server_assembly_modules AS mod ON mod.object_id = tr.object_id
+LEFT OUTER JOIN sys.server_sql_modules AS ssmod ON ssmod.object_id = tr.object_id
+WHERE
+(tr.parent_class = 100)
+ORDER BY
+[Name] ASC</Query_x0020_Name>
+    <Execution_x0020_Count>2</Execution_x0020_Count>
+    <Max_x0020_Elapsed_x0020_Time>137414</Max_x0020_Elapsed_x0020_Time>
+    <Avg_x0020_Elapsed_x0020_Time>68</Avg_x0020_Elapsed_x0020_Time>
+    <Log_x0020_Created_x0020_On>2012-06-04T14:28:31.82-07:00</Log_x0020_Created_x0020_On>
+    <Frequency_x0020_Per_x0020_Sec>0</Frequency_x0020_Per_x0020_Sec>
+  </Top_x0020_20_x0020_Longest_x0020_Running_x0020_Queries>
+  <High_x0020_Wait_x0020_Times>
+    <wait_type>SQLTRACE_INCREMENTAL_FLUSH_SLEEP</wait_type>
+    <waiting_tasks_count>237381</waiting_tasks_count>
+    <wait_time_ms>949580647</wait_time_ms>
+    <max_wait_time_ms>4539</max_wait_time_ms>
+    <signal_wait_time_ms>908</signal_wait_time_ms>
+  </High_x0020_Wait_x0020_Times>
+  <High_x0020_Wait_x0020_Times>
+    <wait_type>OLEDB</wait_type>
+    <waiting_tasks_count>199355</waiting_tasks_count>
+    <wait_time_ms>1690743</wait_time_ms>
+    <max_wait_time_ms>778675</max_wait_time_ms>
+    <signal_wait_time_ms>0</signal_wait_time_ms>
+  </High_x0020_Wait_x0020_Times>
+  <High_x0020_Wait_x0020_Times>
+    <wait_type>TRACEWRITE</wait_type>
+    <waiting_tasks_count>952</waiting_tasks_count>
+    <wait_time_ms>1689464</wait_time_ms>
+    <max_wait_time_ms>2074</max_wait_time_ms>
+    <signal_wait_time_ms>167</signal_wait_time_ms>
+  </High_x0020_Wait_x0020_Times>
+  <High_x0020_Wait_x0020_Times>
+    <wait_type>ASYNC_NETWORK_IO</wait_type>
+    <waiting_tasks_count>5434</waiting_tasks_count>
+    <wait_time_ms>140641</wait_time_ms>
+    <max_wait_time_ms>2003</max_wait_time_ms>
+    <signal_wait_time_ms>228</signal_wait_time_ms>
+  </High_x0020_Wait_x0020_Times>
+  <High_x0020_Wait_x0020_Times>
+    <wait_type>PREEMPTIVE_OS_WAITFORSINGLEOBJECT</wait_type>
+    <waiting_tasks_count>1575</waiting_tasks_count>
+    <wait_time_ms>139972</wait_time_ms>
+    <max_wait_time_ms>2003</max_wait_time_ms>
+    <signal_wait_time_ms>0</signal_wait_time_ms>
+  </High_x0020_Wait_x0020_Times>
+  <High_x0020_Wait_x0020_Times>
+    <wait_type>PAGEIOLATCH_SH</wait_type>
+    <waiting_tasks_count>936</waiting_tasks_count>
+    <wait_time_ms>12043</wait_time_ms>
+    <max_wait_time_ms>583</max_wait_time_ms>
+    <signal_wait_time_ms>71</signal_wait_time_ms>
+  </High_x0020_Wait_x0020_Times>
+  <High_x0020_Wait_x0020_Times>
+    <wait_type>IO_COMPLETION</wait_type>
+    <waiting_tasks_count>355</waiting_tasks_count>
+    <wait_time_ms>8305</wait_time_ms>
+    <max_wait_time_ms>342</max_wait_time_ms>
+    <signal_wait_time_ms>1</signal_wait_time_ms>
+  </High_x0020_Wait_x0020_Times>
+  <High_x0020_Wait_x0020_Times>
+    <wait_type>PREEMPTIVE_OS_QUERYREGISTRY</wait_type>
+    <waiting_tasks_count>15822</waiting_tasks_count>
+    <wait_time_ms>7271</wait_time_ms>
+    <max_wait_time_ms>342</max_wait_time_ms>
+    <signal_wait_time_ms>0</signal_wait_time_ms>
+  </High_x0020_Wait_x0020_Times>
+  <High_x0020_Wait_x0020_Times>
+    <wait_type>MSQL_XP</wait_type>
+    <waiting_tasks_count>2090</waiting_tasks_count>
+    <wait_time_ms>4679</wait_time_ms>
+    <max_wait_time_ms>409</max_wait_time_ms>
+    <signal_wait_time_ms>0</signal_wait_time_ms>
+  </High_x0020_Wait_x0020_Times>
+  <High_x0020_Wait_x0020_Times>
+    <wait_type>SLEEP_DBSTARTUP</wait_type>
+    <waiting_tasks_count>34</waiting_tasks_count>
+    <wait_time_ms>3600</wait_time_ms>
+    <max_wait_time_ms>116</max_wait_time_ms>
+    <signal_wait_time_ms>8</signal_wait_time_ms>
+  </High_x0020_Wait_x0020_Times>
+  <Operating_x0020_System_x0020_Info>
+    <CPU_x0020_Ticks>2841769656291960</CPU_x0020_Ticks>
+    <MS_x0020_Ticks>949621296</MS_x0020_Ticks>
+    <CPU_x0020_Count>2</CPU_x0020_Count>
+    <Hyperthread_x0020_Ratio>2</Hyperthread_x0020_Ratio>
+    <Physical_x0020_Memory_x0020_Bytes>8453193728</Physical_x0020_Memory_x0020_Bytes>
+    <Virtual_x0020_Memory_x0020_Bytes>8796092891136</Virtual_x0020_Memory_x0020_Bytes>
+    <OS_x0020_Quantum>4</OS_x0020_Quantum>
+    <OS_x0020_Error_x0020_Mode>5</OS_x0020_Error_x0020_Mode>
+    <OS_x0020_Priority_x0020_Class>32</OS_x0020_Priority_x0020_Class>
+    <Max_x0020_Workers_x0020_Count>512</Max_x0020_Workers_x0020_Count>
+    <SQL_x0020_Server_x0020_Start_x0020_Time>2012-06-04T14:06:50.693-07:00</SQL_x0020_Server_x0020_Start_x0020_Time>
+    <Affinity_x0020_Type_x0020_Desc>AUTO</Affinity_x0020_Type_x0020_Desc>
+    <Time_x0020_Source_x0020_Desc>QUERY_PERFORMANCE_COUNTER</Time_x0020_Source_x0020_Desc>
+  </Operating_x0020_System_x0020_Info>
+  <System_x0020_Memory>
+    <Total_x0020_Physical_x0020_Memory_x0020_KB>8255072</Total_x0020_Physical_x0020_Memory_x0020_KB>
+    <Available_x0020_Physical_x0020_Memory_x0020_KB>2564672</Available_x0020_Physical_x0020_Memory_x0020_KB>
+    <Total_x0020_Page_x0020_File_x0020_KB>16508292</Total_x0020_Page_x0020_File_x0020_KB>
+    <System_x0020_High_x0020_Memory_x0020_Signal_x0020_State>true</System_x0020_High_x0020_Memory_x0020_Signal_x0020_State>
+    <System_x0020_Low_x0020_Memory_x0020_Signal_x0020_State>false</System_x0020_Low_x0020_Memory_x0020_Signal_x0020_State>
+    <System_x0020_Memory_x0020_State_x0020_Desc>Available physical memory is high</System_x0020_Memory_x0020_State_x0020_Desc>
+  </System_x0020_Memory>
+  <Backup_x0020_History>
+    <Server>CAI514624                                                                                           </Server>
+    <DB_x0020_Name>HelpDesk</DB_x0020_Name>
+    <Backup_x0020_Start_x0020_Date>2012-03-06T06:52:40-08:00</Backup_x0020_Start_x0020_Date>
+    <Backup_x0020_Finish_x0020_Date>2012-03-06T06:52:41-08:00</Backup_x0020_Finish_x0020_Date>
+    <Backup_x0020_Type>Database</Backup_x0020_Type>
+    <Backup_x0020_Size>6541312</Backup_x0020_Size>
+    <Physical_x0020_Device_x0020_Name>E:\X3\helpdesk.bak</Physical_x0020_Device_x0020_Name>
+    <Backupset_x0020_Name>HelpDesk-Full Database Backup</Backupset_x0020_Name>
+  </Backup_x0020_History>
+  <Backup_x0020_History>
+    <Server>CAI514624                                                                                           </Server>
+    <DB_x0020_Name>HelpDesk</DB_x0020_Name>
+    <Backup_x0020_Start_x0020_Date>2012-01-09T13:12:36-08:00</Backup_x0020_Start_x0020_Date>
+    <Backup_x0020_Finish_x0020_Date>2012-01-09T13:12:37-08:00</Backup_x0020_Finish_x0020_Date>
+    <Backup_x0020_Type>Database</Backup_x0020_Type>
+    <Backup_x0020_Size>5499904</Backup_x0020_Size>
+    <Physical_x0020_Device_x0020_Name>E:\X3\helpdesk.bak</Physical_x0020_Device_x0020_Name>
+    <Backupset_x0020_Name>HelpDesk-Full Database Backup</Backupset_x0020_Name>
+  </Backup_x0020_History>
+  <Backup_x0020_History>
+    <Server>CAI514624                                                                                           </Server>
+    <DB_x0020_Name>HelpDesk</DB_x0020_Name>
+    <Backup_x0020_Start_x0020_Date>2011-07-14T06:20:43-07:00</Backup_x0020_Start_x0020_Date>
+    <Backup_x0020_Finish_x0020_Date>2011-07-14T06:20:44-07:00</Backup_x0020_Finish_x0020_Date>
+    <Backup_x0020_Type>Database</Backup_x0020_Type>
+    <Backup_x0020_Size>3403776</Backup_x0020_Size>
+    <Physical_x0020_Device_x0020_Name>E:\X3\helpdesk.bak</Physical_x0020_Device_x0020_Name>
+    <Backupset_x0020_Name>HelpDesk-Full Database Backup</Backupset_x0020_Name>
+  </Backup_x0020_History>
+  <Backup_x0020_History>
+    <Server>CAI514624                                                                                           </Server>
+    <DB_x0020_Name>myDB</DB_x0020_Name>
+    <Backup_x0020_Start_x0020_Date>2012-03-06T15:07:15-08:00</Backup_x0020_Start_x0020_Date>
+    <Backup_x0020_Finish_x0020_Date>2012-03-06T15:07:15-08:00</Backup_x0020_Finish_x0020_Date>
+    <Backup_x0020_Type>Log</Backup_x0020_Type>
+    <Backup_x0020_Size>83968</Backup_x0020_Size>
+    <Physical_x0020_Device_x0020_Name>c:\temp\sqlnexus.bak</Physical_x0020_Device_x0020_Name>
+    <Backupset_x0020_Name>myDB-Transaction Log  Backup</Backupset_x0020_Name>
+  </Backup_x0020_History>
+  <Backup_x0020_History>
+    <Server>CAI514624                                                                                           </Server>
+    <DB_x0020_Name>myDB</DB_x0020_Name>
+    <Backup_x0020_Start_x0020_Date>2012-02-08T07:29:44-08:00</Backup_x0020_Start_x0020_Date>
+    <Backup_x0020_Finish_x0020_Date>2012-02-08T07:29:44-08:00</Backup_x0020_Finish_x0020_Date>
+    <Backup_x0020_Type>Log</Backup_x0020_Type>
+    <Backup_x0020_Size>17408</Backup_x0020_Size>
+    <Physical_x0020_Device_x0020_Name>\\mainnt\common\Public Common\Bdelamater\myDB2.bak</Physical_x0020_Device_x0020_Name>
+    <Backupset_x0020_Name>myDB-Transaction Log  Backup</Backupset_x0020_Name>
+  </Backup_x0020_History>
+  <Backup_x0020_History>
+    <Server>CAI514624                                                                                           </Server>
+    <DB_x0020_Name>myDB</DB_x0020_Name>
+    <Backup_x0020_Start_x0020_Date>2012-02-08T07:29:15-08:00</Backup_x0020_Start_x0020_Date>
+    <Backup_x0020_Finish_x0020_Date>2012-02-08T07:29:15-08:00</Backup_x0020_Finish_x0020_Date>
+    <Backup_x0020_Type>Log</Backup_x0020_Type>
+    <Backup_x0020_Size>82944</Backup_x0020_Size>
+    <Physical_x0020_Device_x0020_Name>\\mainnt\common\Public Common\Bdelamater\myDB.bak</Physical_x0020_Device_x0020_Name>
+    <Backupset_x0020_Name>myDB-Transaction Log  Backup</Backupset_x0020_Name>
+  </Backup_x0020_History>
+  <Backup_x0020_History>
+    <Server>CAI514624                                                                                           </Server>
+    <DB_x0020_Name>myDB</DB_x0020_Name>
+    <Backup_x0020_Start_x0020_Date>2012-02-08T07:23:14-08:00</Backup_x0020_Start_x0020_Date>
+    <Backup_x0020_Finish_x0020_Date>2012-02-08T07:23:14-08:00</Backup_x0020_Finish_x0020_Date>
+    <Backup_x0020_Type>Database</Backup_x0020_Type>
+    <Backup_x0020_Size>1724416</Backup_x0020_Size>
+    <Physical_x0020_Device_x0020_Name>\\mainnt\common\Public Common\Bdelamater\myDB.bak</Physical_x0020_Device_x0020_Name>
+    <Backupset_x0020_Name>myDB-Full Database Backup</Backupset_x0020_Name>
+  </Backup_x0020_History>
+  <Row_x0020_Counts>
+    <Schema_x0020_ID>dbo</Schema_x0020_ID>
+    <Table_x0020_Name>ExpensiveQueryTest</Table_x0020_Name>
+    <Row_x0020_Count>3209</Row_x0020_Count>
+  </Row_x0020_Counts>
+  <Row_x0020_Counts>
+    <Schema_x0020_ID>dbo</Schema_x0020_ID>
+    <Table_x0020_Name>tblMassInsert</Table_x0020_Name>
+    <Row_x0020_Count>999</Row_x0020_Count>
+  </Row_x0020_Counts>
+  <Row_x0020_Counts>
+    <Schema_x0020_ID>dbo</Schema_x0020_ID>
+    <Table_x0020_Name>logUsage</Table_x0020_Name>
+    <Row_x0020_Count>4</Row_x0020_Count>
+  </Row_x0020_Counts>
+  <Check_x0020_For_x0020_Memory_x0020_Pressure>
+    <Rm_x0020_Notification>RESOURCE_MEMPHYSICAL_HIGH</Rm_x0020_Notification>
+    <Indicators_x0020_Process>0</Indicators_x0020_Process>
+    <Indicators_x0020_System>1</Indicators_x0020_System>
+    <Rm_x0020_Date_x0020_Time>2012-06-15T13:36:45.16-07:00</Rm_x0020_Date_x0020_Time>
+    <Commited_x0020_Memory>33712</Commited_x0020_Memory>
+    <Shared_x0020_Memory>0</Shared_x0020_Memory>
+    <Memory_x0020_Utilization>100</Memory_x0020_Utilization>
+    <Total_x0020_Physical_x0020_Memory>8255072</Total_x0020_Physical_x0020_Memory>
+    <Available_x0020_Physical_x0020_Memory>6844472</Available_x0020_Physical_x0020_Memory>
+    <Total_x0020_Page_x0020_File>16508292</Total_x0020_Page_x0020_File>
+    <Available_x0020_Page_x0020_File>15040460</Available_x0020_Page_x0020_File>
+    <Total_x0020_Virtual_x0020_Address_x0020_Space>8589934464</Total_x0020_Virtual_x0020_Address_x0020_Space>
+    <Available_x0020_Virtual_x0020_Address_x0020_Space>8581471232</Available_x0020_Virtual_x0020_Address_x0020_Space>
+    <Available_x0020_Extended_x0020_Virtual_x0020_Address_x0020_Space>0</Available_x0020_Extended_x0020_Virtual_x0020_Address_x0020_Space>
+  </Check_x0020_For_x0020_Memory_x0020_Pressure>
+  <Connectivity_x0020_Errors>
+    <RunTime>2012-06-15 13:53:12.033</RunTime>
+    <Time_Stamp>2012-06-08T12:50:41.033-07:00</Time_Stamp>
+    <Action>ConnectionClose</Action>
+    <Source>Tds</Source>
+    <SniConnectionId>0A4715F4-1C99-457B-A0FC-64DCD1DBAC91</SniConnectionId>
+    <SniProvider>4</SniProvider>
+    <SPID>55</SPID>
+    <RemoteHost>&lt;local machine&gt;</RemoteHost>
+    <RemotePort>0</RemotePort>
+    <LocalPort>0</LocalPort>
+    <TdsInputBufferError>0</TdsInputBufferError>
+    <TdsOutputBufferError>0</TdsOutputBufferError>
+    <TdsInputBufferBytes>135</TdsInputBufferBytes>
+    <isPhysConnKilled>0</isPhysConnKilled>
+    <DisconnectDueToReadError>0</DisconnectDueToReadError>
+    <NetworkErrorFound>0</NetworkErrorFound>
+    <ErrorBeforeLogin>0</ErrorBeforeLogin>
+    <isSessionKilled>1</isSessionKilled>
+    <NormalDisconnect>0</NormalDisconnect>
+    <NormalLogout>0</NormalLogout>
+    <Record_x0020_Id>0</Record_x0020_Id>
+    <Type>RING_BUFFER_CONNECTIVITY</Type>
+    <Record_x0020_Time>341070459</Record_x0020_Time>
+    <Current_x0020_Time>949621459</Current_x0020_Time>
+  </Connectivity_x0020_Errors>
+  <Connectivity_x0020_Errors>
+    <RunTime>2012-06-15 13:53:12.033</RunTime>
+    <Time_Stamp>2012-06-15T07:03:23.59-07:00</Time_Stamp>
+    <Action>Error</Action>
+    <Source>Tds</Source>
+    <SniConnectionId>6AB70730-0F4D-4484-A602-9FF78F8566C3</SniConnectionId>
+    <SniConsumerError>18456</SniConsumerError>
+    <SniProvider>4</SniProvider>
+    <SPID>56</SPID>
+    <RemoteHost>&lt;local machine&gt;</RemoteHost>
+    <RemotePort>0</RemotePort>
+    <LocalPort>0</LocalPort>
+    <TdsInputBufferError>0</TdsInputBufferError>
+    <TdsOutputBufferError>0</TdsOutputBufferError>
+    <TdsInputBufferBytes>96</TdsInputBufferBytes>
+    <isPhysConnKilled>0</isPhysConnKilled>
+    <DisconnectDueToReadError>0</DisconnectDueToReadError>
+    <NetworkErrorFound>0</NetworkErrorFound>
+    <ErrorBeforeLogin>0</ErrorBeforeLogin>
+    <isSessionKilled>0</isSessionKilled>
+    <NormalDisconnect>0</NormalDisconnect>
+    <Record_x0020_Id>1</Record_x0020_Id>
+    <Type>RING_BUFFER_CONNECTIVITY</Type>
+    <Record_x0020_Time>925033015</Record_x0020_Time>
+    <Current_x0020_Time>949621459</Current_x0020_Time>
+  </Connectivity_x0020_Errors>
+  <Connectivity_x0020_Errors>
+    <RunTime>2012-06-15 13:53:12.033</RunTime>
+    <Time_Stamp>2012-06-15T07:03:23.667-07:00</Time_Stamp>
+    <Action>ConnectionClose</Action>
+    <Source>Tds</Source>
+    <SniConnectionId>6AB70730-0F4D-4484-A602-9FF78F8566C3</SniConnectionId>
+    <SniProvider>4</SniProvider>
+    <SPID>56</SPID>
+    <RemoteHost>&lt;local machine&gt;</RemoteHost>
+    <RemotePort>0</RemotePort>
+    <LocalPort>0</LocalPort>
+    <TdsInputBufferError>0</TdsInputBufferError>
+    <TdsOutputBufferError>0</TdsOutputBufferError>
+    <TdsInputBufferBytes>96</TdsInputBufferBytes>
+    <isPhysConnKilled>0</isPhysConnKilled>
+    <DisconnectDueToReadError>0</DisconnectDueToReadError>
+    <NetworkErrorFound>0</NetworkErrorFound>
+    <ErrorBeforeLogin>0</ErrorBeforeLogin>
+    <isSessionKilled>0</isSessionKilled>
+    <NormalDisconnect>0</NormalDisconnect>
+    <NormalLogout>0</NormalLogout>
+    <Record_x0020_Id>2</Record_x0020_Id>
+    <Type>RING_BUFFER_CONNECTIVITY</Type>
+    <Record_x0020_Time>925033093</Record_x0020_Time>
+    <Current_x0020_Time>949621459</Current_x0020_Time>
+  </Connectivity_x0020_Errors>
+  <Failsafe_x0020_Operator_x0020_Information>
+    <Name>AlertSystem</Name>
+    <FailSafe_x0020_Operator>Bob</FailSafe_x0020_Operator>
+    <Notification_x0020_Method>1</Notification_x0020_Method>
+    <Forwarding_x0020_Server />
+    <Forwarding_x0020_Severity>131</Forwarding_x0020_Severity>
+    <Is_x0020_Forwarded_x0020_Always>false</Is_x0020_Forwarded_x0020_Always>
+    <Pager_x0020_To_x0020_Template />
+    <Pager_x0020_CC_x0020_Template />
+    <Pager_x0020_Subject_x0020_Template />
+    <Pager_x0020_Send_x0020_Subject_x0020_Only>false</Pager_x0020_Send_x0020_Subject_x0020_Only>
+    <Fail_x0020_Safe_x0020_Email_x0020_Address />
+    <Fail_x0020_Safe_x0020_Pager_x0020_Address />
+    <Fail_x0020_Safe_x0020_Net_x0020_Send_x0020_Address />
+  </Failsafe_x0020_Operator_x0020_Information>
+  <Event_x0020_Log_x0020_Checks>
+    <ID>1</ID>
+    <LogType>Application</LogType>
+    <RecordID>1248098</RecordID>
+    <ProviderName>SQLBrowser</ProviderName>
+    <MachineName>CAI514624.best.adinternal.com</MachineName>
+    <TimeCreated>2012-03-17T00:28:18-07:00</TimeCreated>
+    <LevelDisplayName>Information</LevelDisplayName>
+    <InstanceID>12</InstanceID>
+    <Description>The SQLBrowser service has started.
+
+Opcode: Info</Description>
+  </Event_x0020_Log_x0020_Checks>
+  <Event_x0020_Log_x0020_Checks>
+    <ID>2</ID>
+    <LogType>Application</LogType>
+    <RecordID>1257395</RecordID>
+    <ProviderName>LiveMeeting</ProviderName>
+    <MachineName>CAI514624.best.adinternal.com</MachineName>
+    <TimeCreated>2012-03-30T09:02:17-07:00</TimeCreated>
+    <LevelDisplayName>Information</LevelDisplayName>
+    <InstanceID>12</InstanceID>
+    <Description>LiveMeeting has enabled event logging.
+ Information about failed calls will be sent to the Windows event log.
+
+Opcode: </Description>
+  </Event_x0020_Log_x0020_Checks>
+  <Event_x0020_Log_x0020_Checks>
+    <ID>3</ID>
+    <LogType>Application</LogType>
+    <RecordID>1294835</RecordID>
+    <ProviderName>SQLBrowser</ProviderName>
+    <MachineName>CAI514624.best.adinternal.com</MachineName>
+    <TimeCreated>2012-04-21T00:29:38-07:00</TimeCreated>
+    <LevelDisplayName>Information</LevelDisplayName>
+    <InstanceID>12</InstanceID>
+    <Description>The SQLBrowser service has started.
+
+Opcode: Info</Description>
+  </Event_x0020_Log_x0020_Checks>
+  <Event_x0020_Log_x0020_Checks>
+    <ID>4</ID>
+    <LogType>Application</LogType>
+    <RecordID>1300174</RecordID>
+    <ProviderName>SQLBrowser</ProviderName>
+    <MachineName>CAI514624.best.adinternal.com</MachineName>
+    <TimeCreated>2012-05-14T07:02:08-07:00</TimeCreated>
+    <LevelDisplayName>Information</LevelDisplayName>
+    <InstanceID>12</InstanceID>
+    <Description>The SQLBrowser service has started.
+
+Opcode: Info</Description>
+  </Event_x0020_Log_x0020_Checks>
+  <Event_x0020_Log_x0020_Checks>
+    <ID>5</ID>
+    <LogType>Application</LogType>
+    <RecordID>1301432</RecordID>
+    <ProviderName>SQLBrowser</ProviderName>
+    <MachineName>CAI514624.best.adinternal.com</MachineName>
+    <TimeCreated>2012-05-18T09:04:31-07:00</TimeCreated>
+    <LevelDisplayName>Information</LevelDisplayName>
+    <InstanceID>12</InstanceID>
+    <Description>The SQLBrowser service has started.
+
+Opcode: Info</Description>
+  </Event_x0020_Log_x0020_Checks>
+  <Event_x0020_Log_x0020_Checks>
+    <ID>6</ID>
+    <LogType>Application</LogType>
+    <RecordID>1301833</RecordID>
+    <ProviderName>SQLBrowser</ProviderName>
+    <MachineName>CAI514624.best.adinternal.com</MachineName>
+    <TimeCreated>2012-05-19T00:30:03-07:00</TimeCreated>
+    <LevelDisplayName>Information</LevelDisplayName>
+    <InstanceID>12</InstanceID>
+    <Description>The SQLBrowser service has started.
+
+Opcode: Info</Description>
+  </Event_x0020_Log_x0020_Checks>
+  <Event_x0020_Log_x0020_Checks>
+    <ID>7</ID>
+    <LogType>Application</LogType>
+    <RecordID>1303162</RecordID>
+    <ProviderName>SQLBrowser</ProviderName>
+    <MachineName>CAI514624.best.adinternal.com</MachineName>
+    <TimeCreated>2012-05-23T15:27:40-07:00</TimeCreated>
+    <LevelDisplayName>Information</LevelDisplayName>
+    <InstanceID>12</InstanceID>
+    <Description>The SQLBrowser service has started.
+
+Opcode: Info</Description>
+  </Event_x0020_Log_x0020_Checks>
+  <Event_x0020_Log_x0020_Checks>
+    <ID>8</ID>
+    <LogType>Application</LogType>
+    <RecordID>1305468</RecordID>
+    <ProviderName>SQLBrowser</ProviderName>
+    <MachineName>CAI514624.best.adinternal.com</MachineName>
+    <TimeCreated>2012-06-04T14:06:59-07:00</TimeCreated>
+    <LevelDisplayName>Information</LevelDisplayName>
+    <InstanceID>12</InstanceID>
+    <Description>The SQLBrowser service has started.
+
+Opcode: Info</Description>
+  </Event_x0020_Log_x0020_Checks>
+  <Event_x0020_Log_x0020_Checks>
+    <ID>9</ID>
+    <LogType>Application</LogType>
+    <RecordID>1300579</RecordID>
+    <ProviderName>Outlook</ProviderName>
+    <MachineName>CAI514624.best.adinternal.com</MachineName>
+    <TimeCreated>2012-05-16T06:23:58-07:00</TimeCreated>
+    <LevelDisplayName>Warning</LevelDisplayName>
+    <InstanceID>25</InstanceID>
+    <Description>Could not complete the operation. One or more parameter values are not valid.
+
+Opcode: </Description>
+  </Event_x0020_Log_x0020_Checks>
+  <Event_x0020_Log_x0020_Checks>
+    <ID>10</ID>
+    <LogType>System</LogType>
+    <RecordID>36557</RecordID>
+    <ProviderName>Microsoft-Windows-Time-Service</ProviderName>
+    <MachineName>CAI514624.best.adinternal.com</MachineName>
+    <UserID>S-1-5-19</UserID>
+    <TimeCreated>2011-08-19T12:42:47.6707764-07:00</TimeCreated>
+    <LevelDisplayName>Warning</LevelDisplayName>
+    <InstanceID>50</InstanceID>
+    <Description>The time service detected a time difference of greater than 5000 milliseconds for 900 seconds. The time difference might be caused by synchronization with low-accuracy time sources or by suboptimal network conditions. The time service is no longer synchronized and cannot provide the time to other clients or update the system clock. When a valid time stamp is received from a time service provider, the time service will correct itself.
+
+Opcode: Info</Description>
+  </Event_x0020_Log_x0020_Checks>
+  <Event_x0020_Log_x0020_Checks>
+    <ID>11</ID>
+    <LogType>System</LogType>
+    <RecordID>105316</RecordID>
+    <ProviderName>Microsoft-Windows-Time-Service</ProviderName>
+    <MachineName>CAI514624.best.adinternal.com</MachineName>
+    <UserID>S-1-5-19</UserID>
+    <TimeCreated>2012-04-24T18:06:27.97606-07:00</TimeCreated>
+    <LevelDisplayName>Warning</LevelDisplayName>
+    <InstanceID>50</InstanceID>
+    <Description>The time service detected a time difference of greater than 5000 milliseconds for 900 seconds. The time difference might be caused by synchronization with low-accuracy time sources or by suboptimal network conditions. The time service is no longer synchronized and cannot provide the time to other clients or update the system clock. When a valid time stamp is received from a time service provider, the time service will correct itself.
+
+Opcode: Info</Description>
+  </Event_x0020_Log_x0020_Checks>
+  <Event_x0020_Log_x0020_Checks>
+    <ID>12</ID>
+    <LogType>System</LogType>
+    <RecordID>109719</RecordID>
+    <ProviderName>Microsoft-Windows-Time-Service</ProviderName>
+    <MachineName>CAI514624.best.adinternal.com</MachineName>
+    <UserID>S-1-5-19</UserID>
+    <TimeCreated>2012-05-08T10:06:57.8256754-07:00</TimeCreated>
+    <LevelDisplayName>Warning</LevelDisplayName>
+    <InstanceID>50</InstanceID>
+    <Description>The time service detected a time difference of greater than 5000 milliseconds for 900 seconds. The time difference might be caused by synchronization with low-accuracy time sources or by suboptimal network conditions. The time service is no longer synchronized and cannot provide the time to other clients or update the system clock. When a valid time stamp is received from a time service provider, the time service will correct itself.
+
+Opcode: Info</Description>
+  </Event_x0020_Log_x0020_Checks>
+  <Event_x0020_Log_x0020_Checks>
+    <ID>13</ID>
+    <LogType>System</LogType>
+    <RecordID>20437</RecordID>
+    <ProviderName>Microsoft-Windows-Time-Service</ProviderName>
+    <MachineName>CAI514624.best.adinternal.com</MachineName>
+    <UserID>S-1-5-19</UserID>
+    <TimeCreated>2011-06-29T08:59:54.212875-07:00</TimeCreated>
+    <LevelDisplayName>Warning</LevelDisplayName>
+    <InstanceID>129</InstanceID>
+    <Description>NtpClient was unable to set a domain peer to use as a time source because of discovery error. NtpClient will try again in 3473457 minutes and double the reattempt interval thereafter. The error was: The entry is not found. (0x800706E1)
+
+Opcode: Info</Description>
+  </Event_x0020_Log_x0020_Checks>
+  <Event_x0020_Log_x0020_Checks>
+    <ID>14</ID>
+    <LogType>System</LogType>
+    <RecordID>20438</RecordID>
+    <ProviderName>Microsoft-Windows-Time-Service</ProviderName>
+    <MachineName>CAI514624.best.adinternal.com</MachineName>
+    <UserID>S-1-5-19</UserID>
+    <TimeCreated>2011-06-29T08:59:55.7260777-07:00</TimeCreated>
+    <LevelDisplayName>Warning</LevelDisplayName>
+    <InstanceID>129</InstanceID>
+    <Description>NtpClient was unable to set a domain peer to use as a time source because of discovery error. NtpClient will try again in 3473457 minutes and double the reattempt interval thereafter. The error was: The entry is not found. (0x800706E1)
+
+Opcode: Info</Description>
+  </Event_x0020_Log_x0020_Checks>
+  <Event_x0020_Log_x0020_Checks>
+    <ID>15</ID>
+    <LogType>System</LogType>
+    <RecordID>20719</RecordID>
+    <ProviderName>Microsoft-Windows-Time-Service</ProviderName>
+    <MachineName>CAI514624.best.adinternal.com</MachineName>
+    <UserID>S-1-5-19</UserID>
+    <TimeCreated>2011-06-29T09:26:02.5792845-07:00</TimeCreated>
+    <LevelDisplayName>Warning</LevelDisplayName>
+    <InstanceID>129</InstanceID>
+    <Description>NtpClient was unable to set a domain peer to use as a time source because of discovery error. NtpClient will try again in 3473457 minutes and double the reattempt interval thereafter. The error was: The entry is not found. (0x800706E1)
+
+Opcode: Info</Description>
+  </Event_x0020_Log_x0020_Checks>
+  <Event_x0020_Log_x0020_Checks>
+    <ID>16</ID>
+    <LogType>System</LogType>
+    <RecordID>20720</RecordID>
+    <ProviderName>Microsoft-Windows-Time-Service</ProviderName>
+    <MachineName>CAI514624.best.adinternal.com</MachineName>
+    <UserID>S-1-5-19</UserID>
+    <TimeCreated>2011-06-29T09:26:04.0924871-07:00</TimeCreated>
+    <LevelDisplayName>Warning</LevelDisplayName>
+    <InstanceID>129</InstanceID>
+    <Description>NtpClient was unable to set a domain peer to use as a time source because of discovery error. NtpClient will try again in 3473457 minutes and double the reattempt interval thereafter. The error was: The entry is not found. (0x800706E1)
+
+Opcode: Info</Description>
+  </Event_x0020_Log_x0020_Checks>
+  <Event_x0020_Log_x0020_Checks>
+    <ID>17</ID>
+    <LogType>System</LogType>
+    <RecordID>20726</RecordID>
+    <ProviderName>Microsoft-Windows-Time-Service</ProviderName>
+    <MachineName>CAI514624.best.adinternal.com</MachineName>
+    <UserID>S-1-5-19</UserID>
+    <TimeCreated>2011-06-29T09:26:37.0257746-07:00</TimeCreated>
+    <LevelDisplayName>Warning</LevelDisplayName>
+    <InstanceID>129</InstanceID>
+    <Description>NtpClient was unable to set a domain peer to use as a time source because of discovery error. NtpClient will try again in 3473457 minutes and double the reattempt interval thereafter. The error was: The entry is not found. (0x800706E1)
+
+Opcode: Info</Description>
+  </Event_x0020_Log_x0020_Checks>
+  <Event_x0020_Log_x0020_Checks>
+    <ID>18</ID>
+    <LogType>System</LogType>
+    <RecordID>20901</RecordID>
+    <ProviderName>Microsoft-Windows-Time-Service</ProviderName>
+    <MachineName>CAI514624.best.adinternal.com</MachineName>
+    <UserID>S-1-5-19</UserID>
+    <TimeCreated>2011-06-29T09:30:56.9428798-07:00</TimeCreated>
+    <LevelDisplayName>Warning</LevelDisplayName>
+    <InstanceID>129</InstanceID>
+    <Description>NtpClient was unable to set a domain peer to use as a time source because of discovery error. NtpClient will try again in 3473457 minutes and double the reattempt interval thereafter. The error was: The entry is not found. (0x800706E1)
+
+Opcode: Info</Description>
+  </Event_x0020_Log_x0020_Checks>
+  <Event_x0020_Log_x0020_Checks>
+    <ID>19</ID>
+    <LogType>System</LogType>
+    <RecordID>20906</RecordID>
+    <ProviderName>Microsoft-Windows-Time-Service</ProviderName>
+    <MachineName>CAI514624.best.adinternal.com</MachineName>
+    <UserID>S-1-5-19</UserID>
+    <TimeCreated>2011-06-29T09:30:58.4560825-07:00</TimeCreated>
+    <LevelDisplayName>Warning</LevelDisplayName>
+    <InstanceID>129</InstanceID>
+    <Description>NtpClient was unable to set a domain peer to use as a time source because of discovery error. NtpClient will try again in 3473457 minutes and double the reattempt interval thereafter. The error was: The entry is not found. (0x800706E1)
+
+Opcode: Info</Description>
+  </Event_x0020_Log_x0020_Checks>
+  <Event_x0020_Log_x0020_Checks>
+    <ID>20</ID>
+    <LogType>System</LogType>
+    <RecordID>25470</RecordID>
+    <ProviderName>Microsoft-Windows-Time-Service</ProviderName>
+    <MachineName>CAI514624.best.adinternal.com</MachineName>
+    <UserID>S-1-5-19</UserID>
+    <TimeCreated>2011-07-14T07:38:39.9598659-07:00</TimeCreated>
+    <LevelDisplayName>Warning</LevelDisplayName>
+    <InstanceID>129</InstanceID>
+    <Description>NtpClient was unable to set a domain peer to use as a time source because of discovery error. NtpClient will try again in 3473457 minutes and double the reattempt interval thereafter. The error was: The entry is not found. (0x800706E1)
+
+Opcode: Info</Description>
+  </Event_x0020_Log_x0020_Checks>
+  <Event_x0020_Log_x0020_Checks>
+    <ID>21</ID>
+    <LogType>System</LogType>
+    <RecordID>25475</RecordID>
+    <ProviderName>Microsoft-Windows-Time-Service</ProviderName>
+    <MachineName>CAI514624.best.adinternal.com</MachineName>
+    <UserID>S-1-5-19</UserID>
+    <TimeCreated>2011-07-14T07:38:41.4730685-07:00</TimeCreated>
+    <LevelDisplayName>Warning</LevelDisplayName>
+    <InstanceID>129</InstanceID>
+    <Description>NtpClient was unable to set a domain peer to use as a time source because of discovery error. NtpClient will try again in 3473457 minutes and double the reattempt interval thereafter. The error was: The entry is not found. (0x800706E1)
+
+Opcode: Info</Description>
+  </Event_x0020_Log_x0020_Checks>
+  <Event_x0020_Log_x0020_Checks>
+    <ID>22</ID>
+    <LogType>System</LogType>
+    <RecordID>28998</RecordID>
+    <ProviderName>EventLog</ProviderName>
+    <MachineName>CAI514624.best.adinternal.com</MachineName>
+    <TimeCreated>2011-07-20T12:24:01-07:00</TimeCreated>
+    <LevelDisplayName>Error</LevelDisplayName>
+    <InstanceID>6008</InstanceID>
+    <Description>The previous system shutdown at 12:22:18 PM on ‎7/‎20/‎2011 was unexpected.
+
+Opcode: </Description>
+  </Event_x0020_Log_x0020_Checks>
+  <Event_x0020_Log_x0020_Checks>
+    <ID>23</ID>
+    <LogType>System</LogType>
+    <RecordID>63125</RecordID>
+    <ProviderName>EventLog</ProviderName>
+    <MachineName>CAI514624.best.adinternal.com</MachineName>
+    <TimeCreated>2011-12-13T14:04:13-08:00</TimeCreated>
+    <LevelDisplayName>Error</LevelDisplayName>
+    <InstanceID>6008</InstanceID>
+    <Description>The previous system shutdown at 2:01:37 PM on ‎12/‎13/‎2011 was unexpected.
+
+Opcode: </Description>
+  </Event_x0020_Log_x0020_Checks>
+  <Event_x0020_Log_x0020_Checks>
+    <ID>24</ID>
+    <LogType>System</LogType>
+    <RecordID>76927</RecordID>
+    <ProviderName>EventLog</ProviderName>
+    <MachineName>CAI514624.best.adinternal.com</MachineName>
+    <TimeCreated>2012-01-24T11:36:58-08:00</TimeCreated>
+    <LevelDisplayName>Error</LevelDisplayName>
+    <InstanceID>6008</InstanceID>
+    <Description>The previous system shutdown at 11:34:38 AM on ‎1/‎24/‎2012 was unexpected.
+
+Opcode: </Description>
+  </Event_x0020_Log_x0020_Checks>
+  <Event_x0020_Log_x0020_Checks>
+    <ID>25</ID>
+    <LogType>System</LogType>
+    <RecordID>80637</RecordID>
+    <ProviderName>EventLog</ProviderName>
+    <MachineName>CAI514624.best.adinternal.com</MachineName>
+    <TimeCreated>2012-02-06T06:21:41-08:00</TimeCreated>
+    <LevelDisplayName>Error</LevelDisplayName>
+    <InstanceID>6008</InstanceID>
+    <Description>The previous system shutdown at 8:04:33 PM on ‎2/‎3/‎2012 was unexpected.
+
+Opcode: </Description>
+  </Event_x0020_Log_x0020_Checks>
+  <Event_x0020_Log_x0020_Checks>
+    <ID>26</ID>
+    <LogType>System</LogType>
+    <RecordID>85519</RecordID>
+    <ProviderName>EventLog</ProviderName>
+    <MachineName>CAI514624.best.adinternal.com</MachineName>
+    <TimeCreated>2012-02-20T11:13:44-08:00</TimeCreated>
+    <LevelDisplayName>Error</LevelDisplayName>
+    <InstanceID>6008</InstanceID>
+    <Description>The previous system shutdown at 11:11:56 AM on ‎2/‎20/‎2012 was unexpected.
+
+Opcode: </Description>
+  </Event_x0020_Log_x0020_Checks>
+  <Event_x0020_Log_x0020_Checks>
+    <ID>27</ID>
+    <LogType>System</LogType>
+    <RecordID>91517</RecordID>
+    <ProviderName>EventLog</ProviderName>
+    <MachineName>CAI514624.best.adinternal.com</MachineName>
+    <TimeCreated>2012-03-06T12:19:21-08:00</TimeCreated>
+    <LevelDisplayName>Error</LevelDisplayName>
+    <InstanceID>6008</InstanceID>
+    <Description>The previous system shutdown at 12:16:02 PM on ‎3/‎6/‎2012 was unexpected.
+
+Opcode: </Description>
+  </Event_x0020_Log_x0020_Checks>
+</dsChecklist>

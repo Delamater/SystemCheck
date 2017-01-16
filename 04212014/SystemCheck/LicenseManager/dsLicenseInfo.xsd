@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dsLicenseInfo" targetNamespace="http://tempuri.org/dsLicenseInfo.xsd" xmlns:mstns="http://tempuri.org/dsLicenseInfo.xsd" xmlns="http://tempuri.org/dsLicenseInfo.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dsLicenseInfo" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="dsLicenseInfo" msprop:Generator_UserDSName="dsLicenseInfo">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="KeyHistory" msprop:Generator_TableClassName="KeyHistoryDataTable" msprop:Generator_TableVarName="tableKeyHistory" msprop:Generator_TablePropName="KeyHistory" msprop:Generator_RowDeletingName="KeyHistoryRowDeleting" msprop:Generator_UserTableName="KeyHistory" msprop:Generator_RowChangingName="KeyHistoryRowChanging" msprop:Generator_RowEvHandlerName="KeyHistoryRowChangeEventHandler" msprop:Generator_RowDeletedName="KeyHistoryRowDeleted" msprop:Generator_RowEvArgName="KeyHistoryRowChangeEvent" msprop:Generator_RowChangedName="KeyHistoryRowChanged" msprop:Generator_RowClassName="KeyHistoryRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="LicenseKeyID" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="1" msprop:Generator_ColumnVarNameInTable="columnLicenseKeyID" msprop:Generator_ColumnPropNameInRow="LicenseKeyID" msprop:Generator_ColumnPropNameInTable="LicenseKeyIDColumn" msprop:Generator_UserColumnName="LicenseKeyID" type="xs:int" />
+              <xs:element name="PersonRequesting" msprop:Generator_ColumnVarNameInTable="columnPersonRequesting" msprop:Generator_ColumnPropNameInRow="PersonRequesting" msprop:Generator_ColumnPropNameInTable="PersonRequestingColumn" msprop:Generator_UserColumnName="PersonRequesting" type="xs:string" />
+              <xs:element name="MacID" msprop:Generator_ColumnVarNameInTable="columnMacID" msprop:Generator_ColumnPropNameInRow="MacID" msprop:Generator_ColumnPropNameInTable="MacIDColumn" msprop:Generator_UserColumnName="MacID" type="xs:string" />
+              <xs:element name="DateLicensedUntil" msprop:Generator_ColumnVarNameInTable="columnDateLicensedUntil" msprop:Generator_ColumnPropNameInRow="DateLicensedUntil" msprop:Generator_ColumnPropNameInTable="DateLicensedUntilColumn" msprop:Generator_UserColumnName="DateLicensedUntil" type="xs:string" />
+              <xs:element name="OutputedKeyValue" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" msprop:Generator_ColumnVarNameInTable="columnOutputedKeyValue" msprop:Generator_ColumnPropNameInRow="OutputedKeyValue" msprop:Generator_ColumnPropNameInTable="OutputedKeyValueColumn" msprop:Generator_UserColumnName="OutputedKeyValue" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

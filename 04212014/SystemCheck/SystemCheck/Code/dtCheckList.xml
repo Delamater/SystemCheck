@@ -1,0 +1,2043 @@
+<?xml version="1.0" standalone="yes"?>
+<!--If IsForOutPut is true, then the SELECT statement must return a scalar value called YourValue
+In this scenario, the LowValue and HighValue columns must be set. The application will take care of 
+setting the IsWithinRange value. IsWithinRangeGood must also be present. IsWithinRangeGood should 
+not be returned from the SQL Query
+
+IsForOutput is for administration type queries for the System Check program
+IsForDataSet distinguishes which type of data is executed against SQL 
+and returned as a distinct dataset, not to be included in the checklist dataset
+
+
+***IMPORTANT: XML Escape Characters ***
+&	&amp;
+<	&lt;
+>	&gt;
+"	&quot;
+'	&apos;
+
+Example: 
+Requirement 
+SELECT * FROM sys.tables WHERE CREATE_DATE < '04/01/2010'
+
+Solution:
+SELECT * FROM sys.tables WHERE CREATE_DATE &lt; '04/01/2010'
+-->
+
+
+<dsChecklist xmlns="http://tempuri.org/dsChecklist.xsd">
+  <dtChecklist>
+    <ChecklistKey>1</ChecklistKey>
+    <ScriptName>Am I SQL Admin</ScriptName>
+    <CheckDesc>Check to see if the connection is SQL Server Administrator (sa or equivalent). If it is not, this checklist will end early.</CheckDesc>
+    <LowValue>1</LowValue>
+    <HighValue>10</HighValue>
+    <IsWithinRangeGood>1</IsWithinRangeGood>
+    <ChecklistCrossRefID>15</ChecklistCrossRefID>
+    <Category>Configuration</Category>
+    <AdditionalDocumentation></AdditionalDocumentation>
+    <Weight>1</Weight>
+    <CodeToRun>SELECT 
+	                        @@SPID, 
+	                        SYSTEM_USER, 
+	                        USER, 
+	                        NULL,		-- LogStart
+	                        GETDATE(),	--LogEnd
+	                        IS_SRVROLEMEMBER('sysadmin')
+                        </CodeToRun>
+    <CodeType>SQL</CodeType>
+    <IsExecute>0</IsExecute>
+	<IsForOutput>0</IsForOutput>
+	<IsForDataSet>0</IsForDataSet>
+	<MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+  </dtChecklist>
+	<dtChecklist>
+		<ChecklistKey>2</ChecklistKey>
+		<ScriptName>Am I X3 database?</ScriptName>
+		<CheckDesc>Check to see if the connection is SQL Server Administrator (sa or equivalent). If it is not, this checklist will end early.</CheckDesc>
+		<LowValue>1</LowValue>
+		<HighValue>10</HighValue>
+		<IsWithinRangeGood>1</IsWithinRangeGood>
+		<ChecklistCrossRefID>15</ChecklistCrossRefID>
+		<Category>Configuration</Category>
+		<AdditionalDocumentation></AdditionalDocumentation>
+		<Weight>1</Weight>
+		<CodeToRun>
+			SELECT COALESCE(0,OBJECT_ID('X3.ADOVAL')), 'If an object id exists, then we are witin an X3 database'
+		</CodeToRun>
+		<CodeType>SQL</CodeType>
+		<IsExecute>0</IsExecute>
+		<IsForOutput>1</IsForOutput>
+		<IsForDataSet>0</IsForDataSet>
+		<MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+	</dtChecklist>
+
+	<dtChecklist>
+		<ChecklistKey>5</ChecklistKey>
+		<ScriptName>Data and Log on same volume</ScriptName>
+		<CheckDesc>Are the data file and the log file on the same volume?</CheckDesc>
+		<LowValue>0</LowValue>
+		<HighValue>0</HighValue>
+		<IsWithinRangeGood>1</IsWithinRangeGood>
+		<ChecklistCrossRefID>6</ChecklistCrossRefID>
+		<Category>Configuration</Category>
+		<AdditionalDocumentation>http://technet.microsoft.com/en-us/library/cc966534.aspx</AdditionalDocumentation>
+		<Weight>1</Weight>
+		<CodeToRun>
+			DECLARE @DataType INT, @LogType INT, @FilestreamType INT, @FullTextType INT
+			DECLARE @LogFileVolume NVARCHAR(6), @DataFileVolume NVARCHAR(6)
+			SELECT @DataType = 0, @LogType = 1, @FilestreamType = 2, @FullTextType = 4
+
+			SET @LogFileVolume =
+			(
+				SELECT TOP 1 SUBSTRING(physical_name,1,3)
+				FROM sys.database_files
+				WHERE type = @DataType
+				ORDER BY file_id ASC
+			)
+
+			SET @DataFileVolume =
+			(
+				SELECT TOP 1 SUBSTRING(physical_name,1,3)
+				FROM sys.database_files
+				WHERE type = @DataType
+				ORDER BY file_id ASC
+			)
+
+			IF @LogFileVolume = @DataFileVolume
+				BEGIN
+					SELECT
+					1 IsWithinRange,
+					'Data Volume: ' + @DataFileVolume +
+					CHAR(10) + CHAR(13)
+					+ 'Log Volume: ' + @LogFileVolume AdditionalDetail
+				END
+			ELSE
+				BEGIN
+					SELECT
+					0 IsWithinRange,
+					'Data Volume: ' + @DataFileVolume +
+					CHAR(10) + CHAR(13)
+					+ 'Log Volume: ' + @LogFileVolume	AdditionalDetail
+				END
+		</CodeToRun>
+		<CodeType>SQL</CodeType>
+		<IsExecute>1</IsExecute>
+		<IsForOutput>1</IsForOutput>
+		<IsForDataSet>0</IsForDataSet>
+		<MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+	</dtChecklist>
+
+	<dtChecklist>
+		<ChecklistKey>6</ChecklistKey>
+		<ScriptName>High Number of VLF Present</ScriptName>
+		<CheckDesc>High number of VLFs present indicates slow performance for all CRUD operations</CheckDesc>
+		<LowValue>0</LowValue>
+		<HighValue>10000</HighValue>
+		<IsWithinRangeGood>1</IsWithinRangeGood>
+		<ChecklistCrossRefID>7</ChecklistCrossRefID>
+		<Category>Configuration</Category>
+		<AdditionalDocumentation>http://sqlblog.com/blogs/linchi_shea/archive/2009/02/09/performance-impact-a-large-number-of-virtual-log-files-part-i.aspx</AdditionalDocumentation>
+		<Weight>1</Weight>
+		<CodeToRun>
+			-- Category:				Performance
+			-- ChecklistCrossRefID:		7
+			-- DESC:					Databases with high number of VLF present
+			CREATE TABLE #LOGINFO
+			(FileId tinyint,
+			FileSize bigint,
+			StartOffset bigint,
+			FSeqNo int,
+			Status tinyint,
+			Parity tinyint,
+			CreateLSN numeric(25,0) )
+
+			INSERT INTO #LOGINFO
+			EXEC ('DBCC LOGINFO');
+
+			SELECT COUNT(*), '---'
+			FROM #LOGINFO
+
+			DROP TABLE #LOGINFO
+		</CodeToRun>
+		<CodeType>SQL</CodeType>
+		<IsExecute>1</IsExecute>
+		<IsForOutput>1</IsForOutput>
+		<IsForDataSet>0</IsForDataSet>
+		<MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+	</dtChecklist>
+
+	<dtChecklist>
+		<ChecklistKey>7</ChecklistKey>
+		<ScriptName>Linked Servers Present</ScriptName>
+		<CheckDesc>Linked servers cause additional drain on SQL, especially on a 32 bit system. </CheckDesc>
+		<LowValue>0</LowValue>
+		<HighValue>0</HighValue>
+		<IsWithinRangeGood>1</IsWithinRangeGood>
+		<ChecklistCrossRefID>11</ChecklistCrossRefID>
+		<Category>Operation</Category>
+		<AdditionalDocumentation>http://blogs.msdn.com/b/psssql/archive/2009/08/26/come-on-64bit-so-we-can-leave-the-mem.aspx</AdditionalDocumentation>
+		<Weight>1</Weight>
+		<CodeToRun>
+
+			IF PATINDEX('%64-bit%',CONVERT(VARCHAR(100),SERVERPROPERTY('Edition'))) = 0
+			BEGIN
+			SELECT COUNT(*) NumOfLinkedServers , SERVERPROPERTY('Edition') Detail
+			FROM sys.servers
+			WHERE is_linked = 1
+			END
+			ELSE
+			BEGIN
+
+			SELECT 0 NumOfLinkedServers , 'This server is a 64 bit machine. This check is not important on 64 bit systems' Detail
+
+			END
+		</CodeToRun>
+		<CodeType>SQL</CodeType>
+		<IsExecute>1</IsExecute>
+		<IsForOutput>1</IsForOutput>
+		<IsForDataSet>0</IsForDataSet>
+		<MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+	</dtChecklist>
+
+
+	<dtChecklist>
+		<ChecklistKey>8</ChecklistKey>
+		<ScriptName>Auto shrink option enabled</ScriptName>
+		<CheckDesc>Database has auto shrink option enabled</CheckDesc>
+		<LowValue>0</LowValue>
+		<HighValue>0</HighValue>
+		<IsWithinRangeGood>1</IsWithinRangeGood>
+		<ChecklistCrossRefID>39</ChecklistCrossRefID>
+		<Category>Operation</Category>
+		<AdditionalDocumentation>http://support.microsoft.com/kb/2160663</AdditionalDocumentation>
+		<Weight>1</Weight>
+		<CodeToRun>
+			SELECT COUNT(*), '---'
+			FROM sys.databases
+			WHERE is_auto_shrink_on > 0
+		</CodeToRun>
+		<CodeType>SQL</CodeType>
+		<IsExecute>1</IsExecute>
+		<IsForOutput>1</IsForOutput>
+		<IsForDataSet>0</IsForDataSet>
+		<MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+	</dtChecklist>
+
+	<dtChecklist>
+		<ChecklistKey>9</ChecklistKey>
+		<ScriptName>Auto close option enabled</ScriptName>
+		<CheckDesc>Database has auto close option enabled</CheckDesc>
+		<LowValue>0</LowValue>
+		<HighValue>0</HighValue>
+		<IsWithinRangeGood>1</IsWithinRangeGood>
+		<ChecklistCrossRefID>88</ChecklistCrossRefID>
+		<Category>Operation</Category>
+		<AdditionalDocumentation>http://support.microsoft.com/kb/2160663</AdditionalDocumentation>
+		<Weight>1</Weight>
+		<CodeToRun>
+			SELECT COUNT(*), '---'
+			FROM sys.databases
+			WHERE is_auto_close_on > 0
+		</CodeToRun>
+		<CodeType>SQL</CodeType>
+		<IsExecute>1</IsExecute>
+		<IsForOutput>1</IsForOutput>
+		<IsForDataSet>0</IsForDataSet>
+		<MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+	</dtChecklist>
+
+	<dtChecklist>
+		<ChecklistKey>10</ChecklistKey>
+		<ScriptName>Page Life Expectancy</ScriptName>
+		<CheckDesc>Page life expectancy should be greater than 300. This is the number of seconds that a page will last in memory on SQL Server</CheckDesc>
+		<LowValue>300</LowValue>
+		<HighValue>99999999</HighValue>
+		<IsWithinRangeGood>1</IsWithinRangeGood>
+		<ChecklistCrossRefID>88</ChecklistCrossRefID>
+		<Category>Operation</Category>
+		<AdditionalDocumentation>http://technet.microsoft.com/en-us/library/cc966401.aspx</AdditionalDocumentation>
+		<Weight>1</Weight>
+		<CodeToRun>
+			SELECT cntr_value, LTRIM(RTRIM(object_name))
+			+ ' | ' +  LTRIM(RTRIM(counter_name)) + ' | ' + LTRIM(RTRIM(instance_name))
+			FROM sys.dm_os_performance_counters
+			WHERE
+			LOWER(object_name) LIKE '%buffer manager%'
+			AND LOWER(counter_name) LIKE '%life%'
+		</CodeToRun>
+		<CodeType>SQL</CodeType>
+		<IsExecute>1</IsExecute>
+		<IsForOutput>1</IsForOutput>
+		<IsForDataSet>0</IsForDataSet>
+		<MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+	</dtChecklist>
+
+	<dtChecklist>
+		<ChecklistKey>11</ChecklistKey>
+		<ScriptName>Plan Re-use</ScriptName>
+		<CheckDesc>Plan Re-use should be greater than 90%. Plan use is desirable for OKTP workloads because re-creating the same plan (for similar or identical transactions) is a waste of CPU resources and suggests a CPU bottleneck. </CheckDesc>
+		<LowValue>0.90</LowValue>
+		<HighValue>1</HighValue>
+		<IsWithinRangeGood>1</IsWithinRangeGood>
+		<ChecklistCrossRefID>89</ChecklistCrossRefID>
+		<Category>Performance</Category>
+		<AdditionalDocumentation>http://technet.microsoft.com/en-us/library/cc966401.aspx</AdditionalDocumentation>
+		<Weight>1</Weight>
+		<CodeToRun>
+			-- Plan reuse = (Batch requests - SQL compilations) / Batch requests
+			DECLARE @BatchRequests DECIMAL(18,3), @SqlCompilations DECIMAL(18,3)
+			SET @BatchRequests =
+			(
+			SELECT cntr_value
+			FROM sys.dm_os_performance_counters
+			WHERE counter_name = 'Batch Requests/sec'
+			)
+			SET @SqlCompilations =
+			(
+			SELECT cntr_value
+			FROM sys.dm_os_performance_counters
+			WHERE counter_name = 'SQL Compilations/sec'
+			)
+
+			SELECT
+			CONVERT(DECIMAL(18,3),(@BatchRequests - @SqlCompilations) / @BatchRequests),
+			'Batch Requests = ' + CONVERT(VARCHAR(25),@BatchRequests)
+			+ CHAR(10) + CHAR(13) +
+			'SQL Compilations: ' + CONVERT(VARCHAR(25), @SqlCompilations)
+		</CodeToRun>
+		<CodeType>SQL</CodeType>
+		<IsExecute>1</IsExecute>
+		<IsForOutput>1</IsForOutput>
+		<IsForDataSet>0</IsForDataSet>
+		<MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+	</dtChecklist>
+
+	<dtChecklist>
+		<ChecklistKey>12</ChecklistKey>
+		<ScriptName>Parallel wait type cxpacket use</ScriptName>
+		<CheckDesc>Parallel wait types are measured by cxpackets. If the total wait time for this counter is greater than 10% of total waits then you have CPU pressure as a result of the parallelization. This is not good for OLTP systems</CheckDesc>
+		<LowValue>0</LowValue>
+		<HighValue>.1</HighValue>
+		<IsWithinRangeGood>1</IsWithinRangeGood>
+		<ChecklistCrossRefID>89</ChecklistCrossRefID>
+		<Category>Performance</Category>
+		<AdditionalDocumentation>http://technet.microsoft.com/en-us/library/cc966401.aspx</AdditionalDocumentation>
+		<Weight>1</Weight>
+		<CodeToRun>
+			
+			DECLARE @TotalWaitTime DECIMAL(18,3), @wait_time_ctr DECIMAL(18,3)
+			SET @TotalWaitTime =
+			(
+			SELECT SUM(wait_time_ms)
+			FROM sys.dm_os_wait_stats
+			)
+
+			SET @wait_time_ctr =
+			(
+			SELECT CONVERT(DECIMAL(18,5),wait_time_ms)
+			FROM sys.dm_os_wait_stats
+			WHERE wait_type = 'CXPACKET'
+			)
+
+			SELECT CONVERT(DECIMAL(18,3),@wait_time_ctr / @TotalWaitTime) ,
+			'Total Wait Time ms: ' + CONVERT(VARCHAR(25), CONVERT(BIGINT,@TotalWaitTime))
+			+ CHAR(10) + CHAR(13) +
+			'CXPACKET wait time ms: ' +  CONVERT(VARCHAR(25), CONVERT(BIGINT,@wait_time_ctr))
+
+		</CodeToRun>
+		<CodeType>SQL</CodeType>
+		<IsExecute>1</IsExecute>
+		<IsForOutput>1</IsForOutput>
+		<IsForDataSet>0</IsForDataSet>
+		<MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+	</dtChecklist>
+	<dtChecklist>
+		<ChecklistKey>13</ChecklistKey>
+		<ScriptName>Indexes Fragmented Detailed</ScriptName>
+		<CheckDesc>Identification of fragmented indexes. These indexes are likely to effect performance and need to be rebuilt during your maintenance window</CheckDesc>
+		<LowValue>0</LowValue>
+		<HighValue>10</HighValue>
+		<IsWithinRangeGood>1</IsWithinRangeGood>
+		<ChecklistCrossRefID>90</ChecklistCrossRefID>
+		<Category>Performance</Category>
+		<AdditionalDocumentation></AdditionalDocumentation>
+		<Weight>1</Weight>
+		<CodeToRun>
+			SELECT
+				Database_ID,
+				CONVERT(VARCHAR(35),DB_NAME(idx.database_id)) AS [DB Name],
+				sch.name [Schema Name],
+				idx.[Object_ID],CONVERT(VARCHAR(35),OBJECT_NAME(idx.[OBJECT_ID])) AS 'OBJECT NAME',
+				idx.Partition_Number [Partition Number],
+				idx.Index_ID [Index ID],
+				idx.Index_Type_Desc [Index Type Desc],
+				idx.Alloc_Unit_Type_Desc [Alloc Unit Type Desc],
+				idx.Index_Depth,Index_Level [Index Depth Level],
+				idx.Avg_Fragmentation_In_Percent [Avg Frag Percent],
+				idx.Fragment_Count [Frag Count],
+				Avg_Fragment_Size_In_Pages [Avg Frag Size In Pages],
+				idx.Page_Count [Page Count],
+				idx.Avg_Page_Space_Used_In_Percent [Avg Page Space Used In Percent],
+				idx.Record_Count [Record Count],
+				Ghost_Record_Count [Ghost Record Count],
+				idx.Version_Ghost_Record_Count [Version Ghost Record Count],
+				idx.Min_Record_Size_In_Bytes [Min Record Size In Bytes],
+				idx.Max_Record_Size_In_Bytes [Max Record Size In Bytes],
+				idx.Avg_Record_Size_In_Bytes [Avg Record Size In Bytes],
+				Forwarded_Record_Count [Forwarded Record Count]
+			FROM sys.dm_db_index_physical_stats(DB_ID(), NULL, NULL, NULL, 'DETAILED') idx
+				INNER JOIN sys.tables t
+				ON idx.object_id = t.object_id
+				INNER JOIN sys.schemas sch
+				ON sch.schema_id = t.schema_id
+			WHERE idx.page_count > 100
+				AND idx.avg_fragmentation_in_percent > 15
+				AND idx.Index_ID > 0
+			ORDER BY idx.avg_fragmentation_in_percent desc
+		</CodeToRun>
+		<CodeType>SQL</CodeType>
+		<IsExecute>0</IsExecute>
+		<IsForOutput>1</IsForOutput>
+		<IsForDataSet>1</IsForDataSet>
+		<MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+	</dtChecklist>
+
+	<dtChecklist>
+		<ChecklistKey>14</ChecklistKey>
+		<ScriptName>Is Optimized For Ad Hoc</ScriptName>
+		<CheckDesc>Check to see if the server is optimized for Ad-Hoc queries</CheckDesc>
+		<LowValue>1</LowValue>
+		<HighValue>1</HighValue>
+		<IsWithinRangeGood>1</IsWithinRangeGood>
+		<ChecklistCrossRefID>92</ChecklistCrossRefID>
+		<Category>Operation</Category>
+		<AdditionalDocumentation>http://sqlserverpedia.com/blog/sql-server-bloggers/optimizing-for-ad-hoc-workloads/</AdditionalDocumentation>
+		<Weight>1</Weight>
+		<CodeToRun>
+			IF SUBSTRING(CONVERT(VARCHAR(25),SERVERPROPERTY('ProductVersion')),0,3) = '10'
+				BEGIN
+					SELECT value, '---' Detail
+					FROM sys.configurations
+				WHERE name LIKE 'optimize for ad hoc workloads'
+				END
+			ELSE
+				BEGIN
+				-- This is not SQL 2008, there is no sys.configurations
+				SELECT 1, 'Ad-hoc configurations was not introduced until late in the game in SQL 2005. This check has been avoided'
+			END
+		</CodeToRun>	
+		<CodeType>SQL</CodeType>
+		<IsExecute>1</IsExecute>
+		<IsForOutput>1</IsForOutput>
+		<IsForDataSet>0</IsForDataSet>
+		<MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+	</dtChecklist>
+
+	<dtChecklist>
+		<ChecklistKey>15</ChecklistKey>
+		<ScriptName>Cache Plan Profile</ScriptName>
+		<CheckDesc>Cached plans with single executions are interesting to know. </CheckDesc>
+		<LowValue>1</LowValue>
+		<HighValue>1</HighValue>
+		<IsWithinRangeGood>1</IsWithinRangeGood>
+		<ChecklistCrossRefID>91</ChecklistCrossRefID>
+		<Category>Configuration</Category>
+		<AdditionalDocumentation>http://www.sqlskills.com/blogs/kimberly/post/procedure-cache-and-optimizing-for-adhoc-workloads.aspx</AdditionalDocumentation>
+		<Weight>1</Weight>
+		<CodeToRun>
+			SELECT objtype AS [Cache Type]
+			, count_big(*) AS [Total Plans]
+			, sum(cast(size_in_bytes as decimal(18,2)))/1024/1024 AS [Total MBs]
+			, avg(usecounts) AS [Avg Use Count]
+			, sum(cast((CASE WHEN usecounts = 1 THEN size_in_bytes ELSE 0 END) as decimal(18,2)))/1024/1024 AS [Total MBs - USE Count 1]
+			, sum(CASE WHEN usecounts = 1 THEN 1 ELSE 0 END) AS [Total Plans - USE Count 1]
+			, (select ( total_physical_memory_kb / 1024) from sys.dm_os_sys_memory) TotalMemoryMb
+			,  (sum(cast(size_in_bytes as decimal(18,2)))/1024/1024 ) / (select ( total_physical_memory_kb / 1024) from sys.dm_os_sys_memory) TotalUsagePercent
+			FROM sys.dm_exec_cached_plans
+			GROUP BY objtype
+			ORDER BY [Total MBs - USE Count 1] DESC
+		</CodeToRun>
+		<CodeType>SQL</CodeType>
+		<IsExecute>1</IsExecute>
+		<IsForOutput>1</IsForOutput>
+		<IsForDataSet>1</IsForDataSet>
+		<MinTsqlCompatibilityVersion>10.0</MinTsqlCompatibilityVersion>
+	</dtChecklist>
+
+	<dtChecklist>
+		<ChecklistKey>16</ChecklistKey>
+		<ScriptName>Missing Indexes</ScriptName>
+		<CheckDesc>Find missing indexes for the database connection</CheckDesc>
+		<LowValue>1</LowValue>
+		<HighValue>1</HighValue>
+		<IsWithinRangeGood>1</IsWithinRangeGood>
+		<ChecklistCrossRefID>92</ChecklistCrossRefID>
+		<Category>Operations</Category>
+		<AdditionalDocumentation>http://www.sqlskills.com/blogs/kimberly/post/procedure-cache-and-optimizing-for-adhoc-workloads.aspx</AdditionalDocumentation>
+		<Weight>1</Weight>
+		<CodeToRun>
+SELECT 
+	dm_mid.database_id AS [Database ID],
+	sch.name,
+	dm_migs.avg_user_impact*(dm_migs.user_seeks+dm_migs.user_scans) [Avg Estimated Impact],
+	dm_migs.last_user_seek AS [Last User Seek],
+	object_name(dm_mid.object_id,dm_mid.database_id) AS [Table Name],
+	'CREATE INDEX [IX_' + object_name(dm_mid.object_id,dm_mid.database_id) + '_'
+	+ REPLACE(REPLACE(REPLACE(ISNULL(dm_mid.equality_columns,''),', ','_'),'[',''),']','') +
+	CASE
+	WHEN dm_mid.equality_columns IS NOT NULL AND dm_mid.inequality_columns IS NOT NULL THEN '_'
+	ELSE ''
+	END
+	+ REPLACE(REPLACE(REPLACE(ISNULL(dm_mid.inequality_columns,''),', ','_'),'[',''),']','')
+	+ ']'
+	+ ' ON ' + dm_mid.statement
+	+ ' (' + ISNULL (dm_mid.equality_columns,'')
+	+ CASE WHEN dm_mid.equality_columns IS NOT NULL AND dm_mid.inequality_columns IS NOT NULL THEN ',' ELSE
+	'' END
+	+ ISNULL (dm_mid.inequality_columns, '')
+	+ ')'
+	+ ISNULL (' INCLUDE (' + dm_mid.included_columns + ')', '') AS Create_Statement
+FROM sys.dm_db_missing_index_groups dm_mig
+	INNER JOIN sys.dm_db_missing_index_group_stats dm_migs
+		ON dm_migs.group_handle = dm_mig.index_group_handle
+	INNER JOIN sys.dm_db_missing_index_details dm_mid
+		ON dm_mig.index_handle = dm_mid.index_handle
+	INNER JOIN sys.all_objects o
+		ON o.object_id = dm_mid.object_id
+	INNER JOIN sys.schemas sch
+		ON o.schema_id = sch.schema_id	
+WHERE dm_mid.database_ID = DB_ID()
+ORDER BY [Avg Estimated Impact] DESC
+		</CodeToRun>
+		<CodeType>SQL</CodeType>
+		<IsExecute>1</IsExecute>
+		<IsForOutput>1</IsForOutput>
+		<IsForDataSet>1</IsForDataSet>
+		<MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+	</dtChecklist>
+
+	<dtChecklist>
+		<ChecklistKey>17</ChecklistKey>
+		<ScriptName>Top 20 Longest Running Queries</ScriptName>
+		<CheckDesc>Find the top 20 longest running queries on SQL</CheckDesc>
+		<LowValue>1</LowValue>
+		<HighValue>1</HighValue>
+		<IsWithinRangeGood>1</IsWithinRangeGood>
+		<ChecklistCrossRefID>93</ChecklistCrossRefID>
+		<Category>Operations</Category>
+		<AdditionalDocumentation>http://www.sqlskills.com/blogs/kimberly/post/procedure-cache-and-optimizing-for-adhoc-workloads.aspx</AdditionalDocumentation>
+		<Weight>1</Weight>
+		<CodeToRun>
+			SELECT DISTINCT TOP 20
+			t.TEXT [Query Name],
+			s.execution_count AS [Execution Count],
+			s.max_elapsed_time AS [Max Elapsed Time],
+			ISNULL(s.total_elapsed_time / 1000 / NULLIF(s.execution_count, 0), 0) AS [Avg Elapsed Time],
+			s.creation_time AS [Log Created On],
+			ISNULL(s.execution_count / 1000 / NULLIF(DATEDIFF(s, s.creation_time, GETDATE()), 0), 0) AS [Frequency Per Sec]
+			FROM sys.dm_exec_query_stats s
+			CROSS APPLY sys.dm_exec_sql_text( s.sql_handle ) t
+			ORDER BY s.max_elapsed_time DESC, [Execution Count] DESC
+		</CodeToRun>
+		<CodeType>SQL</CodeType>
+		<IsExecute>1</IsExecute>
+		<IsForOutput>1</IsForOutput>
+		<IsForDataSet>1</IsForDataSet>
+		<MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+	</dtChecklist>
+
+
+	<dtChecklist>
+		<ChecklistKey>18</ChecklistKey>
+		<ScriptName>High Wait Times</ScriptName>
+		<CheckDesc>Find high wait times in SQL Server</CheckDesc>
+		<LowValue>1</LowValue>
+		<HighValue>1</HighValue>
+		<IsWithinRangeGood>1</IsWithinRangeGood>
+		<ChecklistCrossRefID>94</ChecklistCrossRefID>
+		<Category>Operations</Category>
+		<AdditionalDocumentation>http://www.sqlskills.com/blogs/kimberly/post/procedure-cache-and-optimizing-for-adhoc-workloads.aspx</AdditionalDocumentation>
+		<Weight>1</Weight>
+		<CodeToRun>
+			--If you have PAGEIOLATCH_*, ASYNC_IO_COMPLETION, IO_COMPLETION, or WRITELOG
+			--in your top waits, your system is consistently waiting on your disks and
+			--you need to troubleshoot that.  Start by going through this document
+			--and its troubleshooting procedures:
+
+			--http://download.microsoft.com/download/6/e/5/6e52bf39-0519-42b7-b806-c32905f4a066/TechNote28-CommonQAfordeployingSQLServerinaSANenvironment.pdf
+			SELECT TOP 10 *
+			FROM sys.dm_os_wait_stats
+			WHERE wait_type NOT IN --remove common waits to identify worst bottlenecks
+				(
+				'KSOURCE_WAKEUP', 'SLEEP_BPOOL_FLUSH', 'BROKER_TASK_STOP',
+				'XE_TIMER_EVENT', 'XE_DISPATCHER_WAIT', 'FT_IFTS_SCHEDULER_IDLE_WAIT',
+				'SQLTRACE_BUFFER_FLUSH', 'CLR_AUTO_EVENT', 'BROKER_EVENTHANDLER',
+				'LAZYWRITER_SLEEP', 'BAD_PAGE_PROCESS', 'BROKER_TRANSMITTER',
+				'CHECKPOINT_QUEUE', 'DBMIRROR_EVENTS_QUEUE', 'LAZYWRITER_SLEEP',
+				'ONDEMAND_TASK_QUEUE', 'REQUEST_FOR_DEADLOCK_SEARCH', 'LOGMGR_QUEUE',
+				'SLEEP_TASK', 'SQLTRACE_BUFFER_FLUSH', 'CLR_MANUAL_EVENT',
+				'BROKER_RECEIVE_WAITFOR', 'PREEMPTIVE_OS_GETPROCADDRESS',
+				'PREEMPTIVE_OS_AUTHENTICATIONOPS', 'BROKER_TO_FLUSH'
+				)
+			ORDER BY wait_time_ms DESC
+		</CodeToRun>
+		<CodeType>SQL</CodeType>
+		<IsExecute>1</IsExecute>
+		<IsForOutput>1</IsForOutput>
+		<IsForDataSet>1</IsForDataSet>
+		<MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+	</dtChecklist>
+
+	<!--<dtChecklist>
+		<ChecklistKey>19</ChecklistKey>
+		<ScriptName>Is Auto Close On</ScriptName>
+		<CheckDesc>Is Auto Close turned on for this database?</CheckDesc>
+		<LowValue>0</LowValue>
+		<HighValue>0</HighValue>
+		<IsWithinRangeGood>1</IsWithinRangeGood>
+		<ChecklistCrossRefID>41</ChecklistCrossRefID>
+		<Category>Configuration</Category>
+		<AdditionalDocumentation></AdditionalDocumentation>
+		<Weight>1</Weight>
+		<CodeToRun>
+			SELECT
+			DATABASEPROPERTYEX(DB_NAME(), 'IsAutoClose'),
+			'Is ''' + DB_NAME() + ''' Auto Close Set to True'
+			FROM sys.databases
+			WHERE name = DB_NAME(DB_ID())
+		</CodeToRun>
+		<CodeType>SQL</CodeType>
+		<IsExecute>1</IsExecute>
+		<IsForOutput>1</IsForOutput>
+		<IsForDataSet>0</IsForDataSet>
+		<MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+	</dtChecklist>-->
+
+	<!--<dtChecklist>
+		<ChecklistKey>20</ChecklistKey>
+		<ScriptName>Is Auto Shrink On</ScriptName>
+		<CheckDesc>Is Auto Shrink turned on for this database?</CheckDesc>
+		<LowValue>0</LowValue>
+		<HighValue>0</HighValue>
+		<IsWithinRangeGood>1</IsWithinRangeGood>
+		<ChecklistCrossRefID>41</ChecklistCrossRefID>
+		<Category>Configuration</Category>
+		<AdditionalDocumentation></AdditionalDocumentation>
+		<Weight>1</Weight>
+		<CodeToRun>
+			SELECT
+			DATABASEPROPERTYEX(DB_NAME(), 'IsAutoShrink'),
+			'Is ''' + DB_NAME() + ''' Auto Shrink Set to True'
+			FROM sys.databases
+			WHERE name = DB_NAME(DB_ID())
+		</CodeToRun>
+		<CodeType>SQL</CodeType>
+		<IsExecute>1</IsExecute>
+		<IsForOutput>1</IsForOutput>
+		<IsForDataSet>0</IsForDataSet>
+		<MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+	</dtChecklist>-->
+
+	<dtChecklist>
+		<ChecklistKey>21</ChecklistKey>
+		<ScriptName>Number of databases on system</ScriptName>
+		<CheckDesc>How many databases exist on this system?</CheckDesc>
+		<LowValue>1</LowValue>
+		<HighValue>3</HighValue>
+		<IsWithinRangeGood>1</IsWithinRangeGood>
+		<ChecklistCrossRefID>68</ChecklistCrossRefID>
+		<Category>Operation</Category>
+		<AdditionalDocumentation></AdditionalDocumentation>
+		<Weight>1</Weight>
+		<CodeToRun>
+			SELECT COUNT(*), 'Number of databases on system'
+			FROM sys.databases
+			WHERE database_id > 4
+		</CodeToRun>
+		<CodeType>SQL</CodeType>
+		<IsExecute>1</IsExecute>
+		<IsForOutput>1</IsForOutput>
+		<IsForDataSet>0</IsForDataSet>
+		<MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+	</dtChecklist>
+
+	<dtChecklist>
+		<ChecklistKey>22</ChecklistKey>
+		<ScriptName>MAXDOP</ScriptName>
+		<CheckDesc>Is MAXDOP set to 1 for this OLTP database?</CheckDesc>
+		<LowValue>1</LowValue>
+		<HighValue>1</HighValue>
+		<IsWithinRangeGood>1</IsWithinRangeGood>
+		<ChecklistCrossRefID>93</ChecklistCrossRefID>
+		<Category>Configuration</Category>
+		<AdditionalDocumentation>http://blogs.technet.com/b/mat_stephen/archive/2005/02/08/369120.aspx</AdditionalDocumentation>
+		<Weight>1</Weight>
+		<CodeToRun>
+			SELECT value_in_use, [description]
+			FROM sys.configurations
+			WHERE name = 'max degree of parallelism'
+		</CodeToRun>
+		<CodeType>SQL</CodeType>
+		<IsExecute>1</IsExecute>
+		<IsForOutput>1</IsForOutput>
+		<IsForDataSet>0</IsForDataSet>
+		<MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+	</dtChecklist>
+	
+	<dtChecklist>
+		<ChecklistKey>23</ChecklistKey>
+		<ScriptName>Operating System Info</ScriptName>
+		<CheckDesc>Generic Operating System Info</CheckDesc>
+		<LowValue>1</LowValue>
+		<HighValue>1</HighValue>
+		<IsWithinRangeGood>1</IsWithinRangeGood>
+		<ChecklistCrossRefID>94</ChecklistCrossRefID>
+		<Category>Configuration</Category>
+		<AdditionalDocumentation></AdditionalDocumentation>
+		<Weight>1</Weight>
+		<CodeToRun>
+			SELECT
+				cpu_ticks [CPU Ticks],
+				ms_ticks [MS Ticks],
+				cpu_count [CPU Count],
+				hyperthread_ratio [Hyperthread Ratio],
+				physical_memory_in_bytes [Physical Memory Bytes],
+				virtual_memory_in_bytes [Virtual Memory Bytes],
+				os_quantum [OS Quantum],
+				os_error_mode [OS Error Mode],
+				os_priority_class [OS Priority Class],
+				max_workers_count [Max Workers Count],
+				sqlserver_start_time [SQL Server Start Time],
+				affinity_type_desc [Affinity Type Desc],
+				time_source_desc [Time Source Desc]
+			FROM sys.dm_os_sys_info
+		</CodeToRun>
+		<CodeType>SQL</CodeType>
+		<IsExecute>1</IsExecute>
+		<IsForOutput>1</IsForOutput>
+		<IsForDataSet>1</IsForDataSet>
+		<MinTsqlCompatibilityVersion>10.5</MinTsqlCompatibilityVersion>
+	</dtChecklist>
+
+	<dtChecklist>
+		<ChecklistKey>24</ChecklistKey>
+		<ScriptName>System Memory</ScriptName>
+		<CheckDesc>Operating System Memory Info</CheckDesc>
+		<LowValue>1</LowValue>
+		<HighValue>1</HighValue>
+		<IsWithinRangeGood>1</IsWithinRangeGood>
+		<ChecklistCrossRefID>94</ChecklistCrossRefID>
+		<Category>Operations</Category>
+		<AdditionalDocumentation></AdditionalDocumentation>
+		<Weight>1</Weight>
+		<CodeToRun>
+			SELECT
+				total_physical_memory_kb [Total Physical Memory KB],
+				available_physical_memory_kb [Available Physical Memory KB],
+				total_page_file_kb [Total Page File KB],
+				system_high_memory_signal_state [System High Memory Signal State],
+				system_low_memory_signal_state [System Low Memory Signal State],
+				system_memory_state_desc [System Memory State Desc]
+			FROM sys.dm_os_sys_memory
+		</CodeToRun>
+		<CodeType>SQL</CodeType>
+		<IsExecute>1</IsExecute>
+		<IsForOutput>1</IsForOutput>
+		<IsForDataSet>1</IsForDataSet>
+		<MinTsqlCompatibilityVersion>10.0</MinTsqlCompatibilityVersion>
+	</dtChecklist>
+
+	<dtChecklist>
+		<ChecklistKey>25</ChecklistKey>
+		<ScriptName>Backup History</ScriptName>
+		<CheckDesc>All databases backup history</CheckDesc>
+		<LowValue>1</LowValue>
+		<HighValue>1</HighValue>
+		<IsWithinRangeGood>1</IsWithinRangeGood>
+		<ChecklistCrossRefID>95</ChecklistCrossRefID>
+		<Category>Operations</Category>
+		<AdditionalDocumentation></AdditionalDocumentation>
+		<Weight>1</Weight>
+		<CodeToRun>
+			SELECT
+			CONVERT(CHAR(100), SERVERPROPERTY('Servername')) AS Server,
+			msdb.dbo.backupset.database_name [DB Name],
+			msdb.dbo.backupset.backup_start_date [Backup Start Date],
+			msdb.dbo.backupset.backup_finish_date [Backup Finish Date],
+			msdb.dbo.backupset.expiration_date [Expiration Date],
+			CASE msdb..backupset.type
+			WHEN 'D' THEN 'Database'
+			WHEN 'L' THEN 'Log'
+			END AS [Backup Type],
+			msdb.dbo.backupset.backup_size [Backup Size],
+			msdb.dbo.backupmediafamily.logical_device_name [Logical Device Name],
+			msdb.dbo.backupmediafamily.physical_device_name [Physical Device Name],
+			msdb.dbo.backupset.name AS [Backupset Name],
+			msdb.dbo.backupset.description [Descriptoin]
+			FROM   msdb.dbo.backupmediafamily
+			INNER JOIN msdb.dbo.backupset ON msdb.dbo.backupmediafamily.media_set_id = msdb.dbo.backupset.media_set_id
+			ORDER BY backupset.database_name, backupset.backup_start_date DESC
+		</CodeToRun>
+		<CodeType>SQL</CodeType>
+		<IsExecute>1</IsExecute>
+		<IsForOutput>1</IsForOutput>
+		<IsForDataSet>1</IsForDataSet>
+		<MinTsqlCompatibilityVersion>9</MinTsqlCompatibilityVersion>
+	</dtChecklist>
+
+	<dtChecklist>
+		<ChecklistKey>26</ChecklistKey>
+		<ScriptName>Row Counts</ScriptName>
+		<CheckDesc>Retrieves row counts</CheckDesc>
+		<LowValue>1</LowValue>
+		<HighValue>1</HighValue>
+		<IsWithinRangeGood>1</IsWithinRangeGood>
+		<ChecklistCrossRefID>95</ChecklistCrossRefID>
+		<Category>Operations</Category>
+		<AdditionalDocumentation></AdditionalDocumentation>
+		<Weight>1</Weight>
+		<CodeToRun>
+			WITH cte_tblCnt(SchemaID, TableName, row_count) AS
+			(
+			SELECT SCHEMA_NAME(SCHEMA_ID), so.name as TableName, ps.row_count as [RowCount]
+			FROM sys.objects so
+			JOIN sys.indexes si
+			ON si.OBJECT_ID = so.OBJECT_ID
+			JOIN sys.dm_db_partition_stats AS ps
+			ON si.OBJECT_ID = ps.OBJECT_ID
+			AND si.index_id = ps.index_id
+			WHERE
+			si.index_id &lt; 2 
+			   AND so.is_ms_shipped = 0
+			)
+			SELECT 
+				SchemaID [Schema ID], TableName [Table Name], row_count [Row Count]
+			FROM cte_tblCnt
+			ORDER BY SchemaID ASC, row_count DESC
+		</CodeToRun>
+		<CodeType>SQL</CodeType>
+		<IsExecute>1</IsExecute>
+		<IsForOutput>1</IsForOutput>
+		<IsForDataSet>1</IsForDataSet>
+		<MinTsqlCompatibilityVersion>9</MinTsqlCompatibilityVersion>
+	</dtChecklist>
+
+	<dtChecklist>
+		<ChecklistKey>27</ChecklistKey>
+		<ScriptName>Log file is out of space</ScriptName>
+		<CheckDesc>Searches the current error logs in SQL Server to determine if the log file is out of space</CheckDesc>
+		<LowValue>1</LowValue>
+		<HighValue>1</HighValue>
+		<IsWithinRangeGood>1</IsWithinRangeGood>
+		<ChecklistCrossRefID>96</ChecklistCrossRefID>
+		<Category>Operations</Category>
+		<AdditionalDocumentation></AdditionalDocumentation>
+		<Weight>1</Weight>
+		<CodeToRun>
+			exec sp_readerrorlog 1, 1, '9002'
+		</CodeToRun>
+		<CodeType>SQL</CodeType>
+		<IsExecute>1</IsExecute>
+		<IsForOutput>1</IsForOutput>
+		<IsForDataSet>1</IsForDataSet>
+		<MinTsqlCompatibilityVersion>9</MinTsqlCompatibilityVersion>
+	</dtChecklist>
+
+	<dtChecklist>
+		<ChecklistKey>28</ChecklistKey>
+		<ScriptName>SQL Process memory paging</ScriptName>
+		<CheckDesc>Searches the current SQL Server error logs for the message 'A significant part of sql server process memory has been paged out. This may result in a performance degradation'</CheckDesc>
+		<LowValue>1</LowValue>
+		<HighValue>1</HighValue>
+		<IsWithinRangeGood>1</IsWithinRangeGood>
+		<ChecklistCrossRefID>96</ChecklistCrossRefID>
+		<Category>Operations</Category>
+		<AdditionalDocumentation></AdditionalDocumentation>
+		<Weight>1</Weight>
+		<CodeToRun>
+			exec sp_readerrorlog 1, 1, 'A significant part of sql server process memory has been paged out. This may result in a performance degradation'
+		</CodeToRun>
+		<CodeType>SQL</CodeType>
+		<IsExecute>1</IsExecute>
+		<IsForOutput>1</IsForOutput>
+		<IsForDataSet>1</IsForDataSet>
+		<MinTsqlCompatibilityVersion>9</MinTsqlCompatibilityVersion>
+	</dtChecklist>
+
+	<dtChecklist>
+		<ChecklistKey>29</ChecklistKey>
+		<ScriptName>Check For Memory Pressure</ScriptName>
+		<CheckDesc>Query the ring buffer to determine what state of the memory was at for any given period of time</CheckDesc>
+		<LowValue>1</LowValue>
+		<HighValue>1</HighValue>
+		<IsWithinRangeGood>1</IsWithinRangeGood>
+		<ChecklistCrossRefID>96</ChecklistCrossRefID>
+		<Category>Operations</Category>
+		<AdditionalDocumentation>http://blogs.msdn.com/b/mvpawardprogram/archive/2012/06/04/using-sys-dm-os-ring-buffers-to-diagnose-memory-issues-in-sql-server.aspx</AdditionalDocumentation>
+		<Weight>1</Weight>
+		<CodeToRun>
+			WITH RingBuffer AS
+			(
+			SELECT CAST(dorb.record AS XML) AS xRecord, dorb.timestamp
+			FROM sys.dm_os_ring_buffers AS dorb
+			WHERE dorb.ring_buffer_type = 'RING_BUFFER_RESOURCE_MONITOR'
+			)
+
+			SELECT
+			xr.value('(ResourceMonitor/Notification)[1]', 'varchar(75)') AS [Rm Notification],
+			xr.value('(ResourceMonitor/IndicatorsProcess)[1]','tinyint') AS [Indicators Process],
+			xr.value('(ResourceMonitor/IndicatorsSystem)[1]','tinyint') AS [Indicators System],
+			DATEADD(ms, -1 * (dosi.ms_ticks/1000) - rb.timestamp, GETDATE()) AS [Rm Date Time],
+			xr.value('(MemoryNode/TargetMemory)[1]','bigint') AS [Target Memory],
+			xr.value('(MemoryNode/ReserveMemory)[1]','bigint') AS [Reserve Memory],
+			xr.value('(MemoryNode/CommittedMemory)[1]','bigint') AS [Commited Memory],
+			xr.value('(MemoryNode/SharedMemory)[1]','bigint') AS [Shared Memory],
+			xr.value('(MemoryNode/PagesMemory)[1]','bigint') AS [Pages Memory],
+			xr.value('(MemoryRecord/MemoryUtilization)[1]','bigint') AS [Memory Utilization],
+			xr.value('(MemoryRecord/TotalPhysicalMemory)[1]','bigint') AS [Total Physical Memory],
+			xr.value('(MemoryRecord/AvailablePhysicalMemory)[1]','bigint') AS [Available Physical Memory],
+			xr.value('(MemoryRecord/TotalPageFile)[1]','bigint') AS [Total Page File],
+			xr.value('(MemoryRecord/AvailablePageFile)[1]','bigint') AS [Available Page File],
+			xr.value('(MemoryRecord/TotalVirtualAddressSpace)[1]','bigint') AS [Total Virtual Address Space],
+			xr.value('(MemoryRecord/AvailableVirtualAddressSpace)[1]','bigint') AS [Available Virtual Address Space],
+			xr.value('(MemoryRecord/AvailableExtendedVirtualAddressSpace)[1]','bigint') AS [Available Extended Virtual Address Space]
+			FROM RingBuffer AS rb
+			CROSS APPLY rb.xRecord.nodes('Record') record (xr)
+			CROSS JOIN sys.dm_os_sys_info AS dosi
+			ORDER BY [Rm Date Time]DESC;
+		</CodeToRun>
+		<CodeType>SQL</CodeType>
+		<IsExecute>1</IsExecute>
+		<IsForOutput>1</IsForOutput>
+		<IsForDataSet>1</IsForDataSet>
+		<MinTsqlCompatibilityVersion>10</MinTsqlCompatibilityVersion>
+	</dtChecklist>
+	
+	<dtChecklist>
+		<ChecklistKey>30</ChecklistKey>
+		<ScriptName>Connectivity Errors</ScriptName>
+		<CheckDesc>Query the ring buffer for connectivity errors</CheckDesc>
+		<LowValue>1</LowValue>
+		<HighValue>1</HighValue>
+		<IsWithinRangeGood>1</IsWithinRangeGood>
+		<ChecklistCrossRefID>96</ChecklistCrossRefID>
+		<Category>Operations</Category>
+		<AdditionalDocumentation>http://blogs.msdn.com/b/sql_protocols/archive/2008/05/20/connectivity-troubleshooting-in-sql-server-2008-with-the-connectivity-ring-buffer.aspx</AdditionalDocumentation>
+		<Weight>1</Weight>
+		<CodeToRun>
+			SELECT
+			CONVERT (varchar(30), GETDATE(), 121) as [RunTime],
+			dateadd (ms, (rbf.[timestamp] - tme.ms_ticks), GETDATE()) as Time_Stamp,
+			cast(record as xml).value(&apos;(//Record/ConnectivityTraceRecord/RecordType)[1]&apos;, &apos;varchar(50)&apos;) AS [Action],
+			cast(record as xml).value(&apos;(//Record/ConnectivityTraceRecord/RecordSource)[1]&apos;, &apos;varchar(50)&apos;) AS [Source],
+			cast(record as xml).value(&apos;(//Record/ConnectivityTraceRecord/SniConnectionId)[1]&apos;, &apos;varchar(50)&apos;) AS SniConnectionId,
+			cast(record as xml).value(&apos;(//Record/ConnectivityTraceRecord/SniConsumerError)[1]&apos;, &apos;varchar(50)&apos;) AS SniConsumerError,
+			cast(record as xml).value(&apos;(//Record/ConnectivityTraceRecord/SniProvider)[1]&apos;, &apos;varchar(50)&apos;) AS SniProvider,
+			cast(record as xml).value(&apos;(//Record/ConnectivityTraceRecord/Spid)[1]&apos;, &apos;int&apos;) AS [SPID],
+			cast(record as xml).value(&apos;(//Record/ConnectivityTraceRecord/RemoteHost)[1]&apos;, &apos;varchar(100)&apos;) AS [RemoteHost],
+			cast(record as xml).value(&apos;(//Record/ConnectivityTraceRecord/RemotePort)[1]&apos;, &apos;varchar(25)&apos;) AS [RemotePort],
+			cast(record as xml).value(&apos;(//Record/ConnectivityTraceRecord/LocalPort)[1]&apos;, &apos;varchar(25)&apos;) AS [LocalPort],
+			cast(record as xml).value(&apos;(//Record/ConnectivityTraceRecord/TdsBuffersInformation/TdsInputBufferError)[1]&apos;, &apos;varchar(25)&apos;) AS [TdsInputBufferError],
+			cast(record as xml).value(&apos;(//Record/ConnectivityTraceRecord/TdsBuffersInformation/TdsOutputBufferError)[1]&apos;, &apos;varchar(25)&apos;) AS [TdsOutputBufferError],
+			cast(record as xml).value(&apos;(//Record/ConnectivityTraceRecord/TdsBuffersInformation/TdsInputBufferBytes)[1]&apos;, &apos;varchar(25)&apos;) AS [TdsInputBufferBytes],
+			cast(record as xml).value(&apos;(//Record/ConnectivityTraceRecord/TdsDisconnectFlags/PhysicalConnectionIsKilled)[1]&apos;, &apos;int&apos;) AS [isPhysConnKilled],
+			cast(record as xml).value(&apos;(//Record/ConnectivityTraceRecord/TdsDisconnectFlags/DisconnectDueToReadError)[1]&apos;, &apos;int&apos;) AS [DisconnectDueToReadError],
+			cast(record as xml).value(&apos;(//Record/ConnectivityTraceRecord/TdsDisconnectFlags/NetworkErrorFoundInInputStream)[1]&apos;, &apos;int&apos;) AS [NetworkErrorFound],
+			cast(record as xml).value(&apos;(//Record/ConnectivityTraceRecord/TdsDisconnectFlags/ErrorFoundBeforeLogin)[1]&apos;, &apos;int&apos;) AS [ErrorBeforeLogin],
+			cast(record as xml).value(&apos;(//Record/ConnectivityTraceRecord/TdsDisconnectFlags/SessionIsKilled)[1]&apos;, &apos;int&apos;) AS [isSessionKilled],
+			cast(record as xml).value(&apos;(//Record/ConnectivityTraceRecord/TdsDisconnectFlags/NormalDisconnect)[1]&apos;, &apos;int&apos;) AS [NormalDisconnect],
+			cast(record as xml).value(&apos;(//Record/ConnectivityTraceRecord/TdsDisconnectFlags/NormalLogout)[1]&apos;, &apos;int&apos;) AS [NormalLogout],
+			cast(record as xml).value(&apos;(//Record/ConnectivityTraceRecord/LoginTimers/TotalLoginTimeInMilliseconds)[1]&apos;, &apos;int&apos;) AS [NormalLogout],
+			cast(record as xml).value(&apos;(//Record/ConnectivityTraceRecord/LoginTimers/LoginTaskEnqueuedInMilliseconds)[1]&apos;, &apos;int&apos;) AS [LoginTaskEnqueuedInMilliseconds],
+			cast(record as xml).value(&apos;(//Record/ConnectivityTraceRecord/LoginTimers/NetworkWritesInMilliseconds)[1]&apos;, &apos;int&apos;) AS [NetworkWritesInMilliseconds],
+			cast(record as xml).value(&apos;(//Record/ConnectivityTraceRecord/LoginTimers/NetworkReadsInMilliseconds)[1]&apos;, &apos;int&apos;) AS [NetworkReadsInMilliseconds],
+			cast(record as xml).value(&apos;(//Record/ConnectivityTraceRecord/LoginTimers/SslProcessingInMilliseconds)[1]&apos;, &apos;int&apos;) AS [SslProcessingInMilliseconds],
+			cast(record as xml).value(&apos;(//Record/ConnectivityTraceRecord/LoginTimers/SspiProcessingInMilliseconds)[1]&apos;, &apos;int&apos;) AS [SspiProcessingInMilliseconds],
+			cast(record as xml).value(&apos;(//Record/ConnectivityTraceRecord/LoginTimers/LoginTriggerAndResourceGovernorProcessingInMilliseconds)[1]&apos;, &apos;int&apos;) AS [LoginTriggerAndResourceGovernorProcessingInMilliseconds],
+			cast(record as xml).value(&apos;(//Record/@id)[1]&apos;, &apos;bigint&apos;) AS [Record Id],
+			cast(record as xml).value(&apos;(//Record/@type)[1]&apos;, &apos;varchar(30)&apos;) AS [Type],
+			cast(record as xml).value(&apos;(//Record/@time)[1]&apos;, &apos;bigint&apos;) AS [Record Time],
+			tme.ms_ticks as [Current Time]
+			FROM sys.dm_os_ring_buffers rbf
+			cross join sys.dm_os_sys_info tme
+			WHERE
+			rbf.ring_buffer_type = &apos;RING_BUFFER_CONNECTIVITY&apos;
+			AND CAST(record as xml).value(&apos;(//Record/ConnectivityTraceRecord/Spid)[1]&apos;, &apos;int&apos;) &lt;&gt;0
+			ORDER BY rbf.timestamp ASC
+		</CodeToRun>
+		<CodeType>SQL</CodeType>
+		<IsExecute>1</IsExecute>
+		<IsForOutput>1</IsForOutput>
+		<IsForDataSet>1</IsForDataSet>
+		<MinTsqlCompatibilityVersion>10</MinTsqlCompatibilityVersion>
+	</dtChecklist>
+
+	<dtChecklist>
+		<ChecklistKey>31</ChecklistKey>
+		<ScriptName>Failsafe Operator Information</ScriptName>
+		<CheckDesc>Query the ring buffer for connectivity errors</CheckDesc>
+		<LowValue>1</LowValue>
+		<HighValue>1</HighValue>
+		<IsWithinRangeGood>1</IsWithinRangeGood>
+		<ChecklistCrossRefID>96</ChecklistCrossRefID>
+		<Category>Operations</Category>
+		<AdditionalDocumentation>http://blogs.msdn.com/b/sql_protocols/archive/2008/05/20/connectivity-troubleshooting-in-sql-server-2008-with-the-connectivity-ring-buffer.aspx</AdditionalDocumentation>
+		<Weight>1</Weight>
+		<CodeToRun>
+			DECLARE @FailSafeOperator NVARCHAR(255)
+			EXEC master.dbo.xp_instance_regread
+				N'HKEY_LOCAL_MACHINE', N'SOFTWARE\Microsoft\MSSQLServer\SQLServerAgent', N'AlertFailSafeOperator',
+				@param = @FailSafeOperator OUT, @no_output = N'no_output'
+
+			DECLARE @NotificationMethod int
+			EXEC master.dbo.xp_instance_regread
+				N'HKEY_LOCAL_MACHINE', N'SOFTWARE\Microsoft\MSSQLServer\SQLServerAgent', N'AlertNotificationMethod',
+				@param = @NotificationMethod OUT, @no_output = N'no_output'
+
+			DECLARE @ForwardingServer NVARCHAR(255)
+			EXEC master.dbo.xp_instance_regread
+				N'HKEY_LOCAL_MACHINE', N'SOFTWARE\Microsoft\MSSQLServer\SQLServerAgent', N'AlertForwardingServer',
+				@param = @ForwardingServer OUT, @no_output = N'no_output'
+
+			DECLARE @ForwardingSeverity int
+			EXEC master.dbo.xp_instance_regread
+				N'HKEY_LOCAL_MACHINE', N'SOFTWARE\Microsoft\MSSQLServer\SQLServerAgent', N'AlertForwardingSeverity',
+				@param = @ForwardingSeverity OUT, @no_output = N'no_output'
+
+			DECLARE @ForwardAlways int
+			EXEC master.dbo.xp_instance_regread
+				N'HKEY_LOCAL_MACHINE', N'SOFTWARE\Microsoft\MSSQLServer\SQLServerAgent', N'AlertForwardAlways',
+				@param = @ForwardAlways OUT, @no_output = N'no_output'
+
+			DECLARE @PagerToTemplate NVARCHAR(255)
+			EXEC master.dbo.xp_instance_regread
+				N'HKEY_LOCAL_MACHINE', N'SOFTWARE\Microsoft\MSSQLServer\SQLServerAgent', N'AlertPagerToTemplate',
+				@param = @PagerToTemplate OUT, @no_output = N'no_output'
+
+			DECLARE @PagerCCTemplate NVARCHAR(255)
+			EXEC master.dbo.xp_instance_regread
+				N'HKEY_LOCAL_MACHINE', N'SOFTWARE\Microsoft\MSSQLServer\SQLServerAgent', N'AlertPagerCCTemplate',
+				@param = @PagerCCTemplate OUT, @no_output = N'no_output'
+
+			DECLARE @PagerSubjectTemplate NVARCHAR(255)
+			EXEC master.dbo.xp_instance_regread
+				N'HKEY_LOCAL_MACHINE', N'SOFTWARE\Microsoft\MSSQLServer\SQLServerAgent', N'AlertPagerSubjectTemplate',
+				@param = @PagerSubjectTemplate OUT, @no_output = N'no_output'
+
+			DECLARE @PagerSendSubjectOnly int
+			EXEC master.dbo.xp_instance_regread
+				N'HKEY_LOCAL_MACHINE', N'SOFTWARE\Microsoft\MSSQLServer\SQLServerAgent', N'AlertPagerSendSubjectOnly',
+				@param = @PagerSendSubjectOnly OUT, @no_output = N'no_output'
+
+			DECLARE @FailSafeEmailAddress NVARCHAR(255)
+			EXEC master.dbo.xp_instance_regread
+				N'HKEY_LOCAL_MACHINE', N'SOFTWARE\Microsoft\MSSQLServer\SQLServerAgent', N'AlertFailSafeEmailAddress',
+				@param = @FailSafeEmailAddress OUT, @no_output = N'no_output'
+
+			DECLARE @FailSafePagerAddress NVARCHAR(255)
+			EXEC master.dbo.xp_instance_regread
+				N'HKEY_LOCAL_MACHINE', N'SOFTWARE\Microsoft\MSSQLServer\SQLServerAgent', N'AlertFailSafePagerAddress',
+				@param = @FailSafePagerAddress OUT, @no_output = N'no_output'
+
+			DECLARE @FailSafeNetSendAddress NVARCHAR(255)
+			EXEC master.dbo.xp_instance_regread
+				N'HKEY_LOCAL_MACHINE', N'SOFTWARE\Microsoft\MSSQLServer\SQLServerAgent', N'AlertFailSafeNetSendAddress',
+				@param = @FailSafeNetSendAddress OUT, @no_output = N'no_output'
+
+
+
+			SELECT
+			N'AlertSystem' AS [Name],
+			ISNULL(@FailSafeOperator,N'') AS [FailSafe Operator],
+			@NotificationMethod AS [Notification Method],
+			ISNULL(@ForwardingServer,N'') AS [Forwarding Server],
+			@ForwardingSeverity AS [Forwarding Severity],
+			CAST(ISNULL(@ForwardAlways, 0) AS bit) AS [Is Forwarded Always],
+			ISNULL(@PagerToTemplate,N'') AS [Pager To Template],
+			ISNULL(@PagerCCTemplate,N'') AS [Pager CC Template],
+			ISNULL(@PagerSubjectTemplate,N'') AS [Pager Subject Template],
+			CAST(@PagerSendSubjectOnly AS bit) AS [Pager Send Subject Only],
+			ISNULL(@FailSafeEmailAddress,N'') AS [Fail Safe Email Address],
+			ISNULL(@FailSafePagerAddress,N'') AS [Fail Safe Pager Address],
+			ISNULL(@FailSafeNetSendAddress,N'') AS [Fail Safe Net Send Address]
+		</CodeToRun>
+		<CodeType>SQL</CodeType>
+		<IsExecute>1</IsExecute>
+		<IsForOutput>1</IsForOutput>
+		<IsForDataSet>1</IsForDataSet>
+		<MinTsqlCompatibilityVersion>9</MinTsqlCompatibilityVersion>
+	</dtChecklist>
+	<dtChecklist>
+		<ChecklistKey>32</ChecklistKey>
+		<ScriptName>Is Failsafe Operator Set</ScriptName>
+		<CheckDesc>Checks to see if a failsafe operator has been set. It does not check that the operator has a notification method set. You must do this manually.</CheckDesc>
+		<LowValue>1</LowValue>
+		<HighValue>1</HighValue>
+		<IsWithinRangeGood>1</IsWithinRangeGood>
+		<ChecklistCrossRefID>15</ChecklistCrossRefID>
+		<Category>Configuration</Category>
+		<AdditionalDocumentation></AdditionalDocumentation>
+		<Weight>1</Weight>
+		<CodeToRun>
+			DECLARE @FailSafeOperator NVARCHAR(255)
+			EXEC master.dbo.xp_instance_regread
+				N'HKEY_LOCAL_MACHINE', N'SOFTWARE\Microsoft\MSSQLServer\SQLServerAgent', N'AlertFailSafeOperator',
+				@param = @FailSafeOperator OUT, @no_output = N'no_output'
+
+			IF (@FailSafeOperator IS NULL)
+			BEGIN
+				SELECT 0, 'No fail safe operator has been set'
+			END
+			ELSE
+			BEGIN
+			SELECT 1, 'There is a fail safe operater set'
+			END
+		</CodeToRun>
+		<CodeType>SQL</CodeType>
+		<IsExecute>1</IsExecute>
+		<IsForOutput>1</IsForOutput>
+		<IsForDataSet>0</IsForDataSet>
+		<MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+	</dtChecklist>
+	<dtChecklist>
+		<ChecklistKey>33</ChecklistKey>
+		<ScriptName>Indexes Fragmented Limited</ScriptName>
+		<CheckDesc>Identification of fragmented indexes. These indexes are likely to effect performance and need to be rebuilt during your maintenance window</CheckDesc>
+		<LowValue>0</LowValue>
+		<HighValue>10</HighValue>
+		<IsWithinRangeGood>1</IsWithinRangeGood>
+		<ChecklistCrossRefID>90</ChecklistCrossRefID>
+		<Category>Performance</Category>
+		<AdditionalDocumentation></AdditionalDocumentation>
+		<Weight>1</Weight>
+		<CodeToRun>
+			SELECT
+			Database_ID,
+			CONVERT(VARCHAR(35),DB_NAME(idx.database_id)) AS [DB Name],
+			sch.name [Schema Name],
+			idx.[Object_ID],CONVERT(VARCHAR(35),OBJECT_NAME(idx.[OBJECT_ID])) AS 'OBJECT NAME',
+			idx.Partition_Number [Partition Number],
+			idx.Index_ID [Index ID],
+			idx.Index_Type_Desc [Index Type Desc],
+			idx.Alloc_Unit_Type_Desc [Alloc Unit Type Desc],
+			idx.Index_Depth,Index_Level [Index Depth Level],
+			idx.Avg_Fragmentation_In_Percent [Avg Frag Percent],
+			idx.Fragment_Count [Frag Count],
+			Avg_Fragment_Size_In_Pages [Avg Frag Size In Pages],
+			idx.Page_Count [Page Count]
+			FROM sys.dm_db_index_physical_stats(DB_ID(), NULL, NULL, NULL, 'LIMITED') idx
+			INNER JOIN sys.tables t
+			ON idx.object_id = t.object_id
+			INNER JOIN sys.schemas sch
+			ON sch.schema_id = t.schema_id
+			WHERE idx.page_count > 100
+			AND idx.avg_fragmentation_in_percent > 15
+			AND idx.Index_ID > 0
+			ORDER BY [Page Count] DESC, idx.avg_fragmentation_in_percent DESC
+		</CodeToRun>
+		<CodeType>SQL</CodeType>
+		<IsExecute>1</IsExecute>
+		<IsForOutput>1</IsForOutput>
+		<IsForDataSet>1</IsForDataSet>
+		<MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+	</dtChecklist>
+
+	<dtChecklist>
+		<ChecklistKey>34</ChecklistKey>
+		<ScriptName>Is Priority Boost Set</ScriptName>
+		<CheckDesc>Is the priority boost switch set for SQL?</CheckDesc>
+		<LowValue>0</LowValue>
+		<HighValue>0</HighValue>
+		<IsWithinRangeGood>1</IsWithinRangeGood>
+		<ChecklistCrossRefID>6</ChecklistCrossRefID>
+		<Category>Configuration</Category>
+		<AdditionalDocumentation>http://technet.microsoft.com/en-us/library/cc966534.aspx</AdditionalDocumentation>
+		<Weight>1</Weight>
+		<CodeToRun>
+			SELECT value_in_use,
+			CASE value_in_use
+			WHEN 0 THEN 'Priority boost is turned off. This is the recommended state.'
+			WHEN 1 THEN 'Priority boost is turned on. This is not recommended.'
+			ELSE 'The state of priority boost is unknown. No recommendation can be made'
+			END
+			FROM sys.configurations
+			WHERE
+			name = 'priority boost'
+			AND configuration_id = 1517
+		</CodeToRun>
+		<CodeType>SQL</CodeType>
+		<IsExecute>1</IsExecute>
+		<IsForOutput>1</IsForOutput>
+		<IsForDataSet>0</IsForDataSet>
+		<MinTsqlCompatibilityVersion>9</MinTsqlCompatibilityVersion>
+	</dtChecklist>
+	<dtChecklist>
+		<ChecklistKey>35</ChecklistKey>
+		<ScriptName>IO Profile</ScriptName>
+		<CheckDesc>The IO Profile query helps you make sense of your IO demand on your database. This is a high level query designed only to determine which physical file places the most demand, or experiences the most stalls on your system</CheckDesc>
+		<LowValue>0</LowValue>
+		<HighValue>10</HighValue>
+		<IsWithinRangeGood>1</IsWithinRangeGood>
+		<ChecklistCrossRefID>91</ChecklistCrossRefID>
+		<Category>Performance</Category>
+		<AdditionalDocumentation>http://msdn.microsoft.com/en-us/library/ms187309.aspx</AdditionalDocumentation>
+		<Weight>1</Weight>
+		<CodeToRun>
+			SELECT
+				DB_NAME(DbId)[DB Name],
+				FILE_NAME(FileId) [File Name],
+				TimeStamp [Time Stamp],
+				NumberReads [Number Of Reads],
+				BytesRead [Bytes Read],
+				IoStallReadMS [IO Stall Read MS],
+				NumberWrites [Number of Writes],
+				BytesWritten [Bytes Written],
+				IoStallWriteMS [IO Stall Write MS],
+				IoStallMS [IO Stall MS],
+				BytesOnDisk [Bytes on Disk]
+			FROM sys.fn_virtualfilestats(NULL,NULL)
+			ORDER BY IoStallMS DESC
+		</CodeToRun>
+		<CodeType>SQL</CodeType>
+		<IsExecute>1</IsExecute>
+		<IsForOutput>1</IsForOutput>
+		<IsForDataSet>1</IsForDataSet>
+		<MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+	</dtChecklist>
+	<dtChecklist>
+		<ChecklistKey>36</ChecklistKey>
+		<ScriptName>Indexes Duplicate</ScriptName>
+		<CheckDesc>All indexes slow down insert, update and delete statements to some degree. Finding these duplicate indexes is a worthwhile endeavor when tuning a system so that you remove the penatly in performance you pay for managing more than one index for the same purpose. Moreoever, you also pay a penalty in space as each duplicate index will take up unwanted space.</CheckDesc>
+		<LowValue>0</LowValue>
+		<HighValue>0</HighValue>
+		<IsWithinRangeGood>1</IsWithinRangeGood>
+		<ChecklistCrossRefID>92</ChecklistCrossRefID>
+		<Category>Performance</Category>
+		<AdditionalDocumentation></AdditionalDocumentation>
+		<Weight>1</Weight>
+		<CodeToRun>
+			SELECT
+				l1.TableName,
+				l1.IndexName,
+				l2.IndexName AS duplicateIndex
+				FROM
+				(SELECT tbl.[name] AS TableName,
+				idx.[name] AS IndexName,
+				INDEX_COL( tbl.[name], idx.indid, 1 ) AS col1,
+				INDEX_COL( tbl.[name], idx.indid, 2 ) AS col2,
+				INDEX_COL( tbl.[name], idx.indid, 3 ) AS col3,
+				INDEX_COL( tbl.[name], idx.indid, 4 ) AS col4,
+				INDEX_COL( tbl.[name], idx.indid, 5 ) AS col5
+			FROM sysindexes idx
+				INNER JOIN sysobjects tbl ON idx.[id] = tbl.[id]
+			WHERE indid > 0
+				AND INDEXPROPERTY( tbl.[id], idx.[name], 'IsStatistics') = 0 ) l1
+				JOIN
+				(SELECT tbl.[name] AS TableName,
+				idx.[name] AS IndexName,
+				INDEX_COL( tbl.[name], idx.indid, 1 ) AS col1,
+				INDEX_COL( tbl.[name], idx.indid, 2 ) AS col2,
+				INDEX_COL( tbl.[name], idx.indid, 3 ) AS col3,
+				INDEX_COL( tbl.[name], idx.indid, 4 ) AS col4,
+				INDEX_COL( tbl.[name], idx.indid, 5 ) AS col5
+				FROM sysindexes idx
+					INNER JOIN sysobjects tbl ON idx.[id] = tbl.[id]
+			WHERE
+				indid > 0
+				AND INDEXPROPERTY( tbl.[id], idx.[name], 'IsStatistics') = 0) l2
+				ON l1.TableName = l2.TableName
+				AND l1.IndexName &lt;&gt; l2.IndexName
+				AND l1.col1 = l2.col1
+				AND COALESCE(l1.col2,'') = COALESCE(l2.col2,'')
+				AND COALESCE(l1.col3,'') = COALESCE(l2.col3,'')
+				AND COALESCE(l1.col4,'') = COALESCE(l2.col4,'')
+				AND COALESCE(l1.col5,'') = COALESCE(l2.col5,'')
+
+		</CodeToRun>
+		<CodeType>SQL</CodeType>
+		<IsExecute>1</IsExecute>
+		<IsForOutput>1</IsForOutput>
+		<IsForDataSet>1</IsForDataSet>
+		<MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+	</dtChecklist>
+	<dtChecklist>
+		<ChecklistKey>37</ChecklistKey>
+		<ScriptName>Find Missing Indexes</ScriptName>
+		<CheckDesc>Identifying the most beneficial missing indexes can improve performance. Do not take all indexe suggestions literally, there can be duplicates</CheckDesc>
+		<LowValue>0</LowValue>
+		<HighValue>0</HighValue>
+		<IsWithinRangeGood>1</IsWithinRangeGood>
+		<ChecklistCrossRefID>92</ChecklistCrossRefID>
+		<Category>Performance</Category>
+		<AdditionalDocumentation></AdditionalDocumentation>
+		<Weight>1</Weight>
+		<CodeToRun>
+			SELECT  user_seeks * avg_total_user_cost * ( avg_user_impact * 0.01 ) AS [index_advantage] ,
+				dbmigs.last_user_seek ,
+				dbmid.[statement] AS [Database.Schema.Table] ,
+				dbmid.equality_columns ,
+				dbmid.inequality_columns ,
+				dbmid.included_columns ,
+				dbmigs.unique_compiles ,
+				dbmigs.user_seeks ,
+				dbmigs.avg_total_user_cost ,
+				dbmigs.avg_user_impact
+			FROM    sys.dm_db_missing_index_group_stats AS dbmigs WITH ( NOLOCK )
+				INNER JOIN sys.dm_db_missing_index_groups AS dbmig WITH ( NOLOCK )
+				ON dbmigs.group_handle = dbmig.index_group_handle
+				INNER JOIN sys.dm_db_missing_index_details AS dbmid WITH ( NOLOCK )
+					ON dbmig.index_handle = dbmid.index_handle
+			WHERE   dbmid.[database_id] = DB_ID()
+				ORDER BY index_advantage DESC
+		</CodeToRun>
+		<CodeType>SQL</CodeType>
+		<IsExecute>1</IsExecute>
+		<IsForOutput>1</IsForOutput>
+		<IsForDataSet>1</IsForDataSet>
+		<MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+	</dtChecklist>
+	<dtChecklist>
+		<ChecklistKey>38</ChecklistKey>
+		<ScriptName>Indexes W/Lock Contention</ScriptName>
+		<CheckDesc>Identifying indexes that cause the most lock contention</CheckDesc>
+		<LowValue>0</LowValue>
+		<HighValue>0</HighValue>
+		<IsWithinRangeGood>1</IsWithinRangeGood>
+		<ChecklistCrossRefID>92</ChecklistCrossRefID>
+		<Category>Performance</Category>
+		<AdditionalDocumentation></AdditionalDocumentation>
+		<Weight>1</Weight>
+		<CodeToRun>
+			SELECT  OBJECT_NAME(ddios.OBJECT_ID, ddios.database_id) AS OBJECT_NAME ,
+				i.name AS index_name ,
+				ddios.index_id ,
+				ddios.partition_number ,
+				ddios.page_lock_wait_count ,
+				ddios.page_lock_wait_in_ms ,
+			CASE WHEN DDMID.database_id IS NULL THEN 'N'
+				ELSE 'Y'
+			END AS missing_index_identified
+			FROM    sys.dm_db_index_operational_stats(DB_ID(), NULL, NULL, NULL) ddios
+				INNER JOIN sys.indexes i ON ddios.OBJECT_ID = i.OBJECT_ID
+			AND ddios.index_id = i.index_id
+				LEFT OUTER JOIN ( SELECT DISTINCT
+					database_id ,
+					OBJECT_ID
+					FROM      sys.dm_db_missing_index_details
+				) AS DDMID ON DDMID.database_id = ddios.database_id
+				AND DDMID.OBJECT_ID = ddios.OBJECT_ID
+			WHERE   ddios.page_lock_wait_in_ms > 0
+			ORDER BY ddios.page_lock_wait_count DESC
+		</CodeToRun>
+		<CodeType>SQL</CodeType>
+		<IsExecute>1</IsExecute>
+		<IsForOutput>1</IsForOutput>
+		<IsForDataSet>1</IsForDataSet>
+		<MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+	</dtChecklist>
+	<dtChecklist>
+		<ChecklistKey>39</ChecklistKey>
+		<ScriptName>Indexes W/Lock Escalation</ScriptName>
+		<CheckDesc>Identifying indexes that cause the most lock escalations</CheckDesc>
+		<LowValue>0</LowValue>
+		<HighValue>0</HighValue>
+		<IsWithinRangeGood>1</IsWithinRangeGood>
+		<ChecklistCrossRefID>92</ChecklistCrossRefID>
+		<Category>Performance</Category>
+		<AdditionalDocumentation></AdditionalDocumentation>
+		<Weight>1</Weight>
+		<CodeToRun>
+			SELECT  OBJECT_NAME(ddios.[object_id], ddios.database_id) AS [object_name] ,
+				i.name AS index_name ,
+				ddios.index_id ,
+				ddios.partition_number ,
+				ddios.index_lock_promotion_attempt_count ,
+				ddios.index_lock_promotion_count ,
+				( ddios.index_lock_promotion_attempt_count
+				/ ddios.index_lock_promotion_count ) AS percent_success
+			FROM    sys.dm_db_index_operational_stats(DB_ID(), NULL, NULL, NULL) ddios
+				INNER JOIN sys.indexes i ON ddios.OBJECT_ID = i.OBJECT_ID
+				AND ddios.index_id = i.index_id
+			WHERE   ddios.index_lock_promotion_count > 0
+
+		</CodeToRun>
+		<CodeType>SQL</CodeType>
+		<IsExecute>1</IsExecute>
+		<IsForOutput>1</IsForOutput>
+		<IsForDataSet>1</IsForDataSet>
+		<MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+	</dtChecklist>
+	<dtChecklist>
+		<ChecklistKey>40</ChecklistKey>
+		<ScriptName>Indexes W/Lock waits</ScriptName>
+		<CheckDesc>Identifying indexes that cause the most lock waits</CheckDesc>
+		<LowValue>0</LowValue>
+		<HighValue>0</HighValue>
+		<IsWithinRangeGood>1</IsWithinRangeGood>
+		<ChecklistCrossRefID>92</ChecklistCrossRefID>
+		<Category>Performance</Category>
+		<AdditionalDocumentation></AdditionalDocumentation>
+		<Weight>1</Weight>
+		<CodeToRun>
+			SELECT  '[' + DB_NAME() + '].[' + OBJECT_SCHEMA_NAME(ddios.[object_id])
+				+ '].[' + OBJECT_NAME(ddios.[object_id]) + ']' AS [object_name] ,
+				i.[name] AS index_name ,
+				ddios.page_io_latch_wait_count ,
+				ddios.page_io_latch_wait_in_ms ,
+				( ddios.page_io_latch_wait_in_ms / ddios.page_io_latch_wait_count )
+				AS avg_page_io_latch_wait_in_ms
+			FROM    sys.dm_db_index_operational_stats(DB_ID(), NULL, NULL, NULL) ddios
+				INNER JOIN sys.indexes i ON ddios.[object_id] = i.[object_id]
+				AND i.index_id = ddios.index_id
+			WHERE   ddios.page_io_latch_wait_count > 0
+				AND OBJECTPROPERTY(i.OBJECT_ID, 'IsUserTable') = 1
+			ORDER BY ddios.page_io_latch_wait_count DESC ,
+				avg_page_io_latch_wait_in_ms DESC
+		</CodeToRun>
+		<CodeType>SQL</CodeType>
+		<IsExecute>1</IsExecute>
+		<IsForOutput>1</IsForOutput>
+		<IsForDataSet>1</IsForDataSet>
+		<MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+	</dtChecklist>
+	<dtChecklist>
+		<ChecklistKey>41</ChecklistKey>
+		<ScriptName>Locks and blocks at row level</ScriptName>
+		<CheckDesc>Identifying locking and blocking at the row level</CheckDesc>
+		<LowValue>0</LowValue>
+		<HighValue>0</HighValue>
+		<IsWithinRangeGood>1</IsWithinRangeGood>
+		<ChecklistCrossRefID>92</ChecklistCrossRefID>
+		<Category>Performance</Category>
+		<AdditionalDocumentation></AdditionalDocumentation>
+		<Weight>1</Weight>
+		<CodeToRun>
+			SELECT  '[' + DB_NAME(ddios.[database_id]) + '].[' + su.[name] + '].['
+				+ o.[name] + ']' AS [statement] ,
+				i.[name] AS 'index_name' ,
+				ddios.[partition_number] ,
+				ddios.[row_lock_count] ,
+				ddios.[row_lock_wait_count] ,
+				CAST (100.0 * ddios.[row_lock_wait_count]
+				/ ( ddios.[row_lock_count] ) AS DECIMAL(5, 2)) AS [%_times_blocked] ,
+				ddios.[row_lock_wait_in_ms] ,
+				CAST (1.0 * ddios.[row_lock_wait_in_ms]
+				/ ddios.[row_lock_wait_count] AS DECIMAL(15, 2))
+				AS [avg_row_lock_wait_in_ms]
+			FROM    sys.dm_db_index_operational_stats(DB_ID(), NULL, NULL, NULL) ddios
+				INNER JOIN sys.indexes i ON ddios.[object_id] = i.[object_id]
+					AND i.[index_id] = ddios.[index_id]
+				INNER JOIN sys.objects o ON ddios.[object_id] = o.[object_id]
+				INNER JOIN sys.sysusers su ON o.[schema_id] = su.[UID]
+			WHERE   ddios.row_lock_wait_count > 0
+				AND OBJECTPROPERTY(ddios.[object_id], 'IsUserTable') = 1
+				AND i.[index_id] > 0
+			ORDER BY ddios.[row_lock_wait_count] DESC ,
+				su.[name] ,
+				o.[name] ,
+				i.[name ]
+		</CodeToRun>
+		<CodeType>SQL</CodeType>
+		<IsExecute>1</IsExecute>
+		<IsForOutput>1</IsForOutput>
+		<IsForDataSet>1</IsForDataSet>
+		<MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+	</dtChecklist>
+	<dtChecklist>
+		<ChecklistKey>42</ChecklistKey>
+		<ScriptName>Index Activity W/out user reads</ScriptName>
+		<CheckDesc>Identify index activity info for indexes not used for user reads</CheckDesc>
+		<LowValue>0</LowValue>
+		<HighValue>0</HighValue>
+		<IsWithinRangeGood>1</IsWithinRangeGood>
+		<ChecklistCrossRefID>92</ChecklistCrossRefID>
+		<Category>Performance</Category>
+		<AdditionalDocumentation></AdditionalDocumentation>
+		<Weight>1</Weight>
+		<CodeToRun>
+			SELECT  '[' + DB_NAME() + '].[' + su.[name] + '].[' + o.[name] + ']'
+				AS [statement] ,
+				i.[name] AS [index_name] ,
+				ddius.[user_seeks] + ddius.[user_scans] + ddius.[user_lookups]
+				AS [user_reads] ,
+				ddius.[user_updates] AS [user_writes] ,
+				ddios.[leaf_insert_count] ,
+				ddios.[leaf_delete_count] ,
+				ddios.[leaf_update_count] ,
+				ddios.[nonleaf_insert_count] ,
+				ddios.[nonleaf_delete_count] ,
+				ddios.[nonleaf_update_count]
+			FROM    sys.dm_db_index_usage_stats ddius
+				INNER JOIN sys.indexes i ON ddius.[object_id] = i.[object_id]
+					AND i.[index_id] = ddius.[index_id]
+				INNER JOIN sys.partitions SP ON ddius.[object_id] = SP.[object_id]
+					AND SP.[index_id] = ddius.[index_id]
+				INNER JOIN sys.objects o ON ddius.[object_id] = o.[object_id]
+				INNER JOIN sys.sysusers su ON o.[schema_id] = su.[UID]
+				INNER JOIN sys.[dm_db_index_operational_stats](DB_ID(), NULL, NULL,
+				NULL)
+				AS ddios
+					ON ddius.[index_id] = ddios.[index_id]
+					AND ddius.[object_id] = ddios.[object_id]
+					AND SP.[partition_number] = ddios.[partition_number]
+					AND ddius.[database_id] = ddios.[database_id]
+			WHERE OBJECTPROPERTY(ddius.[object_id], 'IsUserTable') = 1
+				AND ddius.[index_id] > 0
+				AND ddius.[user_seeks] + ddius.[user_scans] + ddius.[user_lookups] = 0
+			ORDER BY ddius.[user_updates] DESC ,
+				su.[name] ,
+				o.[name] ,
+				i.[name]
+		</CodeToRun>
+		<CodeType>SQL</CodeType>
+		<IsExecute>1</IsExecute>
+		<IsForOutput>1</IsForOutput>
+		<IsForDataSet>1</IsForDataSet>
+		<MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+	</dtChecklist>
+	<dtChecklist>
+		<ChecklistKey>43</ChecklistKey>
+		<ScriptName>Inefficient Indexes</ScriptName>
+		<CheckDesc>Identify inefficient indexes where non-clustered indexes writes are greater than reads</CheckDesc>
+		<LowValue>0</LowValue>
+		<HighValue>0</HighValue>
+		<IsWithinRangeGood>1</IsWithinRangeGood>
+		<ChecklistCrossRefID>92</ChecklistCrossRefID>
+		<Category>Performance</Category>
+		<AdditionalDocumentation></AdditionalDocumentation>
+		<Weight>1</Weight>
+		<CodeToRun>
+			-- Potentially inefficent non-clustered indexes (writes > reads)
+			SELECT  OBJECT_NAME(ddius.[object_id]) AS [Table Name] ,
+				i.name AS [Index Name] ,
+				i.index_id ,
+				user_updates AS [Total Writes] ,
+				user_seeks + user_scans + user_lookups AS [Total Reads] ,
+				user_updates - ( user_seeks + user_scans + user_lookups )
+				AS [Difference]
+			FROM    sys.dm_db_index_usage_stats AS ddius WITH ( NOLOCK )
+				INNER JOIN sys.indexes AS i WITH ( NOLOCK )
+				ON ddius.[object_id] = i.[object_id]
+				AND i.index_id = ddius.index_id
+			WHERE   OBJECTPROPERTY(ddius.[object_id], 'IsUserTable') = 1
+				AND ddius.database_id = DB_ID()
+				AND user_updates > ( user_seeks + user_scans + user_lookups )
+				AND i.index_id > 1
+			ORDER BY [Difference] DESC ,
+				[Total Writes] DESC ,
+				[Total Reads] ASC ;
+		</CodeToRun>
+		<CodeType>SQL</CodeType>
+		<IsExecute>1</IsExecute>
+		<IsForOutput>1</IsForOutput>
+		<IsForDataSet>1</IsForDataSet>
+		<MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+	</dtChecklist>
+	<dtChecklist>
+		<ChecklistKey>44</ChecklistKey>
+		<ScriptName>Indexes maintained but not used</ScriptName>
+		<CheckDesc>Identify indexes maintained but not used</CheckDesc>
+		<LowValue>0</LowValue>
+		<HighValue>0</HighValue>
+		<IsWithinRangeGood>1</IsWithinRangeGood>
+		<ChecklistCrossRefID>92</ChecklistCrossRefID>
+		<Category>Performance</Category>
+		<AdditionalDocumentation></AdditionalDocumentation>
+		<Weight>1</Weight>
+		<CodeToRun>
+				SELECT  '[' + DB_NAME() + '].[' + su.[name] + '].[' + o.[name] + ']'
+				AS [statement] ,
+				i.[name] AS [index_name] ,
+				ddius.[user_seeks] + ddius.[user_scans] + ddius.[user_lookups]
+				AS [user_reads] ,
+				ddius.[user_updates] AS [user_writes] ,
+				SUM(SP.rows) AS [total_rows]
+				--,         'DROP INDEX [' + i.[name] + '] ON [' + su.[name] + '].[' + o.[name]
+				--+ '] WITH ( ONLINE = OFF )' AS [drop_command]
+			FROM    sys.dm_db_index_usage_stats ddius
+				INNER JOIN sys.indexes i ON ddius.[object_id] = i.[object_id]
+					AND i.[index_id] = ddius.[index_id]
+				INNER JOIN sys.partitions SP ON ddius.[object_id] = SP.[object_id]
+					AND SP.[index_id] = ddius.[index_id]
+				INNER JOIN sys.objects o ON ddius.[object_id] = o.[object_id]
+				INNER JOIN sys.sysusers su ON o.[schema_id] = su.[UID]
+			WHERE   ddius.[database_id] = DB_ID() -- current database only
+				AND OBJECTPROPERTY(ddius.[object_id], 'IsUserTable') = 1
+				AND ddius.[index_id] > 0
+			GROUP BY su.[name] ,
+				o.[name] ,
+				i.[name] ,
+				ddius.[user_seeks] + ddius.[user_scans] + ddius.[user_lookups] ,
+				ddius.[user_updates]
+			HAVING  ddius.[user_seeks] + ddius.[user_scans] + ddius.[user_lookups] = 0
+			ORDER BY ddius.[user_updates] DESC ,
+				su.[name] ,
+				o.[name] ,
+				i.[name]
+		</CodeToRun>
+		<CodeType>SQL</CodeType>
+		<IsExecute>1</IsExecute>
+		<IsForOutput>1</IsForOutput>
+		<IsForDataSet>1</IsForDataSet>
+		<MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+	</dtChecklist>
+	<dtChecklist>
+		<ChecklistKey>45</ChecklistKey>
+		<ScriptName>Indexes never accessed</ScriptName>
+		<CheckDesc>Identify indexes never accessed</CheckDesc>
+		<LowValue>0</LowValue>
+		<HighValue>0</HighValue>
+		<IsWithinRangeGood>1</IsWithinRangeGood>
+		<ChecklistCrossRefID>92</ChecklistCrossRefID>
+		<Category>Performance</Category>
+		<AdditionalDocumentation></AdditionalDocumentation>
+		<Weight>1</Weight>
+		<CodeToRun>
+			-- List unused indexes
+			SELECT  OBJECT_NAME(i.[object_id]) AS [Table Name] ,
+				i.name
+			FROM    sys.indexes AS i
+				INNER JOIN sys.objects AS o ON i.[object_id] = o.[object_id]
+			WHERE   i.index_id NOT IN ( SELECT  ddius.index_id
+				FROM    sys.dm_db_index_usage_stats AS ddius
+				WHERE   ddius.[object_id] = i.[object_id]
+				AND i.index_id = ddius.index_id
+				AND database_id = DB_ID() )
+			AND o.[type] = 'U'
+			ORDER BY OBJECT_NAME(i.[object_id]) ASC
+		</CodeToRun>
+		<CodeType>SQL</CodeType>
+		<IsExecute>1</IsExecute>
+		<IsForOutput>1</IsForOutput>
+		<IsForDataSet>1</IsForDataSet>
+		<MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+	</dtChecklist>
+	<dtChecklist>
+		<ChecklistKey>46</ChecklistKey>
+		<ScriptName>Index usage stats</ScriptName>
+		<CheckDesc>Index usage stats</CheckDesc>
+		<LowValue>0</LowValue>
+		<HighValue>0</HighValue>
+		<IsWithinRangeGood>1</IsWithinRangeGood>
+		<ChecklistCrossRefID>92</ChecklistCrossRefID>
+		<Category>Performance</Category>
+		<AdditionalDocumentation></AdditionalDocumentation>
+		<Weight>1</Weight>
+		<CodeToRun>
+			-- Investigating index usage (index_usage_stats)
+			SELECT  OBJECT_NAME(ddius.[object_id], ddius.database_id) AS [object_name] ,
+				ddius.index_id ,
+				ddius.user_seeks ,
+				ddius.user_scans ,
+				ddius.user_lookups ,
+				ddius.user_seeks + ddius.user_scans + ddius.user_lookups
+				AS user_reads ,
+				ddius.user_updates AS user_writes ,
+				ddius.last_user_scan ,
+				ddius.last_user_update
+			FROM    sys.dm_db_index_usage_stats ddius
+			WHERE   ddius.database_id > 4 -- filter out system tables
+				AND OBJECTPROPERTY(ddius.OBJECT_ID, 'IsUserTable') = 1
+				AND ddius.index_id > 0  -- filter out heaps
+			ORDER BY ddius.user_scans DESC
+		</CodeToRun>
+		<CodeType>SQL</CodeType>
+		<IsExecute>1</IsExecute>
+		<IsForOutput>1</IsForOutput>
+		<IsForDataSet>1</IsForDataSet>
+		<MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+	</dtChecklist>
+	<dtChecklist>
+		<ChecklistKey>47</ChecklistKey>
+		<ScriptName>TempDb Space Used By Queries</ScriptName>
+		<CheckDesc>How much space is used within the TempDb by queries?</CheckDesc>
+		<LowValue>0</LowValue>
+		<HighValue>0</HighValue>
+		<IsWithinRangeGood>1</IsWithinRangeGood>
+		<ChecklistCrossRefID>92</ChecklistCrossRefID>
+		<Category>Performance</Category>
+		<AdditionalDocumentation></AdditionalDocumentation>
+		<Weight>1</Weight>
+		<CodeToRun>
+			SELECT
+				t.text,
+				SUM(internal_objects_alloc_page_count) AS task_internal_objects_alloc_page_count,
+				SUM(internal_objects_dealloc_page_count) AS task_internal_objects_dealloc_page_count
+			FROM sys.dm_db_task_space_usage  st
+				JOIN sys.sysprocesses sp
+				ON sp.spid = st.session_id
+				CROSS APPLY sys.dm_exec_sql_text(sp.sql_handle) t
+			GROUP BY t.text
+			ORDER BY 2 DESC
+		</CodeToRun>
+		<CodeType>SQL</CodeType>
+		<IsExecute>1</IsExecute>
+		<IsForOutput>1</IsForOutput>
+		<IsForDataSet>1</IsForDataSet>
+		<MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+	</dtChecklist>
+	<dtChecklist>
+		<ChecklistKey>48</ChecklistKey>
+		<ScriptName>Number of Indexes By Schema</ScriptName>
+		<CheckDesc>How many indexes exist by schema</CheckDesc>
+		<LowValue>0</LowValue>
+		<HighValue>0</HighValue>
+		<IsWithinRangeGood>1</IsWithinRangeGood>
+		<ChecklistCrossRefID>92</ChecklistCrossRefID>
+		<Category>Performance</Category>
+		<AdditionalDocumentation></AdditionalDocumentation>
+		<Weight>1</Weight>
+		<CodeToRun>
+			SELECT SCHEMA_NAME(o.schema_id) SchemaName, COUNT(i.object_id) CountObjects
+			FROM sys.objects o
+			INNER JOIN sys.indexes i
+			ON o.object_id = i.object_id
+			--WHERE SCHEMA_NAME(o.schema_id) = 'AVATAX'
+			GROUP BY o.schema_id
+			ORDER BY SchemaName
+		</CodeToRun>
+		<CodeType>SQL</CodeType>
+		<IsExecute>1</IsExecute>
+		<IsForOutput>1</IsForOutput>
+		<IsForDataSet>1</IsForDataSet>
+		<MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+	</dtChecklist>
+	<dtChecklist>
+		<ChecklistKey>49</ChecklistKey>
+		<ScriptName>Cached page count by DB</ScriptName>
+		<CheckDesc>Which database is consuming the most RAM?</CheckDesc>
+		<LowValue>0</LowValue>
+		<HighValue>0</HighValue>
+		<IsWithinRangeGood>1</IsWithinRangeGood>
+		<ChecklistCrossRefID>92</ChecklistCrossRefID>
+		<Category>Performance</Category>
+		<AdditionalDocumentation></AdditionalDocumentation>
+		<Weight>1</Weight>
+		<CodeToRun>
+			SELECT COUNT(*)AS cached_pages_count
+			,CASE database_id
+				WHEN 32767 THEN 'ResourceDb'
+				ELSE db_name(database_id)
+				END AS database_name
+			FROM sys.dm_os_buffer_descriptors
+			GROUP BY db_name(database_id) ,database_id
+			ORDER BY cached_pages_count DESC
+		</CodeToRun>
+		<CodeType>SQL</CodeType>
+		<IsExecute>1</IsExecute>
+		<IsForOutput>1</IsForOutput>
+		<IsForDataSet>1</IsForDataSet>
+		<MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+	</dtChecklist>
+		<dtChecklist>
+		<ChecklistKey>50</ChecklistKey>
+		<ScriptName>Cached page count by object</ScriptName>
+		<CheckDesc>Cached page count by object</CheckDesc>
+		<LowValue>0</LowValue>
+		<HighValue>0</HighValue>
+		<IsWithinRangeGood>1</IsWithinRangeGood>
+		<ChecklistCrossRefID>92</ChecklistCrossRefID>
+		<Category>Performance</Category>
+		<AdditionalDocumentation></AdditionalDocumentation>
+		<Weight>1</Weight>
+		<CodeToRun>
+			SELECT COUNT(*)AS cached_pages_count
+			,name ,index_id
+			FROM sys.dm_os_buffer_descriptors AS bd
+				INNER JOIN
+				(
+				SELECT object_name(object_id) AS name
+				,index_id ,allocation_unit_id
+				FROM sys.allocation_units AS au
+					INNER JOIN sys.partitions AS p
+					ON au.container_id = p.hobt_id
+					AND (au.type = 1 OR au.type = 3)
+				UNION ALL
+				SELECT object_name(object_id) AS name
+				,index_id, allocation_unit_id
+				FROM sys.allocation_units AS au
+					INNER JOIN sys.partitions AS p
+					ON au.container_id = p.partition_id
+					AND au.type = 2
+				) AS obj
+					ON bd.allocation_unit_id = obj.allocation_unit_id
+			WHERE database_id = db_id()
+			GROUP BY name, index_id
+			ORDER BY cached_pages_count DESC
+		</CodeToRun>
+		<CodeType>SQL</CodeType>
+		<IsExecute>1</IsExecute>
+		<IsForOutput>1</IsForOutput>
+		<IsForDataSet>1</IsForDataSet>
+		<MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+	</dtChecklist>
+	<dtChecklist>
+		<ChecklistKey>51</ChecklistKey>
+		<ScriptName>DB Users And Their Role</ScriptName>
+		<CheckDesc>Find database users and their correpsonding roles</CheckDesc>
+		<LowValue>0</LowValue>
+		<HighValue>0</HighValue>
+		<IsWithinRangeGood>1</IsWithinRangeGood>
+		<ChecklistCrossRefID>92</ChecklistCrossRefID>
+		<Category>Configuration</Category>
+		<AdditionalDocumentation></AdditionalDocumentation>
+		<Weight>1</Weight>
+		<CodeToRun>
+			WITH Roles_CTE(Role_Name, Username) AS
+			(
+				SELECT
+				User_Name(sm.[groupuid]) as [Role_Name],
+				user_name(sm.[memberuid]) as [Username]
+				FROM [sys].[sysmembers] sm
+			)
+
+			SELECT
+				Roles_CTE.Role_Name,
+				[DatabaseUserName] = princ.[name],
+				[UserType] = CASE princ.[type]
+				WHEN 'S' THEN 'SQL User'
+				WHEN 'U' THEN 'Windows User'
+				WHEN 'G' THEN 'Windows Group'
+				WHEN 'A' THEN 'Application Role'
+				WHEN 'R' THEN 'Database Role'
+				WHEN 'C' THEN 'User mapped to a certificate'
+				WHEN 'K' THEN 'User mapped to an asymmetric key'
+				END
+			FROM
+			sys.database_principals princ
+				JOIN Roles_CTE on Username = princ.name
+			WHERE princ.type in ('S', 'U', 'G', 'A', 'R', 'C', 'K')
+			ORDER BY princ.name
+
+		</CodeToRun>
+		<CodeType>SQL</CodeType>
+		<IsExecute>1</IsExecute>
+		<IsForOutput>1</IsForOutput>
+		<IsForDataSet>1</IsForDataSet>
+		<MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+	</dtChecklist>
+	<dtChecklist>
+		<ChecklistKey>53</ChecklistKey>
+		<ScriptName>Server Info</ScriptName>
+		<CheckDesc>Get information about server build number and more</CheckDesc>
+		<LowValue>0</LowValue>
+		<HighValue>0</HighValue>
+		<IsWithinRangeGood>1</IsWithinRangeGood>
+		<ChecklistCrossRefID>92</ChecklistCrossRefID>
+		<Category>Configuration</Category>
+		<AdditionalDocumentation></AdditionalDocumentation>
+		<Weight>1</Weight>
+		<CodeToRun>
+SELECT 
+       SERVERPROPERTY('BuildClrVersion') BuildClrVersion,
+       SERVERPROPERTY('Collation') Collation, 
+       SERVERPROPERTY('CollationID') CollationID,
+       SERVERPROPERTY('ComparisonStyle') ComparisonStyle,
+       SERVERPROPERTY('ComputerNamePhysicalNetBIOS') ComputerNamePhysicalNetBIOS,
+       SERVERPROPERTY('Edition') Edition,
+       SERVERPROPERTY('EditionID') EditionID,
+       SERVERPROPERTY('EngineEdition') EngineEdition,
+       SERVERPROPERTY('InstanceName') InstanceName,
+       SERVERPROPERTY('IsClustered') IsClustered,
+       SERVERPROPERTY('IsFullTextInstalled') IsFullTextInstalled,
+       SERVERPROPERTY('IsIntegratedSecurityOnly') IsIntegratedSecurityOnly,
+       SERVERPROPERTY('IsSingleUser') IsSingleUser,
+       SERVERPROPERTY('LCID') LCID,
+       SERVERPROPERTY('LicenseType') LicenseType,
+       SERVERPROPERTY('MachineName') MachineName,
+       SERVERPROPERTY('NumLicenses') NumLicenses,
+       SERVERPROPERTY('ProcessID') ProcessID,
+       SERVERPROPERTY('ProductVersion') ProductVersion,
+       SERVERPROPERTY('ProductLevel') ProductLevel,
+       SERVERPROPERTY('ResourceLastUpdateDateTime') ResourceLastUpdateDateTime,
+       SERVERPROPERTY('ResourceVersion') ResourceVersion,
+       SERVERPROPERTY('ServerName') ServerName,
+       SERVERPROPERTY('SqlCharSet') SqlCharSet,
+       SERVERPROPERTY('SqlCharSetName') SqlCharSetName,
+       SERVERPROPERTY('SqlSortOrder') SqlSortOrder,
+       SERVERPROPERTY('SqlSortOrderName')SqlSortOrderName
+		</CodeToRun>
+		<CodeType>SQL</CodeType>
+		<IsExecute>1</IsExecute>
+		<IsForOutput>1</IsForOutput>
+		<IsForDataSet>1</IsForDataSet>
+		<MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+	</dtChecklist>
+	<dtChecklist>
+		<ChecklistKey>54</ChecklistKey>
+		<ScriptName>Statistics Updated Date</ScriptName>
+		<CheckDesc>Get each index on the system's last update date</CheckDesc>
+		<LowValue>0</LowValue>
+		<HighValue>0</HighValue>
+		<IsWithinRangeGood>1</IsWithinRangeGood>
+		<ChecklistCrossRefID>92</ChecklistCrossRefID>
+		<Category>Configuration</Category>
+		<AdditionalDocumentation></AdditionalDocumentation>
+		<Weight>1</Weight>
+		<CodeToRun>
+SELECT
+	s.name AS SchemaName,
+	t.Name AS TableName,
+	i.index_id,
+	i.name AS index_name,
+	STATS_DATE(i.OBJECT_ID, index_id) AS StatusUdpated
+FROM sys.indexes i
+	INNER JOIN sys.tables t
+		ON i.object_id = t.object_id
+	INNER JOIN sys.schemas s
+		ON s.schema_id = t.schema_id
+WHERE
+	i.index_id > 0
+	--AND s.name = 'DEMO'
+ORDER BY s.name, t.name, i.index_id
+		</CodeToRun>
+		<CodeType>SQL</CodeType>
+		<IsExecute>1</IsExecute>
+		<IsForOutput>1</IsForOutput>
+		<IsForDataSet>1</IsForDataSet>
+		<MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+	</dtChecklist>
+	<dtChecklist>
+		<ChecklistKey>55</ChecklistKey>
+		<ScriptName>Default Trace File</ScriptName>
+		<CheckDesc>Read all the default trace files</CheckDesc>
+		<LowValue>0</LowValue>
+		<HighValue>0</HighValue>
+		<IsWithinRangeGood>1</IsWithinRangeGood>
+		<ChecklistCrossRefID>92</ChecklistCrossRefID>
+		<Category>Configuration</Category>
+		<AdditionalDocumentation></AdditionalDocumentation>
+		<Weight>1</Weight>
+		<CodeToRun>
+DECLARE @traceFile VARCHAR(1000)
+SET @traceFile = 
+(
+      SELECT [path] 
+      FROM sys.traces 
+      WHERE id = 1
+)
+
+SELECT OBJECT_NAME(ObjectID) ObjectName, * 
+FROM fn_trace_gettable(@traceFile,default) 
+		</CodeToRun>
+		<CodeType>SQL</CodeType>
+		<IsExecute>1</IsExecute>
+		<IsForOutput>1</IsForOutput>
+		<IsForDataSet>1</IsForDataSet>
+		<MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+	</dtChecklist>
+		<dtChecklist>
+			<ChecklistKey>56</ChecklistKey>
+			<ScriptName>NUMA Node Listings</ScriptName>
+			<CheckDesc>Determine if you have NUMA Nodes. Non NUMA enabled system will return two rows.</CheckDesc>
+			<LowValue>0</LowValue>
+			<HighValue>0</HighValue>
+			<IsWithinRangeGood>1</IsWithinRangeGood>
+			<ChecklistCrossRefID>92</ChecklistCrossRefID>
+			<Category>Configuration</Category>
+			<AdditionalDocumentation></AdditionalDocumentation>
+			<Weight>1</Weight>
+			<CodeToRun>
+				SELECT * FROM sys.dm_os_memory_nodes
+			</CodeToRun>
+			<CodeType>SQL</CodeType>
+			<IsExecute>1</IsExecute>
+			<IsForOutput>1</IsForOutput>
+			<IsForDataSet>1</IsForDataSet>
+			<MinTsqlCompatibilityVersion>10.0</MinTsqlCompatibilityVersion>
+		</dtChecklist>
+	<dtChecklist>
+		<ChecklistKey>57</ChecklistKey>
+		<ScriptName>SQL Agent Job Listings</ScriptName>
+		<CheckDesc>List SQL Agent Jobs.</CheckDesc>
+		<LowValue>0</LowValue>
+		<HighValue>0</HighValue>
+		<IsWithinRangeGood>1</IsWithinRangeGood>
+		<ChecklistCrossRefID>92</ChecklistCrossRefID>
+		<Category>Configuration</Category>
+		<AdditionalDocumentation></AdditionalDocumentation>
+		<Weight>1</Weight>
+		<CodeToRun>
+SELECT
+[sJOB].[job_id] AS [JobID]
+, [sJOB].[name] AS [JobName]
+, [sDBP].[name] AS [JobOwner]
+, [sCAT].[name] AS [JobCategory]
+, [sJOB].[description] AS [JobDescription]
+, CASE [sJOB].[enabled]
+WHEN 1 THEN 'Yes'
+WHEN 0 THEN 'No'
+END AS [IsEnabled]
+, [sJOB].[date_created] AS [JobCreatedOn]
+, [sJOB].[date_modified] AS [JobLastModifiedOn]
+, [sSVR].[name] AS [OriginatingServerName]
+, [sJSTP].[step_id] AS [JobStartStepNo]
+, [sJSTP].[step_name] AS [JobStartStepName]
+, CASE
+WHEN [sSCH].[schedule_uid] IS NULL THEN 'No'
+ELSE 'Yes'
+END AS [IsScheduled]
+, [sSCH].[name] AS [JobScheduleName]
+, CASE [sJOB].[delete_level]
+WHEN 0 THEN 'Never'
+WHEN 1 THEN 'On Success'
+WHEN 2 THEN 'On Failure'
+WHEN 3 THEN 'On Completion'
+END AS [JobDeletionCriterion]
+FROM
+[msdb].[dbo].[sysjobs] AS [sJOB]
+LEFT JOIN [msdb].[sys].[servers] AS [sSVR]
+ON [sJOB].[originating_server_id] = [sSVR].[server_id]
+LEFT JOIN [msdb].[dbo].[syscategories] AS [sCAT]
+ON [sJOB].[category_id] = [sCAT].[category_id]
+LEFT JOIN [msdb].[dbo].[sysjobsteps] AS [sJSTP]
+ON [sJOB].[job_id] = [sJSTP].[job_id]
+AND [sJOB].[start_step_id] = [sJSTP].[step_id]
+LEFT JOIN [msdb].[sys].[database_principals] AS [sDBP]
+ON [sJOB].[owner_sid] = [sDBP].[sid]
+LEFT JOIN [msdb].[dbo].[sysjobschedules] AS [sJOBSCH]
+ON [sJOB].[job_id] = [sJOBSCH].[job_id]
+LEFT JOIN [msdb].[dbo].[sysschedules] AS [sSCH]
+ON [sJOBSCH].[schedule_id] = [sSCH].[schedule_id]
+ORDER BY [JobName]
+		</CodeToRun>
+		<CodeType>SQL</CodeType>
+		<IsExecute>1</IsExecute>
+		<IsForOutput>1</IsForOutput>
+		<IsForDataSet>1</IsForDataSet>
+		<MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+		</dtChecklist>	
+	<dtChecklist>
+		<ChecklistKey>58</ChecklistKey>
+		<ScriptName>Cached page count by file name</ScriptName>
+		<CheckDesc>Buffer count by obj with file name.</CheckDesc>
+		<LowValue>0</LowValue>
+		<HighValue>0</HighValue>
+		<IsWithinRangeGood>1</IsWithinRangeGood>
+		<ChecklistCrossRefID>92</ChecklistCrossRefID>
+		<Category>Configuration</Category>
+		<AdditionalDocumentation></AdditionalDocumentation>
+		<Weight>1</Weight>
+		<CodeToRun>
+SELECT 
+	DB_NAME(b.database_id) DBName, 
+	b.file_id, 
+	(SELECT name FROM sys.database_files f WHERE f.file_id = b.file_id) LogicalName, 
+	(SELECT physical_name FROM sys.database_files f WHERE f.file_id = b.file_id) FileName, 
+	page_type, 
+	count(*) ObjectCount
+FROM sys.dm_os_buffer_descriptors b
+GROUP by database_id, file_id, page_type
+ORDER BY COUNT(*) desc
+		</CodeToRun>
+		<CodeType>SQL</CodeType>
+		<IsExecute>1</IsExecute>
+		<IsForOutput>1</IsForOutput>
+		<IsForDataSet>1</IsForDataSet>
+		<MinTsqlCompatibilityVersion>9.0</MinTsqlCompatibilityVersion>
+		</dtChecklist>	
+
+
+</dsChecklist>
+

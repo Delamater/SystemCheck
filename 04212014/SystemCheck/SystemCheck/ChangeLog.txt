@@ -1,0 +1,151 @@
+04/21/2014
+- Added the cached object count by file name query. Use this query in conjunction with other cached page count queries to isolate which file name could be moved to another physical location to get best performance, should you need to recache.
+08/09/2013
+- Added a dataset to retrieve the number of NUMA nodes set up. 
+- Added a script to retrieve the agent jobs on your system along with their schedules to run. Deprecated old script on this subject.
+- Fixed defect that provided the wrong script name on the "Check lists" tab when a script would fail. 
+- 
+05/08/2013
+- Added a query to retrieve the job name, schedule and status (enabled or not) of each job on the SQL Server
+04/01/2013
+- Modified the top 25 query for missing indexes to make it not top 25. Found situations where several indexes had very large impact, much more than just the top 25. In addition, I added the schema name to this query. 
+02/12/2013
+- Added a query information window. Now, when you click on either the Checklist or Datasets checked list control the new tab called "Query Information" will populate with the SQL Query to run for the particular query selected. 
+01/28/2013
+- Added a query #51: Get DB Users and their corresponding roles
+
+12/18/2012
+- Added query #50: Cached page count by object 
+- Added query #49: Cached page count by DB
+- Added query #48: Number of Indexes By Schema
+
+12/03/2012
+- Added query #47 to check how much space is used presently within the TempDb by queries. The SQL for this was grabbed from this article:
+http://www.sqlservercentral.com/scripts/tempdb/94828/. 
+Tested this query on these versions:
+8.00.2039 = Fail
+9.00.1399.06 = Pass
+10.0.1600.22 = Pass
+10.50.2550.0 = Pass
+Set MinTsqlCompatibilityVersion = 9.0
+
+- Added query #48 to report back how many indexes exist for each schema in the database
+Tested this query on these versions:
+8.00.2039 = Fail
+9.00.1399.06 = Pass
+10.0.1600.22 = Pass
+10.50.2550.0 = Pass
+Set MinTsqlCompatibilityVersion = 9.0
+
+10/23/2012
+- Added several index scripts to the dataset gathering portion of System Check. Here are scripts that were added:
+1. Find missing indexes
+2. Indexes W/Lock Contention
+3. Indexes W/Lock Escalation
+4. Indexes W/Lock waits
+5. Locks and blocks at row level
+6. Index Activity W/out user reads
+7. Inefficient Indexes
+8. Indexes maintained but not used
+9. Indexes never accessed
+10 Index usage stats
+
+These queries originate from Author Louis Davidson and can be found at this website:
+http://www.simple-talk.com/sql/performance/tune-your-indexing-strategy-with-sql-server-dmvs/
+
+Louis is the author of SQL Server 2005 Database Design and Optimization
+07/10/2012
+- Added IO Profile query to help someone determine the SQL files that experience the most stalls and have the most demand
+07/04/2012
+- I am working on the fourth of July, what the heck? Oh well, here are the things I added:
+- Added ability to save the results to an xml file
+- Started working on the ability to import the file back in
+- Fixed a defect with the login that did not set the sql server name in the login form class. This is important to the file save process so that the correct file name defaults when saving the results.
+07/01/2012
+- Altered Export to Excel to apply table formatting. Now your Excel charts are much easier to read!
+- Fixed a defect with the WMI queries checklist control. Everytime the queries execute the checkboxes would set themselves to checked again. Now, the last setting before the execute was run is retained
+06/30/2012
+- Added more robust error trapping for the entire application, but mostly for the WMI queries
+- Combined code for saving files
+- Changed Excel Export to now request file location instead of automatically storing in the default documents directory
+- Removed dtEventLog from output list. It is a system table and not needed for output
+06/29/2012
+- Added the ability to right click and save each chart on the screen as an image
+- Added the ability to right click and copy the chart to the clipboard
+- Fixed a defect that would cause an error while saving to the Excel workbook if the worksheet contained invalid characters or was longer than 31 characters
+06/28/2012
+- Added a memory chart that shows the quantity of ram you have as well as the speed at which the ram runs
+- Altered the class structure for the WMI requests to leverage an inheritance model. This means less code, and easier to debug!
+06/24/2012
+- Added Win32_NetworkAdapterConfiguration class to WMI requester class
+- Added Win32_Product to get currently installed software on the PC
+- Made WMI class generic enough to return a datatable given any WMI select statement. This shortens the code process and allows for me to add new WMI requesters quickly
+- Added chart control to show the number of disks, the free space and the total used space as a percentage of 100
+06/23/2012
+- Added Win32_OperatingSystem class 
+06/22/2012
+- Added the WMIRequester class
+- Added the Win32_LogicalDisk to the WMIRequester class. This class retrieves basic data about the drives known to the computer. 
+06/20/2012
+- Fixed bug that would not properly respect the isExecute property in the dtCheckList.xml file when binding to the Datasets checked list control. Now that this is fixed, if you set a 0 or a 1 the dataset specific record (such as fragmented indexes detailed) will be set to checked or not.
+- Added a check to see if Priority Boost is set for SQL. This setting is not recommended and therefore was added to the checklist (not the datasets to gather list).
+06/18/2012
+- Added timeout settings for executing queries. 
+06/15/2012
+- Added a save button to allow the user to save the entire dataset. 
+- Removed the ability to save just the run log. The entire dataset will encompass the run log
+- Fixed two queries which had syntatical tsql problems
+06/12/2012
+- Altered report to include execution time of report
+- Altered report to change boolean values on report (True and False) to "Yes" and "No"
+- Changed several queries from select * approach to explicitly state the column values. This is helpful when creating Excel reports as fields names are now aliased in a way that allows for the field name to exist on multiple lines (able to line wrap). 
+06/11/2012
+- Added an ID column to the report output. This now helps you more clearly differentiate each individual check on the report. 
+06/10/2012
+- Fixed the checked list controls for the basic checks and the datasets to gather. These checkedlist controls no longer remove items from entry after an execution when the checkbox had been unchecked. Previously, if the checkbox had been unchecked the text description would alter and then the item would be removed from the checkedlistbox alltogether. 
+- Added a checkbox for each type of check to allow the user to skip processing of that set of checks all together
+06/08/2012
+- Added a query to the ring buffer to check for connectivity issues. 
+06/07/2012
+- Added check for memory pressure within sql. Timestamp on check is in error. Dateadd takes an integer, but sql stores numbers for the timestamp that require bigint. This needs to be fixed for this query to be useful. This is a known issue. 
+06/04/2012
+- Added checks for 'A significant part of sql server process memory has been paged out. This may result in a performance degradation' within the SQL Server error log
+- Added checks for error 9002 within the SQL Server logs
+06/03/2012
+- Added try/catch to catch errors when switching the database combo box drop down. There was a situation that would occur where two tables with the same name could co-exist within the final dataset, and when choosing to bind, the tool was unaware which one to bind to and would throw an unrecoverable error. 
+06/02/2012
+- Cleared up the database combo box to remove system level data tables. The tables that should be shown in this drop down should only be those that the user creates. 
+05/30/2012
+- Add a dataset query that returns row counts for each table in the database. This is helpful for determining what a customer's system looks like at a high level. If they are a strong manufacturing firm, sales order firm, etc...
+05/24/2012
+- Added a checkbox to allow the user to either run event log checks or not during the entire system check
+- Added "LogType" to the event log check datatable. Now you can see what log type was checked within the log row. 
+05/23/2012
+- Added query to event logs
+- Added ability to query remote event logs
+- Set control on the event log check that it cannot have duplicates
+- Added pie chart for SQL database size. It shows the size of each file
+05/16/2012
+- Added check for MinTsqlCompatibilityVersion. This value should be set in your XML file
+	to ensure the minimum version of your specific query. If the version of SQL Server
+	does not meet this minimum version it will not run
+- Added server\instance to the Login Status indicator in the toolStripStatusBar
+05/15/2012
+- Enhanced Cache Plan Profile query to include the operating system details and the percentage 
+	relationship between total memory and the allocated memory
+- Added query to sys.dm_os_sys_info
+- Added query to sys.dm_os_sys_memory
+05/08/2012
+- Built a License Manager install package
+05/05/2012
+- Wrote a license generator
+
+05/04/2012
+- Added export to excel functionality for one table at a time
+- Modified that to export out all tables in the dataset at once instead
+- Modified dsCheclist.ScriptName to only allow 31 characters. There is a dependency created now 
+when you export to Excel, since the ScriptName becomes the worksheet name, 
+it cannot be more than 31 characters
+
+05/02/2012
+- Added change log functionality
